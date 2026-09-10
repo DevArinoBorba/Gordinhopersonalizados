@@ -227,7 +227,7 @@ document.addEventListener('DOMContentLoaded', () => {
       `*E-mail:* ${email}`
     ].join('\n');
 
-    const whatsappUrl = `https://wa.me/5547996970405?text=${encodeURIComponent(msg)}`;
+    const whatsappUrl = `https://wa.me/5547984965444?text=${encodeURIComponent(msg)}`;
 
     setTimeout(() => {
       window.location.href = whatsappUrl;
