@@ -1,0 +1,68 @@
+/**
+ * GORDINHO PERSONALIZADOS — DESIGN TOKENS
+ * Paleta Oficial da Marca: Verde Floresta Profundo, Amarelo Ouro & Verde Esmeralda
+ */
+
+:root {
+  /* Brand Core Oficial Grupo Gordinho */
+  --color-primary: #FAB818;            /* Amarelo Ouro / Âmbar Oficial */
+  --color-primary-hover: #E5A50E;      /* Amarelo Ouro escurecido */
+  --color-primary-dark: #C98E05;
+  --color-primary-subtle: rgba(250, 184, 24, 0.14);
+  --color-primary-border: rgba(250, 184, 24, 0.4);
+
+  /* Secondary Accent — Verde Esmeralda */
+  --color-accent: #22C55E;             /* Verde Esmeralda vibrante */
+  --color-accent-hover: #16A34A;
+  --color-accent-subtle: rgba(34, 197, 94, 0.14);
+  --color-accent-border: rgba(34, 197, 94, 0.4);
+
+  /* Backgrounds & Superfícies da Marca */
+  --bg-main: #0F3822;                  /* Verde Floresta Profundo */
+  --bg-darker: #0A2717;                /* Fundo ultra escuro elegante */
+  --bg-deep: #06180E;                  /* Base ultra profunda */
+  --bg-surface: #13442A;               /* Superfície dos cards */
+  --bg-surface-elevated: #195234;      /* Superfície elevada */
+  --bg-glass: rgba(10, 39, 23, 0.88);  /* Glassmorphism verde floresta */
+
+  /* Lado Cliente Final (Verde Esmeralda & Floresta Luminoso) */
+  --b2c-accent: #22C55E;
+  --b2c-accent-hover: #16A34A;
+  --b2c-accent-glow: rgba(34, 197, 94, 0.45);
+  --b2c-badge-bg: rgba(34, 197, 94, 0.18);
+  --b2c-badge-border: rgba(34, 197, 94, 0.45);
+  --b2c-badge-text: #86EFAC;
+  --b2c-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.55) 50%, rgba(0, 0, 0, 0.92) 100%);
+  --b2c-overlay-hover: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.86) 100%);
+
+  /* Lado Terceirizado (Amarelo Ouro / Âmbar Corporativo) */
+  --b2b-accent: #FAB818;
+  --b2b-accent-hover: #E5A50E;
+  --b2b-accent-glow: rgba(250, 184, 24, 0.45);
+  --b2b-badge-bg: rgba(250, 184, 24, 0.18);
+  --b2b-badge-border: rgba(250, 184, 24, 0.45);
+  --b2b-badge-text: #FDE047;
+  --b2b-overlay: linear-gradient(180deg, rgba(0, 0, 0, 0.2) 0%, rgba(0, 0, 0, 0.55) 50%, rgba(0, 0, 0, 0.92) 100%);
+  --b2b-overlay-hover: linear-gradient(180deg, rgba(0, 0, 0, 0.1) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.86) 100%);
+
+  /* Neutros e Tipografia */
+  --color-white: #FFFFFF;
+  --color-offwhite: #F1F5F9;
+  --color-text-secondary: #D2E4D8;
+  --color-text-muted: #8FB49C;
+  --color-dark: #0A2717;
+  --color-dark-glass: rgba(10, 39, 23, 0.88);
+
+  /* Fontes */
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+
+  /* Transições e Sombras */
+  --transition-smooth: all 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  --transition-fast: all 0.2s ease;
+  --shadow-lg: 0 20px 40px rgba(0, 0, 0, 0.45);
+  --shadow-glow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  --radius-full: 9999px;
+  --radius-xl: 18px;
+  --radius-lg: 12px;
+}

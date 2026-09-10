@@ -1,0 +1,20 @@
+{
+  "name": "gordinho-personalizados",
+  "version": "1.0.0",
+  "description": "Portal web oficial da Gordinho Personalizados — Grupo Gordinho Itajaí/SC",
+  "main": "index.html",
+  "scripts": {
+    "start": "npx serve .",
+    "dev": "python -m http.server 8080"
+  },
+  "keywords": [
+    "gordinho-personalizados",
+    "personalizados",
+    "brindes",
+    "laser",
+    "copos-termicos",
+    "itajai"
+  ],
+  "author": "Grupo Gordinho",
+  "license": "ISC"
+}

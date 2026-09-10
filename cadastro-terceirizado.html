@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Pré-Cadastro de Terceirizado | Gordinho Personalizados</title>
+  <meta name="description" content="Complete seu pré-cadastro de terceirizado com validação de CNPJ e acesse a tabela de produção, corte laser, DTF e sublimação da Gordinho Personalizados em Itajaí/SC.">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Reset Crítico Anti-Bordas e Anti-FOUC -->
+  <style>
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    html, body {
+      margin: 0 !important;
+      padding: 0 !important;
+      border: 0 !important;
+      width: 100% !important;
+      background: #06180E !important;
+      background-color: #06180E !important;
+      overflow-x: hidden !important;
+    }
+  </style>
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/variables.css?v=2.1">
+  <link rel="stylesheet" href="css/cadastro.css?v=2.1">
+</head>
+<body style="margin: 0 !important; padding: 0 !important; background-color: #06180E !important;">
+
+  <!-- ==========================================================================
+       HEADER FIXO (TRILHA TERCEIRIZADOS)
+       ========================================================================== -->
+  <header class="header-cadastro" role="banner">
+    <div class="header-inner">
+      <a href="index.html" class="logo-header" title="Voltar ao início">
+        <img src="assets/images/mascot.png" alt="Mascote Gordinho Personalizados" class="logo-header-img">
+        <div class="logo-text-wrap">
+          <span class="logo-title">Gordinho <span>Personalizados</span></span>
+          <span class="logo-sub">Terceirização &bull; Itajaí/SC</span>
+        </div>
+      </a>
+
+      <!-- Seletor de Trilha (Estilo InfinityTech) -->
+      <nav class="track-selector" aria-label="Navegação de perfis">
+        <a href="index.html#cliente-final" class="track-btn" title="Ir para Cliente Final">Cliente Final</a>
+        <span class="track-btn active-terceirizado">Sou Terceirizado / Revenda ✓</span>
+      </nav>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       SEÇÃO DE PRÉ-CADASTRO
+       ========================================================================== -->
+  <main class="cadastro-section">
+    <div class="cadastro-container">
+
+      <!-- Bloco de Introdução -->
+      <div class="cadastro-intro">
+        <span class="cadastro-badge-icon" aria-hidden="true">
+          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect>
+            <path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path>
+          </svg>
+        </span>
+        <h1>Complete seu pré-cadastro de terceirizado</h1>
+        <p>Validamos seu CNPJ automaticamente na Receita Federal para liberar nossa tabela especial de gravação, estamparia e brindes no atacado para parceiros.</p>
+      </div>
+
+      <!-- Card do Formulário -->
+      <form id="cadastro-terceirizado-form" class="cadastro-card" novalidate>
+
+        <!-- Campo CNPJ -->
+        <div class="form-group">
+          <label class="form-label" for="cnpj">
+            <span>CNPJ da Empresa</span>
+            <span class="form-badge-info">Consulta Automática</span>
+          </label>
+          <div class="form-input-wrap">
+            <input 
+              type="text" 
+              id="cnpj" 
+              name="cnpj" 
+              class="form-input" 
+              inputmode="numeric" 
+              autocomplete="off" 
+              placeholder="00.000.000/0000-00" 
+              maxlength="18" 
+              required>
+            <span class="status-icon" id="cnpj-status-icon" aria-hidden="true"></span>
+          </div>
+          <div class="form-hint" id="cnpj-hint" role="status" aria-live="polite"></div>
+        </div>
+
+        <!-- Campo Razão Social -->
+        <div class="form-group">
+          <label class="form-label" for="nome">Nome Fantasia / Razão Social</label>
+          <div class="form-input-wrap">
+            <input 
+              type="text" 
+              id="nome" 
+              name="nome" 
+              class="form-input" 
+              autocomplete="organization" 
+              placeholder="Preenchido automaticamente após validar o CNPJ" 
+              required>
+          </div>
+        </div>
+
+        <!-- Campo Endereço -->
+        <div class="form-group">
+          <label class="form-label" for="endereco">Endereço Completo</label>
+          <div class="form-input-wrap">
+            <input 
+              type="text" 
+              id="endereco" 
+              name="endereco" 
+              class="form-input" 
+              autocomplete="street-address" 
+              placeholder="Preenchido automaticamente após validar o CNPJ" 
+              required>
+          </div>
+        </div>
+
+        <!-- Campo Telefone / WhatsApp -->
+        <div class="form-group">
+          <label class="form-label" for="contato">Telefone / WhatsApp Comercial</label>
+          <div class="form-input-wrap">
+            <input 
+              type="tel" 
+              id="contato" 
+              name="contato" 
+              class="form-input" 
+              inputmode="numeric" 
+              autocomplete="tel" 
+              placeholder="(47) 99999-9999" 
+              maxlength="15" 
+              required>
+          </div>
+        </div>
+
+        <!-- Campo E-mail -->
+        <div class="form-group">
+          <label class="form-label" for="email">E-mail Comercial</label>
+          <div class="form-input-wrap">
+            <input 
+              type="email" 
+              id="email" 
+              name="email" 
+              class="form-input" 
+              autocomplete="email" 
+              placeholder="contato@suaempresa.com.br" 
+              required>
+          </div>
+        </div>
+
+        <!-- Botão de Envio -->
+        <button type="submit" id="cadastro-submit" class="btn-submit-cadastro" disabled>
+          <span>Confirmar e Acessar Tabela de Terceirizado</span>
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
+          </svg>
+        </button>
+
+        <!-- Mensagem de Feedback -->
+        <div class="form-feedback" id="form-feedback" role="status" aria-live="polite"></div>
+
+      </form>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       RODAPÉ COMPLETO GRUPO GORDINHO
+       ========================================================================== -->
+  <footer class="footer-cadastro" role="contentinfo">
+    <div class="footer-inner">
+      <div>
+        <div class="footer-brand-title">Gordinho <span>Personalizados</span></div>
+        <p class="footer-desc">
+          Estrutura industrial própria para personalização em larga escala: corte &amp; gravação a laser, sublimação, DTF têxtil e brindes corporativos de alto padrão em Itajaí/SC.
+        </p>
+
+        <div class="footer-info-row">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+            <circle cx="12" cy="10" r="3"></circle>
+          </svg>
+          <div>
+            <strong>Rua Cônego Thomaz Fontes, 417</strong> - Centro<br>
+            <span>Itajaí - SC, 88301-100</span>
+          </div>
+        </div>
+
+        <div class="footer-info-row">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <polyline points="12 6 12 12 16 14"></polyline>
+          </svg>
+          <span>Seg a Sex: 08h às 18h | Sáb: 08h às 17h</span>
+        </div>
+      </div>
+
+      <div>
+        <h4 style="font-family: var(--font-heading); color: #FFFFFF; font-size: 1.05rem; margin-bottom: 1rem;">Parceria &amp; Terceirização</h4>
+        <ul style="list-style: none; display: flex; flex-direction: column; gap: 0.6rem; font-size: 0.9rem;">
+          <li><a href="index.html" style="color: #94A3B8; text-decoration: none;">Início do Portal</a></li>
+          <li><a href="index.html#cliente-final" style="color: #94A3B8; text-decoration: none;">Cliente Final</a></li>
+          <li><a href="https://gordinhocelulares.com.br" target="_blank" rel="noopener noreferrer" style="color: #94A3B8; text-decoration: none;">Gordinho Celulares</a></li>
+          <li><a href="https://wa.me/5547996970405" target="_blank" style="color: var(--color-primary); text-decoration: none; font-weight: 600;">Suporte Comercial WhatsApp</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bottom">
+      <div>&copy; 2026 Grupo Gordinho — Todos os direitos reservados.</div>
+      <div>Parceria industrial sólida e rentável para o seu negócio &bull; Itajaí - SC</div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/cadastro.js"></script>
+</body>
+</html>
