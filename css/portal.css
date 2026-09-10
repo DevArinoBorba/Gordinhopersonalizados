@@ -125,6 +125,47 @@ body {
   margin-top: 0.15rem;
 }
 
+.portal-catalogo-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(250, 184, 24, 0.15);
+  border: 1px solid rgba(250, 184, 24, 0.4);
+  color: var(--yellow-amber, #FAB818);
+  font-family: var(--font-heading);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-decoration: none;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  transition: all 0.25s ease;
+}
+
+.portal-catalogo-pill:hover {
+  background: var(--yellow-amber, #FAB818);
+  color: #0A2717;
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(250, 184, 24, 0.3);
+}
+
+.side-sublink {
+  display: inline-block;
+  margin-top: 0.85rem;
+  font-size: 0.85rem;
+  color: var(--yellow-amber, #FAB818);
+  font-weight: 600;
+  text-decoration: underline;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+.side-sublink:hover {
+  color: #FFFFFF;
+  transform: translateX(3px);
+}
+
 /* ==========================================================================
    BADGE DIVISOR "OU"
    ========================================================================== */

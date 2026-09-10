@@ -209,10 +209,16 @@ document.addEventListener('DOMContentLoaded', () => {
     const contato = contatoInput.value.trim();
     const email = emailInput.value.trim();
 
+    // Salva os dados no localStorage para sincronizar com o Catálogo Online
+    try {
+      const leadData = { nome, cnpj, endereco, contato, email, dataCadastro: new Date().toISOString() };
+      localStorage.setItem('gordinho-terceirizado-cadastro', JSON.stringify(leadData));
+    } catch (err) {}
+
     formFeedback.className = 'form-feedback success';
     formFeedback.innerHTML = `
       <strong>Cadastro realizado com sucesso!</strong><br>
-      Redirecionando para o WhatsApp do comercial para liberar sua tabela de terceirizado...
+      Redirecionando para a apresentação da estrutura industrial e catálogo...
     `;
 
     // Mensagem formatada para o WhatsApp oficial
@@ -227,10 +233,9 @@ document.addEventListener('DOMContentLoaded', () => {
       `*E-mail:* ${email}`
     ].join('\n');
 
-    const whatsappUrl = `https://wa.me/5547984965444?text=${encodeURIComponent(msg)}`;
-
+    // Redireciona para o institucional primeiro
     setTimeout(() => {
-      window.location.href = whatsappUrl;
-    }, 1800);
+      window.location.href = 'terceirizados.html';
+    }, 1200);
   });
 });

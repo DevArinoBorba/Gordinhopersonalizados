@@ -54,12 +54,31 @@ O projeto utiliza duas fontes do **Google Fonts** otimizadas:
 
 ---
 
-## 🏭 4. Serviços & Capacidade Técnica
+## 🏭 4. Serviços & Capacidade Técnica (Parque Gráfico & Industrial 2026)
 
-- **Gravação & Corte a Laser**: Copos térmicos, garrafas inox, facas, tábuas de churrasco, brindes metálicos e emborrachados.
-- **Sublimação Premium**: Canecas de cerâmica classe AAA, azulejos decorativos, almofadas e brindes promocionais.
-- **DTF Têxtil (Direct to Film)**: Estamparia em tecidos claros e escuros, camisetas 100% algodão, uniformes corporativos e moletons com cores vivas e alta durabilidade à lavagem.
-- **Brindes Corporativos em Escala**: Agendas, canetas, mochilas, chaveiros, kits de boas-vindas (*onboarding*) para novos colaboradores e eventos empresariais.
+### Tecnologias de Personalização
+- **DTF UV**: Impressão digital direta para superfícies rígidas (copos, acrílicos, vidros, metais) com alta definição, cores vibrantes e camada de verniz com relevo protetor.
+- **Fiber Laser (Fibra Óptica)**: Gravação e marcação a laser permanente de altíssima precisão em metais, aço inox, ferramentas e facas (não descasca nem desbota).
+- **DTF Têxtil (Direct to Film)**: Impressão digital de estampas transferidas para tecidos claros e escuros (100% algodão, dry fit, moletom e poliéster) com toque macio e máxima resistência à lavagem.
+- **Sublimação Térmica Premium**: Canecas de cerâmica classe AAA, squeezes e tecidos sintéticos com cores ultra saturadas e fixação definitiva.
+- **Transfer Laser Giro 360 & Transferneta**: Rolo térmico pressurizado para copos acrílicos, long drinks, taças e canetas promocionais.
+- **Impressão 3D**: Modelagem aditiva camada por camada para chaveiros volumétricos, brindes exclusivos e protótipos corporativos.
+
+### Estrutura de Máquinas & Especificações
+- **Plotter Eco Solvente**: `1.800 mm` de área de impressão digital em grande formato (banners, adesivos, rótulos e fachadas).
+- **Plotter de Recorte**: `1.200 mm` de área de corte eletrônico para vinil, máscaras de pintura e sinalização.
+- **Impressora 3D Industrial**: `500 mm³` de área cúbica de impressão para peças e brindes volumétricos.
+- **Impressora DTF Têxtil**: `580 mm` de boca de impressão contínua com aplicação de poliamida termofusível.
+- **Impressora DTF UV com Verniz**: `280 mm` de área de impressão para personalização de itens rígidos.
+- **Marcadora Fiber Laser**: `200 mm²` de área de gravação em metais e inox com alta velocidade.
+- **Prensa Transfer Giro 360 & Transferneta**: Estamparia cilíndrica e cônica para copos e canetas.
+- **Prensa Térmica Cilíndrica**: Prensagem com controle digital para canecas e garrafas resinadas.
+- **Prensa Térmica Plana**: Transferência térmica de alta pressão para peças têxteis e planas.
+
+### Linhas de Produtos & Comunicação Visual
+- **Linha Têxtil**: Camisetas (diversas cores e tecidos), bonés estruturados e moletons canguru com capuz.
+- **Comunicação Visual**: Cartões de visita em couchê nobre, folders com dobras, banners roll-up retráteis, plotagens comerciais de vitrines e totens em PVC.
+- **Plotagem Veicular**: Envelopamento automotivo em opções de `30%` (parcial discreta), `50%` (meio veículo com transição), `100%` (cobertura total de máxima visibilidade) e `Adesivo Perfurado` para vidro traseiro homologado pelo Contran.
 
 ---
 
@@ -80,29 +99,36 @@ O projeto utiliza duas fontes do **Google Fonts** otimizadas:
 
 ## 📁 6. Estrutura Autônoma dos Arquivos
 
-Este projeto foi totalmente descolado e pode ser aberto e hospedado de forma 100% independente:
+Este projeto foi totalmente descolado e pode ser aberto e hospedado de forma 100% independente (seguindo o padrão InfinityTech):
 
 ```
 gordinho-personalizados/
 ├── index.html                   # Tela inicial Split Screen (Cliente Final vs Terceirizado)
 ├── cadastro-terceirizado.html   # Página de Pré-Cadastro B2B com validação BrasilAPI
+├── terceirizados.html           # Página Institucional B2B (Apresentação da Estrutura Industrial)
+├── catalogo.html                # Catálogo Online B2B & Maquinário com busca e carrinho
 ├── GUIA_DA_MARCA.md             # Este manual completo da marca e projeto
 ├── README.md                    # Documentação técnica e instruções de deploy
 ├── package.json                 # Configuração do projeto e scripts npm
 ├── css/
 │   ├── variables.css            # Tokens de cores da marca, fontes e dimensões
 │   ├── portal.css               # Estilo visual do split screen e responsividade
+│   ├── terceirizados.css        # Estilo da página institucional B2B e estrutura
+│   ├── catalogo.css             # Estilo do catálogo e carrinho drawer
 │   └── cadastro.css             # Estilo do formulário de terceirização B2B
 ├── js/
 │   ├── portal.js                # Interatividade do portal e atalhos de teclado
-│   └── cadastro.js              # Validação de CNPJ (Receita Federal) e WhatsApp
+│   ├── terceirizados.js         # Boas-vindas pós-cadastro e acordeão de FAQ
+│   ├── catalogo.js              # Lógica do catálogo, busca, categorias e carrinho WhatsApp
+│   └── cadastro.js              # Validação de CNPJ (Receita Federal) e sync localStorage
 └── assets/
     └── images/                  # Imagens e marcas locais (100% independentes)
         ├── bg-cliente-final.jpg # Foto de estúdio de presentes e copos
         ├── bg-lojista-atacado.jpg # Foto industrial de brindes e produção
         ├── logo.png             # Logo oficial
         ├── mascot.png           # Mascote oficial
-        └── favicon.png          # Ícone do navegador
+        ├── favicon.png          # Ícone do navegador
+        └── catalogo/            # Imagens e miniaturas oficiais do catálogo 2026
 ```
 
 ---
