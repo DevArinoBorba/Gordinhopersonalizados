@@ -65,6 +65,8 @@ O projeto utiliza duas fontes do **Google Fonts** otimizadas:
 - **Impressão 3D**: Modelagem aditiva camada por camada para chaveiros volumétricos, brindes exclusivos e protótipos corporativos.
 
 ### Estrutura de Máquinas & Especificações
+- **CNC Laser 60x40**: `60x40 cm (600x400 mm)` de área útil para corte milimétrico e gravação precisa em acrílico, MDF, madeira, couro e tecidos.
+- **Laser UV 5W**: Potência de `5W` com feixe ultravioleta frio de altíssima definição; grava em todos os materiais, desde papéis e acrílicos até metais e alimentos.
 - **Plotter Eco Solvente**: `1.800 mm` de área de impressão digital em grande formato (banners, adesivos, rótulos e fachadas).
 - **Plotter de Recorte**: `1.200 mm` de área de corte eletrônico para vinil, máscaras de pintura e sinalização.
 - **Impressora 3D Industrial**: `500 mm³` de área cúbica de impressão para peças e brindes volumétricos.

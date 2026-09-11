@@ -80,6 +80,26 @@
 
     // --- ESTRUTURA DE MÁQUINAS ---
     {
+      id: 'maq-cnc-laser-60x40',
+      nome: 'CNC Laser 60x40 (Corte e Gravação)',
+      categoria: 'Estrutura de Máquinas',
+      badge: 'Corte & Gravação',
+      especificacao: '60x40 cm (600x400 mm) de área útil',
+      descricao: 'Corte milimétrico e gravação a laser CO2 de alta precisão em acrílico, MDF, madeira, couro, tecidos e EVA para peças sofisticadas, troféus e brindes.',
+      foto: 'assets/images/catalogo/item-cnc-laser-60x40.jpg',
+      paginaRef: 'assets/images/catalogo/maquinas-dtf-textil-uv-laser.png'
+    },
+    {
+      id: 'maq-laser-uv-5w',
+      nome: 'Laser UV 5W (Gravação Universal)',
+      categoria: 'Estrutura de Máquinas',
+      badge: 'Feixe Frio UV',
+      especificacao: 'Potência 5W • Grava em todos os materiais',
+      descricao: 'Tecnologia com feixe ultravioleta frio de ultra definição. Grava em absolutamente qualquer material: papéis, acrílicos, vidros, metais e até alimentos, sem queimar.',
+      foto: 'assets/images/catalogo/item-laser-uv-5w.jpg',
+      paginaRef: 'assets/images/catalogo/maquinas-dtf-textil-uv-laser.png'
+    },
+    {
       id: 'maq-plotter-eco',
       nome: 'Plotter Eco Solvente 1.800 mm',
       categoria: 'Estrutura de Máquinas',
