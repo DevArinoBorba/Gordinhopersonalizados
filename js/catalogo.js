@@ -329,16 +329,55 @@
     }
   ];
 
+  const CATALOG_STORAGE_KEY = 'gordinho-catalog-items';
+
+  function loadCatalogItems() {
+    if (window.GordinhoCatalogData && typeof window.GordinhoCatalogData.getItems === 'function') {
+      return window.GordinhoCatalogData.getItems().filter(function (i) { return i.ativo !== false; });
+    }
+    try {
+      const raw = localStorage.getItem(CATALOG_STORAGE_KEY);
+      if (raw) {
+        const parsed = JSON.parse(raw);
+        if (Array.isArray(parsed) && parsed.length > 0) {
+          return parsed.filter(function (i) { return i.ativo !== false; });
+        }
+      }
+    } catch (e) {}
+    const fallback = window.DEFAULT_CATALOG_ITEMS || CATALOG_ITEMS;
+    return fallback.filter(function (i) { return i.ativo !== false; });
+  }
+
+  const initialItems = loadCatalogItems();
+
   // Estado do catálogo
   const state = {
-    items: CATALOG_ITEMS,
-    itemsById: new Map(CATALOG_ITEMS.map((item) => [item.id, item])),
-    filteredItems: CATALOG_ITEMS,
+    items: initialItems,
+    itemsById: new Map(initialItems.map((item) => [item.id, item])),
+    filteredItems: initialItems,
     activeCategory: 'todos',
     searchTerm: '',
     visibleCount: PAGE_SIZE,
     cart: loadCart()
   };
+
+  function reloadCatalogItems() {
+    const fresh = loadCatalogItems();
+    state.items = fresh;
+    state.itemsById = new Map(fresh.map((item) => [item.id, item]));
+    if (els.categoryFilters) renderCategoryFilters();
+    if (els.grid) applyFilters();
+  }
+
+  window.addEventListener('storage', (e) => {
+    if (e.key === CATALOG_STORAGE_KEY) {
+      reloadCatalogItems();
+    }
+  });
+
+  window.addEventListener('gordinho:catalog-updated', () => {
+    reloadCatalogItems();
+  });
 
   // Elementos do DOM
   const els = {};

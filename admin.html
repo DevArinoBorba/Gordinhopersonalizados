@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <title>Painel Administrativo | Gerenciamento do Catálogo — Gordinho Personalizados</title>
+  <meta name="description" content="Painel de controle interno e gerenciamento oficial do catálogo de produtos, máquinas e tecnologias da Gordinho Personalizados.">
+  <link rel="icon" type="image/png" href="assets/images/favicon.png">
+
+  <!-- Fontes Google -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <!-- Estilos da Marca & Painel -->
+  <link rel="stylesheet" href="css/variables.css?v=2.2">
+  <link rel="stylesheet" href="css/admin.css?v=1.0">
+</head>
+<body class="admin-body">
+
+  <!-- ==========================================================================
+       TELA DE AUTENTICAÇÃO / GATE COM PIN DE SEGURANÇA
+       ========================================================================== -->
+  <div class="admin-auth-overlay" id="admin-auth-overlay">
+    <div class="admin-auth-card">
+      <img src="assets/images/mascot.png" alt="Mascote Gordinho Personalizados" class="auth-logo-img">
+      <h2 class="auth-title">Painel <span>Administrativo</span></h2>
+      <p class="auth-subtitle">Área restrita de gestão de catálogo e produtos</p>
+
+      <form id="admin-auth-form" class="auth-form" autocomplete="off">
+        <div class="form-group">
+          <label for="admin-auth-pin" class="form-label">PIN de Acesso</label>
+          <div class="auth-input-wrap">
+            <input type="password" id="admin-auth-pin" class="auth-input" placeholder="••••" maxlength="12" required autofocus>
+            <button type="button" class="auth-toggle-pin" id="auth-toggle-pin" aria-label="Mostrar ou ocultar PIN">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+            </button>
+          </div>
+          <span class="auth-hint">PIN padrão de fábrica: <strong>2026</strong></span>
+        </div>
+
+        <div id="admin-auth-error" class="auth-error">PIN incorreto. Tente novamente.</div>
+
+        <button type="submit" class="btn-auth-submit">
+          <span>Acessar Painel</span>
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </button>
+      </form>
+
+      <a href="catalogo.html" class="auth-back-link">&larr; Voltar para o Catálogo Público</a>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       HEADER DO PAINEL ADMINISTRATIVO
+       ========================================================================== -->
+  <header class="admin-header" role="banner">
+    <div class="admin-container admin-header-inner">
+      <a href="admin.html" class="admin-brand" title="Atualizar painel">
+        <img src="assets/images/mascot.png" alt="Mascote Gordinho" class="admin-logo-img">
+        <div class="admin-brand-info">
+          <div class="admin-brand-title">Gordinho <span>Personalizados</span></div>
+          <div class="admin-brand-badge">Gestão do Catálogo 2026</div>
+        </div>
+      </a>
+
+      <div class="admin-header-actions">
+        <a href="catalogo.html" target="_blank" rel="noopener" class="btn-header-action btn-view-catalog" title="Ver catálogo aberto em nova aba">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
+          <span>Ver Catálogo Online</span>
+        </a>
+
+        <button type="button" class="btn-header-action btn-logout" id="btn-admin-logout" title="Encerrar sessão de administrador">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><polyline points="16 17 21 12 16 7"/><line x1="21" y1="12" x2="9" y2="12"/></svg>
+          <span>Sair</span>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <!-- ==========================================================================
+       CONTEÚDO PRINCIPAL: DASHBOARD & TABELA
+       ========================================================================== -->
+  <main class="admin-main">
+    <div class="admin-container">
+
+      <!-- Título da Página -->
+      <div class="admin-hero-title-wrap">
+        <div>
+          <h1 class="admin-page-title">Gerenciador de <span>Produtos e Tecnologias</span></h1>
+          <p class="admin-page-desc">Adicione, edite, organize e mantenha seu catálogo corporativo sempre sincronizado e atualizado.</p>
+        </div>
+      </div>
+
+      <!-- Métricas / KPIs -->
+      <section class="kpi-grid" aria-label="Métricas do catálogo">
+        <article class="kpi-card">
+          <div class="kpi-icon-wrap kpi-icon-items">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-value" id="kpi-total-items">0</span>
+            <span class="kpi-label">Itens Cadastrados</span>
+          </div>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-icon-wrap kpi-icon-categories">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-value" id="kpi-total-categories">0</span>
+            <span class="kpi-label">Categorias Ativas</span>
+          </div>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-icon-wrap kpi-icon-active">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-value" id="kpi-active-items">0</span>
+            <span class="kpi-label">Visíveis no Catálogo</span>
+          </div>
+        </article>
+
+        <article class="kpi-card">
+          <div class="kpi-icon-wrap kpi-icon-storage">
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-value" id="kpi-storage-status" style="font-size: 1.4rem;">Padrão</span>
+            <span class="kpi-label">Estado da Base</span>
+          </div>
+        </article>
+      </section>
+
+      <!-- Toolbar com Busca, Filtros e Ações -->
+      <section class="admin-toolbar-card" aria-label="Ferramentas do catálogo">
+        <div class="toolbar-filters">
+          <div class="search-input-wrap">
+            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            <input type="text" id="admin-search" class="admin-search-input" placeholder="Buscar por nome, especificação, categoria..." aria-label="Buscar produtos">
+          </div>
+
+          <select id="admin-category-filter" class="admin-select" aria-label="Filtrar por categoria">
+            <option value="todos">Todas as Categorias</option>
+          </select>
+
+          <select id="admin-sort-filter" class="admin-select" aria-label="Ordenar itens">
+            <option value="nome-asc">Nome (A &rarr; Z)</option>
+            <option value="nome-desc">Nome (Z &rarr; A)</option>
+            <option value="categoria">Por Categoria</option>
+            <option value="recentes">Recentes primeiro</option>
+          </select>
+        </div>
+
+        <div class="toolbar-actions">
+          <button type="button" class="btn-admin btn-admin-primary" id="btn-new-item">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+            <span>+ Novo Produto / Tecnologia</span>
+          </button>
+
+          <button type="button" class="btn-admin btn-admin-secondary" id="btn-export-json" title="Baixar arquivo JSON com backup completo dos itens">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+            <span>Exportar JSON</span>
+          </button>
+
+          <button type="button" class="btn-admin btn-admin-secondary" id="btn-import-json" title="Carregar produtos de um arquivo JSON">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+            <span>Importar JSON</span>
+          </button>
+          <input type="file" id="input-file-import" accept=".json,application/json" hidden>
+
+          <button type="button" class="btn-admin btn-admin-danger-outline" id="btn-reset-default" title="Restaurar a lista original de fábrica">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+            <span>Restaurar Padrão</span>
+          </button>
+        </div>
+      </section>
+
+      <!-- Tabela de Produtos / Itens -->
+      <section class="table-card" aria-label="Lista de produtos do catálogo">
+        <div class="table-responsive">
+          <table class="admin-table">
+            <thead>
+              <tr>
+                <th style="width: 70px;">Foto</th>
+                <th>Identificação / Nome</th>
+                <th>Categoria</th>
+                <th>Selo / Badge</th>
+                <th>Especificação Técnica</th>
+                <th>Status</th>
+                <th style="width: 140px; text-align: center;">Ações</th>
+              </tr>
+            </thead>
+            <tbody id="admin-table-body">
+              <!-- Renderizado dinamicamente via admin.js -->
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Empty State -->
+        <div id="admin-empty-state" class="table-empty-state" hidden>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <h3 class="table-empty-title">Nenhum item encontrado</h3>
+          <p class="table-empty-desc">Tente alterar os termos de busca, limpar os filtros selecionados ou cadastrar um novo produto.</p>
+        </div>
+      </section>
+
+    </div>
+  </main>
+
+  <!-- ==========================================================================
+       MODAL DE CADASTRO / EDIÇÃO COM LIVE PREVIEW APRIMORADO
+       ========================================================================== -->
+  <div class="admin-modal-overlay" id="modal-item" role="dialog" aria-modal="true" aria-labelledby="modal-item-title">
+    <div class="admin-modal-card">
+      <div class="admin-modal-header">
+        <div class="modal-header-info">
+          <h2 class="admin-modal-title" id="modal-item-title">Adicionar Novo <span>Produto</span></h2>
+          <p class="modal-header-sub">Preencha os dados e acompanhe a pré-visualização em tempo real</p>
+        </div>
+        <button type="button" class="btn-modal-close" id="modal-item-close" aria-label="Fechar modal">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <form id="form-item">
+        <div class="admin-modal-body">
+
+          <!-- Coluna 1: Formulário Organizado -->
+          <div class="modal-form-col">
+            
+            <!-- Grupo 1: Nome Principal -->
+            <div class="form-section-card">
+              <div class="form-group">
+                <label for="item-nome" class="form-label-primary">Nome do Produto / Tecnologia *</label>
+                <input type="text" id="item-nome" class="form-control form-control-lg" placeholder="ex: Caneca Térmica Inox 500ml Personalizada" required autofocus>
+              </div>
+
+              <!-- Categoria e Nova Categoria -->
+              <div class="form-group" style="margin-top: 14px;">
+                <label for="item-categoria" class="form-label">Categoria *</label>
+                <select id="item-categoria" class="form-control" required>
+                  <!-- Opções dinâmicas -->
+                </select>
+              </div>
+
+              <div class="form-group" id="item-categoria-custom-wrap" hidden style="margin-top: 10px;">
+                <label for="item-categoria-custom" class="form-label" style="color: #FAB818;">Nome da Nova Categoria *</label>
+                <input type="text" id="item-categoria-custom" class="form-control" placeholder="ex: Brindes Ecológicos">
+              </div>
+            </div>
+
+            <!-- Grupo 2: Selo / Badge com Chips Rápidos -->
+            <div class="form-section-card">
+              <div class="form-group">
+                <div class="label-with-hint">
+                  <label for="item-badge" class="form-label">Selo de Destaque (Badge no Card)</label>
+                  <span class="label-hint">Clique nas sugestões abaixo para preencher</span>
+                </div>
+                <input type="text" id="item-badge" class="form-control" placeholder="ex: Mais Vendido, Lançamento, Alta Resistência...">
+                
+                <!-- Chips de Sugestão Rápida -->
+                <div class="badge-suggestions-wrap">
+                  <button type="button" class="badge-chip" data-badge="🔥 Mais Vendido">🔥 Mais Vendido</button>
+                  <button type="button" class="badge-chip" data-badge="✨ Lançamento">✨ Lançamento</button>
+                  <button type="button" class="badge-chip" data-badge="⚡ Pronta Entrega">⚡ Pronta Entrega</button>
+                  <button type="button" class="badge-chip" data-badge="🛡️ Alta Resistência">🛡️ Alta Resistência</button>
+                  <button type="button" class="badge-chip" data-badge="💎 Linha Premium">💎 Linha Premium</button>
+                  <button type="button" class="badge-chip badge-chip-clear" data-badge="">✕ Sem Selo</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Grupo 3: Especificações & Descrição -->
+            <div class="form-section-card">
+              <div class="form-group">
+                <label for="item-especificacao" class="form-label">Especificação Técnica Resumida *</label>
+                <input type="text" id="item-especificacao" class="form-control" placeholder="ex: Aço inox 304 • Parede dupla a vácuo • Gravação Fiber Laser" required>
+                <span class="input-subhint">Aparece em destaque logo abaixo do título no catálogo.</span>
+              </div>
+
+              <div class="form-group" style="margin-top: 14px;">
+                <label for="item-descricao" class="form-label">Descrição Comercial Completa</label>
+                <textarea id="item-descricao" class="form-control" rows="3" placeholder="Descreva os materiais, opções de personalização, tamanhos disponíveis e indicações de uso para o cliente..."></textarea>
+              </div>
+            </div>
+
+            <!-- Grupo 4: Foto do Produto -->
+            <div class="form-section-card">
+              <label class="form-label-primary">Imagem do Produto</label>
+              
+              <div class="photo-upload-container">
+                <div class="photo-upload-actions">
+                  <button type="button" class="btn-primary-upload" id="btn-trigger-upload">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    <span>Fazer Upload do Computador</span>
+                  </button>
+                  <button type="button" class="btn-clear-photo" id="btn-clear-photo" title="Remover imagem atual" style="display: none;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                    <span>Remover Foto</span>
+                  </button>
+                </div>
+                <input type="file" id="item-foto-file" accept="image/*" hidden>
+
+                <div class="photo-url-row" style="margin-top: 12px;">
+                  <span class="photo-url-label">Ou insira o caminho / link da imagem:</span>
+                  <input type="text" id="item-foto" class="form-control" placeholder="assets/images/catalogo/... ou https://...">
+                </div>
+              </div>
+            </div>
+
+            <!-- Grupo 5: Configurações Avançadas (ID e Referência) -->
+            <details class="form-details-advanced">
+              <summary class="advanced-toggle">
+                <span>⚙️ Configurações Avançadas (ID e Imagem de Referência)</span>
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="6 9 12 15 18 9"></polyline></svg>
+              </summary>
+              <div class="advanced-content">
+                <div class="form-group">
+                  <label for="item-id" class="form-label">ID do Item (Identificador no Código)</label>
+                  <input type="text" id="item-id" class="form-control" placeholder="ex: prod-copo-termico" required>
+                  <span class="input-subhint">Gerado automaticamente a partir do nome. Edite apenas se souber o que está fazendo.</span>
+                </div>
+
+                <div class="form-group" style="margin-top: 12px;">
+                  <label for="item-pagina-ref" class="form-label">Página de Referência do Catálogo (Opcional)</label>
+                  <input type="text" id="item-pagina-ref" class="form-control" placeholder="ex: assets/images/catalogo/pagina-dtf.png">
+                </div>
+              </div>
+            </details>
+
+            <!-- Status Ativo -->
+            <label class="checkbox-switch-wrap">
+              <input type="checkbox" id="item-ativo" checked>
+              <span class="switch-ui"></span>
+              <div class="switch-text">
+                <span class="switch-title">Publicar no Catálogo Imediatamente</span>
+                <span class="switch-desc">Quando desmarcado, o item fica salvo no painel mas oculto para clientes.</span>
+              </div>
+            </label>
+
+          </div>
+
+          <!-- Coluna 2: Live Preview em Tempo Real (Fiel ao Catálogo) -->
+          <div class="modal-preview-col">
+            <div class="preview-stage-box">
+              <div class="preview-badge-live">
+                <span class="live-dot-pulse"></span>
+                <span>PRÉ-VISUALIZAÇÃO AO VIVO</span>
+              </div>
+              <p class="preview-hint-text">Assim é como o cliente visualizará o card no catálogo:</p>
+
+              <!-- Card 1:1 com o Catálogo -->
+              <article class="preview-catalog-card">
+                <div class="preview-card-media">
+                  <img src="" alt="Foto do Produto" id="preview-card-img" class="preview-card-img" style="display: none;">
+                  
+                  <div class="preview-placeholder" id="preview-placeholder">
+                    <div class="placeholder-icon-circle">
+                      <svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><rect x="3" y="3" width="18" height="18" rx="3"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/></svg>
+                    </div>
+                    <span class="placeholder-title">Nenhuma foto selecionada</span>
+                    <span class="placeholder-sub">Faça upload ou digite um link</span>
+                  </div>
+
+                  <span class="preview-card-badge" id="preview-card-badge">Destaque Oficial</span>
+                  
+                  <div class="preview-zoom-btn" title="Visualizar catálogo">
+                    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+                  </div>
+                </div>
+
+                <div class="preview-card-body">
+                  <div class="preview-card-cat" id="preview-card-cat">Tecnologias</div>
+                  <h3 class="preview-card-title" id="preview-card-title">Nome do Produto Personalizado</h3>
+                  <p class="preview-card-spec" id="preview-card-spec"><strong>Especificação:</strong> Especificação técnica do item</p>
+                  <p class="preview-card-desc" id="preview-card-desc">Descrição completa sobre os acabamentos e técnicas.</p>
+                </div>
+
+                <div class="preview-card-footer">
+                  <div class="preview-stepper">
+                    <span class="preview-stepper-btn">−</span>
+                    <span class="preview-stepper-val">1</span>
+                    <span class="preview-stepper-btn">+</span>
+                  </div>
+                  <div class="preview-add-btn">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+                    <span>Adicionar</span>
+                  </div>
+                </div>
+              </article>
+
+              <!-- Cartão de Dica -->
+              <div class="preview-tip-card">
+                <span class="tip-icon">💡</span>
+                <div class="tip-content">
+                  <strong>Dica para aumentar as vendas:</strong>
+                  <p>Fotos bem iluminadas e especificações claras diminuem dúvidas e geram pedidos mais rápidos no WhatsApp!</p>
+                </div>
+              </div>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin btn-admin-secondary" id="modal-item-cancel">Cancelar</button>
+          <button type="submit" class="btn-admin btn-admin-primary btn-admin-save">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
+            <span>Salvar e Publicar</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL DE CONFIRMAÇÃO (EXCLUSÃO / RESET)
+       ========================================================================== -->
+  <div class="admin-modal-overlay" id="modal-confirm" role="dialog" aria-modal="true">
+    <div class="confirm-modal-card">
+      <div class="confirm-icon-wrap">
+        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      </div>
+      <h3 class="confirm-title" id="confirm-title">Confirmar Ação</h3>
+      <p class="confirm-desc" id="confirm-desc">Tem certeza que deseja prosseguir?</p>
+      <div class="confirm-actions">
+        <button type="button" class="btn-admin btn-admin-secondary" id="confirm-cancel">Cancelar</button>
+        <button type="button" class="btn-admin btn-admin-danger-outline" id="confirm-action">Confirmar</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Container de Toasts de Notificação -->
+  <div class="toast-container" id="toast-container" aria-live="polite"></div>
+
+  <!-- Scripts -->
+  <script src="js/catalog-data.js?v=2.2"></script>
+  <script src="js/admin.js?v=1.0"></script>
+</body>
+</html>
