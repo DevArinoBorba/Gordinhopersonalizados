@@ -384,8 +384,8 @@ body.catalogo-body {
    ========================================================================== */
 .catalog-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
-  gap: 1.5rem;
+  grid-template-columns: repeat(auto-fill, minmax(255px, 1fr));
+  gap: 1.25rem;
   margin-bottom: 3rem;
 }
 
@@ -635,8 +635,47 @@ body.catalogo-body {
 }
 
 /* ==========================================================================
-   DRAWER DO CARRINHO / COTAÇÃO
+   DRAWER DO CARRINHO / COTAÇÃO (MODO SPLIT SCREEN & LATERAL)
    ========================================================================== */
+.header-catalogo,
+main,
+.footer-catalogo {
+  transition: margin-right 0.35s cubic-bezier(0.16, 1, 0.3, 1), width 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@media (min-width: 992px) {
+  body.cart-split-open .header-catalogo,
+  body.cart-split-open main,
+  body.cart-split-open .footer-catalogo {
+    margin-right: 420px;
+    width: calc(100% - 420px);
+  }
+
+  body.cart-split-open .cart-backdrop {
+    display: none !important;
+    opacity: 0 !important;
+    pointer-events: none !important;
+  }
+
+  body.cart-split-open .cart-drawer {
+    width: 420px;
+    max-width: 420px;
+    border-left: 2px solid rgba(250, 184, 24, 0.35);
+    box-shadow: -10px 0 35px rgba(0, 0, 0, 0.65), 0 0 1px rgba(250, 184, 24, 0.2);
+  }
+
+  body.cart-split-open .cart-button {
+    background: var(--yellow-amber, #FAB818);
+    color: var(--green-darker, #0A2717);
+    border-color: var(--yellow-amber, #FAB818);
+    box-shadow: 0 0 16px rgba(250, 184, 24, 0.4);
+  }
+
+  body.cart-split-open .cart-button svg {
+    stroke: var(--green-darker, #0A2717);
+  }
+}
+
 .cart-backdrop {
   position: fixed;
   inset: 0;
@@ -667,7 +706,7 @@ body.catalogo-body {
   display: flex;
   flex-direction: column;
   transform: translateX(100%);
-  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.3s ease;
   box-shadow: -10px 0 30px rgba(0, 0, 0, 0.6);
 }
 
@@ -682,6 +721,24 @@ body.catalogo-body {
   align-items: center;
   justify-content: space-between;
   background: rgba(6, 24, 14, 0.6);
+}
+
+/* Dica de Catálogo Ativo / Modo Split */
+.cart-catalog-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  padding: 0.65rem 1.25rem;
+  background: linear-gradient(90deg, rgba(34, 197, 94, 0.12), rgba(250, 184, 24, 0.08));
+  border-bottom: 1px solid rgba(250, 184, 24, 0.18);
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--yellow-amber, #FAB818);
+}
+
+.cart-catalog-hint svg {
+  flex-shrink: 0;
+  color: var(--green-emerald, #22C55E);
 }
 
 .cart-drawer-title-wrap {
@@ -906,6 +963,30 @@ body.catalogo-body {
   cursor: not-allowed;
 }
 
+.btn-continue-catalog {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--text-body, #D2E4D8);
+  font-family: var(--font-heading, sans-serif);
+  font-size: 0.88rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-continue-catalog:hover {
+  background: rgba(250, 184, 24, 0.12);
+  border-color: var(--yellow-amber, #FAB818);
+  color: var(--yellow-amber, #FAB818);
+}
+
 .cart-clear-link {
   background: transparent;
   border: none;
@@ -919,6 +1000,31 @@ body.catalogo-body {
 
 .cart-clear-link:hover {
   color: #FFFFFF;
+}
+
+/* Animação de Destaque para Item Recém-Adicionado */
+@keyframes itemJustAdded {
+  0% {
+    background: rgba(34, 197, 94, 0.45);
+    border-color: var(--green-emerald, #22C55E);
+    transform: scale(1.03);
+    box-shadow: 0 0 20px rgba(34, 197, 94, 0.45);
+  }
+  40% {
+    background: rgba(250, 184, 24, 0.3);
+    border-color: var(--yellow-amber, #FAB818);
+    box-shadow: 0 0 15px rgba(250, 184, 24, 0.35);
+  }
+  100% {
+    background: rgba(6, 24, 14, 0.5);
+    border-color: rgba(255, 255, 255, 0.05);
+    transform: scale(1);
+    box-shadow: none;
+  }
+}
+
+.cart-item.just-added {
+  animation: itemJustAdded 1.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ==========================================================================

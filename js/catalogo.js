@@ -401,6 +401,8 @@
     els.cartCheckout = document.getElementById('cart-checkout');
     els.cartClose = document.getElementById('cart-close');
     els.cartClear = document.getElementById('cart-clear');
+    els.cartContinueBrowsing = document.getElementById('cart-continue-browsing');
+    els.cartCatalogHint = document.getElementById('cart-catalog-hint');
     els.lightbox = document.getElementById('catalog-lightbox');
     els.lightboxImg = document.getElementById('lightbox-img');
     els.lightboxTitle = document.getElementById('lightbox-title');
@@ -432,6 +434,10 @@
     }
   }
 
+  function isDesktopView() {
+    return window.innerWidth >= 992;
+  }
+
   function addToCart(item, quantity) {
     const existing = state.cart.find((i) => i.id === item.id);
     if (existing) {
@@ -449,6 +455,9 @@
     saveCart();
     renderCart();
     flashCartButton();
+
+    // Divide a tela colocando o carrinho em evidência à direita sem bloquear o catálogo
+    openCart({ triggerId: item.id });
   }
 
   function updateCartQuantity(id, delta) {
@@ -484,16 +493,51 @@
     setTimeout(() => els.cartButton.classList.remove('cart-pulse'), 500);
   }
 
-  function openCart() {
-    els.cartDrawer.classList.add('open');
-    els.cartBackdrop.classList.add('open');
-    document.body.style.overflow = 'hidden';
+  function openCart(options = {}) {
+    const isDesktop = isDesktopView();
+
+    document.body.classList.add('cart-split-open');
+    if (els.cartDrawer) els.cartDrawer.classList.add('open');
+
+    if (isDesktop) {
+      // Modo Split Screen: o catálogo ao lado continua livre e interativo
+      if (els.cartBackdrop) els.cartBackdrop.classList.remove('open');
+      document.body.style.overflow = '';
+    } else {
+      // Mobile: gaveta sobreposta tradicional
+      if (els.cartBackdrop) els.cartBackdrop.classList.add('open');
+      document.body.style.overflow = 'hidden';
+    }
+
+    // Destaque visual suave no item que acabou de entrar
+    if (options.triggerId && els.cartItems) {
+      requestAnimationFrame(() => {
+        const selector = `[data-id="${escapeAttr(options.triggerId)}"]`;
+        const target = els.cartItems.querySelector(selector);
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+          target.classList.remove('just-added');
+          void target.offsetWidth;
+          target.classList.add('just-added');
+          setTimeout(() => target.classList.remove('just-added'), 1400);
+        }
+      });
+    }
   }
 
   function closeCart() {
-    els.cartDrawer.classList.remove('open');
-    els.cartBackdrop.classList.remove('open');
+    document.body.classList.remove('cart-split-open');
+    if (els.cartDrawer) els.cartDrawer.classList.remove('open');
+    if (els.cartBackdrop) els.cartBackdrop.classList.remove('open');
     document.body.style.overflow = '';
+  }
+
+  function toggleCart() {
+    if (els.cartDrawer && els.cartDrawer.classList.contains('open')) {
+      closeCart();
+    } else {
+      openCart();
+    }
   }
 
   function openLightbox(imgSrc, title) {
@@ -818,12 +862,28 @@
       els.categoryFilters.scrollBy({ left: 200, behavior: 'smooth' });
     });
 
-    // Drawer de Carrinho
-    els.cartButton.addEventListener('click', openCart);
+    // Drawer de Carrinho & Modo Split Screen
+    els.cartButton.addEventListener('click', toggleCart);
     els.cartClose.addEventListener('click', closeCart);
     els.cartBackdrop.addEventListener('click', closeCart);
+    if (els.cartContinueBrowsing) {
+      els.cartContinueBrowsing.addEventListener('click', closeCart);
+    }
     els.cartClear.addEventListener('click', clearCart);
     els.cartCheckout.addEventListener('click', checkout);
+
+    // Ajusta o comportamento de rolagem e backdrop caso o usuário redimensione a janela
+    window.addEventListener('resize', debounce(() => {
+      if (els.cartDrawer && els.cartDrawer.classList.contains('open')) {
+        if (isDesktopView()) {
+          if (els.cartBackdrop) els.cartBackdrop.classList.remove('open');
+          document.body.style.overflow = '';
+        } else {
+          if (els.cartBackdrop) els.cartBackdrop.classList.add('open');
+          document.body.style.overflow = 'hidden';
+        }
+      }
+    }, 150));
 
     // Lightbox
     if (els.lightboxClose) {
