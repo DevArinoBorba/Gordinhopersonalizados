@@ -87,9 +87,9 @@ O projeto utiliza duas fontes do **Google Fonts** otimizadas:
 ## 📍 5. Informações Oficiais de Atendimento
 
 - **Marca**: Gordinho Personalizados (Grupo Gordinho)
-- **Endereço**: Rua Cônego Thomaz Fontes, 417 - Centro, Itajaí - SC, CEP 88301-100
+- **Endereço**: Rua Dr. José Bonifácio Malburg, 315 - Sala 02 - Centro, Itajaí - SC
 - **WhatsApp Comercial**: `(47) 98496-5444` (Link direto: `5547984965444`)
-- **Horário de Atendimento**: Segunda a Sexta: 08:00 às 18:00 | Sábado: 08:00 às 17:00
+- **Horário de Atendimento**: Segunda a Sexta: 09:00 às 18:00 | Sábado: 09:00 às 13:00 | Domingo: Fechado
 - **Redes Sociais Oficiais**:
   - Instagram: `@gordinhocelularoficial`
   - TikTok: `@ogordinhocelular`
