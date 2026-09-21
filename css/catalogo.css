@@ -1082,47 +1082,60 @@ body.catalogo-body {
 }
 
 .card-footer {
-  padding: 0.95rem 1.25rem;
+  padding: 0.85rem 1.15rem;
   background: var(--surface-light);
   border-top: 1px solid var(--border-light);
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.65rem;
 }
 
-/* Stepper no Padrão Claro */
+/* Stepper Moderno Formato Pill */
 .qty-stepper {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   background: var(--surface-white);
-  border: 1px solid #CBD5E1;
-  border-radius: var(--radius-sm);
-  overflow: hidden;
-  height: 42px;
+  border: 1.5px solid #CBD5E1;
+  border-radius: var(--radius-full);
+  padding: 2px 4px;
+  height: 40px;
+  flex-shrink: 0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.04);
+  transition: all 0.2s ease;
+}
+
+.qty-stepper:hover {
+  border-color: var(--yellow-amber);
 }
 
 .qty-btn {
   background: transparent;
   border: none;
-  color: var(--text-dark);
-  width: 32px;
-  height: 100%;
+  color: #334155;
+  width: 28px;
+  height: 28px;
+  border-radius: var(--radius-full);
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.1rem;
+  font-size: 1.15rem;
   font-weight: 700;
   cursor: pointer;
-  transition: background 0.15s ease;
+  transition: all 0.15s ease;
 }
 
 .qty-btn:hover {
   background: #FEF3C7;
   color: var(--yellow-dark);
+  transform: scale(1.1);
+}
+
+.qty-btn:active {
+  transform: scale(0.95);
 }
 
 .qty-value {
-  width: 38px;
+  width: 28px;
   text-align: center;
   font-size: 0.95rem;
   font-weight: 800;
@@ -1130,34 +1143,54 @@ body.catalogo-body {
   font-family: var(--font-heading);
 }
 
+/* Botão de Adicionar ao Orçamento Ultra Refinado */
 .btn-card-add {
-  flex-grow: 1;
-  height: 42px;
+  flex: 1;
+  height: 40px;
   border: none;
-  border-radius: var(--radius-sm);
-  background: var(--yellow-amber);
+  border-radius: var(--radius-full);
+  background: linear-gradient(135deg, #FAB818 0%, #F59E0B 100%);
   color: #0A2717;
   font-family: var(--font-heading);
-  font-size: 0.88rem;
+  font-size: 0.9rem;
   font-weight: 800;
-  display: flex;
+  letter-spacing: 0.02em;
+  display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 0.5rem;
+  padding: 0 1.15rem;
+  white-space: nowrap;
   cursor: pointer;
-  box-shadow: 0 2px 8px rgba(250, 184, 24, 0.3);
-  transition: all 0.2s ease;
+  box-shadow: 0 3px 12px rgba(250, 184, 24, 0.35);
+  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-card-add svg {
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  transition: transform 0.2s ease;
 }
 
 .btn-card-add:hover {
-  background: var(--yellow-hover);
-  box-shadow: 0 4px 14px rgba(250, 184, 24, 0.45);
-  transform: translateY(-1px);
+  background: linear-gradient(135deg, #FBBF24 0%, #D97706 100%);
+  box-shadow: 0 6px 18px rgba(250, 184, 24, 0.5);
+  transform: translateY(-2px);
+}
+
+.btn-card-add:hover svg {
+  transform: scale(1.15);
+}
+
+.btn-card-add:active {
+  transform: translateY(0) scale(0.98);
 }
 
 .btn-card-add.is-added {
-  background: var(--green-emerald);
+  background: linear-gradient(135deg, #22C55E 0%, #16A34A 100%);
   color: #FFFFFF;
+  box-shadow: 0 4px 14px rgba(34, 197, 94, 0.4);
 }
 
 /* Estado Vazio & Load More */
