@@ -9,12 +9,23 @@
   const STORAGE_KEY = 'gordinho-catalog-items';
 
   const DEFAULT_CATEGORIES = [
-    'Tecnologias',
-    'Estrutura de Máquinas',
-    'Linha Têxtil',
     'Comunicação Visual',
+    'Fachadas',
+    'Plotagem de Vitrine',
     'Plotagem Veicular',
-    'Brindes Corporativos'
+    'Brindes Corporativos',
+    'Kits Corporativos',
+    'Canecas Personalizadas',
+    'Uniformes',
+    'Presentes Personalizados',
+    'Decoração Personalizada',
+    'Papelaria Personalizada',
+    'Vinil por Metro Quadrado',
+    'DTF Têxtil',
+    'DTF UV',
+    'Gravação a Laser',
+    'Estrutura de Máquinas',
+    'Tecnologias'
   ];
 
   const DEFAULT_CATALOG_ITEMS = [
@@ -358,6 +369,94 @@
       foto: 'assets/images/catalogo/item-kit-boas-vindas.png',
       paginaRef: 'assets/images/catalogo/catalogo-capa.png',
       ativo: true
+    },
+    {
+      id: 'prod-kits-corporativos',
+      nome: 'Kits Corporativos Executivos em Caixa Luxo',
+      categoria: 'Kits Corporativos',
+      badge: 'Alto Padrão',
+      especificacao: 'Caixa cartonada personalizada com copo térmico, caderno e caneta',
+      descricao: 'Encante clientes especiais e parceiros com kits de boas-vindas sofisticados que transmitem valor e prestígio.',
+      foto: 'assets/images/catalogo/item-kit-boas-vindas.png',
+      paginaRef: 'assets/images/catalogo/catalogo-capa.png',
+      ativo: true
+    },
+    {
+      id: 'prod-caneca-ceramica',
+      nome: 'Canecas de Cerâmica Personalizadas',
+      categoria: 'Canecas Personalizadas',
+      badge: 'Sem Pedido Mínimo',
+      especificacao: 'Cerâmica Resinada AAA 325ml • Sublimação Total',
+      descricao: 'Canecas personalizadas com alto brilho e fidelidade de cor. Não desbota no micro-ondas e lava-louças.',
+      foto: 'assets/images/catalogo/cat-canecas.jpg',
+      paginaRef: 'assets/images/catalogo/personalizacao-sublimacao-transfer-3d.png',
+      ativo: true
+    },
+    {
+      id: 'prod-fachadas-comerciais',
+      nome: 'Fachadas Comerciais & Letra Caixa',
+      categoria: 'Fachadas',
+      badge: 'Estrutura Completa',
+      especificacao: 'ACM com recorte computadorizado e iluminação em LED',
+      descricao: 'Projetos sob medida para destacar sua empresa com imponência e acabamento de alto padrão comercial.',
+      foto: 'assets/images/catalogo/cat-fachadas.jpg',
+      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png',
+      ativo: true
+    },
+    {
+      id: 'prod-uniformes-profissionais',
+      nome: 'Uniformes Corporativos & Camisas Polo',
+      categoria: 'Uniformes',
+      badge: 'Linha Corporativa',
+      especificacao: 'Malha Piquet ou Dry Fit com DTF têxtil ou bordado',
+      descricao: 'Identidade e padrão para a sua equipe. Peças confortáveis, resistentes ao desgaste e com caimento moderno.',
+      foto: 'assets/images/catalogo/item-textil-camisetas.png',
+      paginaRef: 'assets/images/catalogo/produtos-textil-dtf.png',
+      ativo: true
+    },
+    {
+      id: 'prod-presentes-afetivos',
+      nome: 'Presentes Personalizados Afetivos',
+      categoria: 'Presentes Personalizados',
+      badge: 'Presente Exclusivo',
+      especificacao: 'Porta-retrato em madeira, caneca e almofada coração',
+      descricao: 'Presente inesquecível para datas especiais, namorados, aniversários e lembranças familiares com acabamento impecável.',
+      foto: 'assets/images/catalogo/cat-presentes.jpg',
+      paginaRef: 'assets/images/catalogo/personalizacao-sublimacao-transfer-3d.png',
+      ativo: true
+    },
+    {
+      id: 'prod-decor-almofada',
+      nome: 'Decoração Personalizada & Almofadas',
+      categoria: 'Decoração Personalizada',
+      badge: 'Design de Interiores',
+      especificacao: 'Linho rústico premium 40x40 cm com estampa digital e cachepot',
+      descricao: 'Personalização elegante para ambientes corporativos, recepções e residências. Toque macio e enchimento anti-alérgico.',
+      foto: 'assets/images/catalogo/cat-decoracao.jpg',
+      paginaRef: 'assets/images/catalogo/personalizacao-sublimacao-transfer-3d.png',
+      ativo: true
+    },
+    {
+      id: 'prod-papelaria-caderno',
+      nome: 'Papelaria Personalizada & Cadernos Corporativos',
+      categoria: 'Papelaria Personalizada',
+      badge: 'Papelaria Nobre',
+      especificacao: 'Cadernos capa dura, canetas metálicas e blocos de anotações',
+      descricao: 'Apresentação refinada para conferências, reuniões e uso corporativo do dia a dia com a sua marca gravada a laser ou DTF UV.',
+      foto: 'assets/images/catalogo/item-cartao-visita.png',
+      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png',
+      ativo: true
+    },
+    {
+      id: 'terc-vinil-metro',
+      nome: 'Vinil por Metro Quadrado (m²)',
+      categoria: 'Vinil por Metro Quadrado',
+      badge: 'Insumo B2B',
+      especificacao: 'Bobinas de 1.000 mm / 1.200 mm • Cores brilhantes e foscas',
+      descricao: 'Fornecimento de vinil adesivo de alta aderência para recorte eletrônico e impressão digital com preço especial de fábrica.',
+      foto: 'assets/images/catalogo/cat-vinil-metro.jpg',
+      paginaRef: 'assets/images/catalogo/maquinas-plotter-eco-3d-recorte.png',
+      ativo: true
     }
   ];
 
@@ -373,6 +472,13 @@
         if (raw) {
           const parsed = JSON.parse(raw);
           if (Array.isArray(parsed) && parsed.length > 0) {
+            const existingIds = new Set(parsed.map((i) => i.id));
+            const missing = DEFAULT_CATALOG_ITEMS.filter((d) => !existingIds.has(d.id));
+            if (missing.length > 0) {
+              const merged = [...parsed, ...missing];
+              localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
+              return merged;
+            }
             return parsed;
           }
         }

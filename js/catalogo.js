@@ -407,6 +407,10 @@
     els.lightboxImg = document.getElementById('lightbox-img');
     els.lightboxTitle = document.getElementById('lightbox-title');
     els.lightboxClose = document.getElementById('lightbox-close');
+    els.searchForm = document.getElementById('header-search-form');
+    els.activeCategoryTitle = document.getElementById('active-category-title');
+    els.catalogCountBadge = document.getElementById('catalog-count-badge');
+    els.btnClearSearch = document.getElementById('btn-clear-search');
   }
 
   // Persistência do Carrinho
@@ -559,7 +563,8 @@
     let result = state.items;
 
     if (state.activeCategory !== 'todos') {
-      result = result.filter((item) => item.categoria === state.activeCategory);
+      const targetCat = state.activeCategory.toLowerCase().trim();
+      result = result.filter((item) => item.categoria && item.categoria.toLowerCase().trim() === targetCat);
     }
 
     if (state.searchTerm.trim() !== '') {
@@ -574,6 +579,17 @@
     }
 
     state.filteredItems = result;
+
+    if (els.activeCategoryTitle) {
+      els.activeCategoryTitle.textContent = state.activeCategory === 'todos' 
+        ? 'Todos os Produtos & Tecnologias' 
+        : state.activeCategory;
+    }
+    if (els.catalogCountBadge) {
+      const len = result.length;
+      els.catalogCountBadge.textContent = `${len} ${len === 1 ? 'item disponível' : 'itens disponíveis'}`;
+    }
+
     renderGrid();
   }
 
@@ -610,22 +626,36 @@
     });
   }
 
-  // Renderização do Card de Produto/Máquina
+  // Renderização do Card de Produto/Máquina no padrão clean e moderno
   function itemCardHTML(item) {
+    const badgeHTML = item.badge
+      ? `<span class="card-badge">${escapeHTML(item.badge)}</span>`
+      : '';
+    const specHTML = item.especificacao
+      ? `<div class="card-spec"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg><span>${escapeHTML(item.especificacao)}</span></div>`
+      : '';
+    const descHTML = item.descricao
+      ? `<p class="card-desc">${escapeHTML(item.descricao)}</p>`
+      : '';
+
     return `
       <article class="catalog-card" data-id="${escapeAttr(item.id)}">
         <div class="card-media">
-          <img src="${escapeAttr(item.foto)}" alt="${escapeAttr(item.nome)}" loading="lazy" class="card-img" />
-          <span class="card-badge">${escapeHTML(item.badge)}</span>
-          <button type="button" class="btn-zoom-preview" title="Ver página do catálogo" data-preview="${escapeAttr(item.paginaRef)}" data-title="${escapeAttr(item.nome)}">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+          <img src="${escapeAttr(item.foto)}" alt="${escapeAttr(item.nome)}" loading="lazy" class="card-img" onerror="this.src='assets/images/catalogo/cat-presentes.jpg'" />
+          ${badgeHTML}
+          <button type="button" class="btn-zoom-preview" title="Ver foto em alta resolução" data-preview="${escapeAttr(item.paginaRef)}" data-title="${escapeAttr(item.nome)}">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
           </button>
         </div>
         <div class="card-body">
           <div class="card-category-tag">${escapeHTML(item.categoria)}</div>
           <h3 class="card-title">${escapeHTML(item.nome)}</h3>
-          <p class="card-spec"><strong>Especificação:</strong> ${escapeHTML(item.especificacao)}</p>
-          <p class="card-desc">${escapeHTML(item.descricao)}</p>
+          ${specHTML}
+          ${descHTML}
+          <div class="card-status-pill">
+            <span class="status-pulse-dot"></span>
+            <span>Sob Orçamento &bull; Sem pedido mínimo</span>
+          </div>
         </div>
         <div class="card-footer">
           <div class="qty-stepper" data-qty="1">
@@ -634,8 +664,12 @@
             <button type="button" class="qty-btn qty-plus" aria-label="Aumentar quantidade">+</button>
           </div>
           <button type="button" class="btn-card-add" aria-label="Adicionar ${escapeAttr(item.nome)} ao orçamento">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M12 5v14M5 12h14"/></svg>
-            <span class="btn-add-label">Adicionar</span>
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+              <circle cx="9" cy="21" r="1"></circle>
+              <circle cx="20" cy="21" r="1"></circle>
+              <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+            </svg>
+            <span class="btn-add-label">Adicionar ao Orçamento</span>
           </button>
         </div>
       </article>
@@ -848,19 +882,112 @@
     renderCart();
 
     // Busca com debounce
-    els.search.addEventListener('input', debounce((e) => {
-      state.searchTerm = e.target.value;
-      state.visibleCount = PAGE_SIZE;
-      applyFilters();
-    }, 250));
+    if (els.search) {
+      els.search.addEventListener('input', debounce((e) => {
+        state.searchTerm = e.target.value;
+        state.visibleCount = PAGE_SIZE;
+        applyFilters();
+        if (e.target.value.trim().length >= 3) {
+          const targetEl = document.getElementById('catalogo-produtos');
+          if (targetEl) {
+            targetEl.scrollIntoView({ behavior: 'smooth' });
+          }
+        }
+      }, 250));
+    }
+
+    // Submissão do formulário de busca
+    if (els.searchForm) {
+      els.searchForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const targetEl = document.getElementById('catalogo-produtos');
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+    }
+
+    // Botão de Limpar Busca
+    if (els.btnClearSearch) {
+      els.btnClearSearch.addEventListener('click', () => {
+        state.searchTerm = '';
+        state.activeCategory = 'todos';
+        if (els.search) els.search.value = '';
+        state.visibleCount = PAGE_SIZE;
+        renderCategoryFilters();
+        applyFilters();
+      });
+    }
+
+    // Cliques nos Cards de Categorias e Terceirizados (Grid Superior)
+    document.querySelectorAll('.category-card, .terceirizado-card').forEach((card) => {
+      card.addEventListener('click', () => {
+        const cat = card.dataset.category || 'todos';
+        state.activeCategory = cat;
+        state.searchTerm = '';
+        if (els.search) els.search.value = '';
+        state.visibleCount = PAGE_SIZE;
+        renderCategoryFilters();
+        applyFilters();
+
+        const targetEl = document.getElementById('catalogo-produtos');
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
 
     // Scroll de Categorias
-    els.categoryScrollPrev.addEventListener('click', () => {
-      els.categoryFilters.scrollBy({ left: -200, behavior: 'smooth' });
-    });
-    els.categoryScrollNext.addEventListener('click', () => {
-      els.categoryFilters.scrollBy({ left: 200, behavior: 'smooth' });
-    });
+    if (els.categoryScrollPrev && els.categoryFilters) {
+      els.categoryScrollPrev.addEventListener('click', () => {
+        els.categoryFilters.scrollBy({ left: -200, behavior: 'smooth' });
+      });
+    }
+    if (els.categoryScrollNext && els.categoryFilters) {
+      els.categoryScrollNext.addEventListener('click', () => {
+        els.categoryFilters.scrollBy({ left: 200, behavior: 'smooth' });
+      });
+    }
+
+    // ScrollSpy suave para navegação das abas no Header
+    const navLinks = document.querySelectorAll('.nav-tab-link');
+    const sectionsToTrack = [
+      { id: 'produtos-servicos', el: document.getElementById('produtos-servicos') },
+      { id: 'terceirizados', el: document.getElementById('terceirizados') },
+      { id: 'sobre-nos', el: document.getElementById('sobre-nos') }
+    ];
+
+    window.addEventListener('scroll', debounce(() => {
+      const scrollPos = window.scrollY + 180;
+      let currentSectionId = '';
+
+      sectionsToTrack.forEach((sec) => {
+        if (sec.el && sec.el.offsetTop <= scrollPos) {
+          currentSectionId = sec.id;
+        }
+      });
+
+      if (window.scrollY < 250) {
+        navLinks.forEach((l) => l.classList.remove('active'));
+        const homeLink = document.querySelector('.nav-tab-link[href="index.html"]');
+        if (homeLink) homeLink.classList.add('active');
+      } else if (currentSectionId) {
+        navLinks.forEach((l) => {
+          const href = l.getAttribute('href');
+          if (href === `#${currentSectionId}`) {
+            l.classList.add('active');
+          } else {
+            l.classList.remove('active');
+          }
+        });
+      }
+    }, 80));
 
     // Drawer de Carrinho & Modo Split Screen
     els.cartButton.addEventListener('click', toggleCart);

@@ -3,20 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Catálogo Corporativo 2026 & Estrutura Industrial | Gordinho Personalizados</title>
-  <meta name="description" content="Navegue pelo catálogo oficial 2026 da Gordinho Personalizados: tecnologias de estamparia DTF UV, Fiber Laser, DTF Têxtil, sublimação, plotagem veicular e brindes corporativos com estrutura própria em Itajaí/SC.">
+  <title>Catálogo Oficial &bull; Produtos, Serviços & Terceirizados | Gordinho Personalizados</title>
+  <meta name="description" content="Personalize tudo com a gente! Comunicação visual, fachadas, plotagens, brindes corporativos, kits, canecas, uniformes, DTF têxtil, DTF UV, gravação a laser e corte digital em Itajaí/SC.">
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
 
   <!-- Open Graph -->
   <meta property="og:type" content="website">
-  <meta property="og:title" content="Catálogo Corporativo 2026 & Estrutura Industrial | Gordinho Personalizados">
-  <meta property="og:description" content="Estrutura industrial própria para personalização em escala: corte a laser, DTF têxtil, sublimação e brindes corporativos em Itajaí/SC.">
-  <meta property="og:image" content="assets/images/catalogo/catalogo-capa.png">
+  <meta property="og:title" content="Catálogo Oficial | Gordinho Personalizados">
+  <meta property="og:description" content="Qualidade, criatividade e soluções completas para você, sua empresa e seu negócio. Conheça nossa linha de produtos personalizados e terceirização.">
+  <meta property="og:image" content="assets/images/catalogo/hero-storefront.jpg">
 
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Reset Crítico Anti-Bordas e Anti-FOUC -->
   <style>
@@ -30,112 +30,795 @@
       padding: 0 !important;
       border: 0 !important;
       width: 100% !important;
-      background: #06180E !important;
-      background-color: #06180E !important;
+      background: #FFFFFF !important;
+      background-color: #FFFFFF !important;
+      color: #0F172A;
       overflow-x: hidden !important;
+      scroll-behavior: smooth;
     }
   </style>
 
-  <!-- CSS -->
-  <link rel="stylesheet" href="css/variables.css?v=2.2">
-  <link rel="stylesheet" href="css/catalogo.css?v=2.2">
+  <!-- CSS Design Tokens & Layout -->
+  <link rel="stylesheet" href="css/variables.css?v=3.3">
+  <link rel="stylesheet" href="css/catalogo.css?v=3.3">
 </head>
-<body class="catalogo-body" style="margin: 0 !important; padding: 0 !important; background-color: #06180E !important;">
+<body class="catalogo-body">
 
   <!-- ==========================================================================
-       HEADER FIXO (PADRÃO GORDINHO & TRILHA INFINITY)
+       HEADER FIXO DE 2 NÍVEIS (PADRÃO OFICIAL)
        ========================================================================== -->
-  <header class="header-catalogo" role="banner">
-    <div class="container header-inner">
-      <a href="index.html" class="logo-header" title="Voltar ao início">
-        <img src="assets/images/mascot.png" alt="Mascote Gordinho Personalizados" class="logo-header-img">
-        <div class="logo-text-wrap">
-          <span class="logo-title">Gordinho <span>Personalizados</span></span>
-          <span class="logo-sub">Catálogo Corporativo &bull; Itajaí/SC</span>
-        </div>
-      </a>
+  <header class="header-master" role="banner">
+    <!-- NÍVEL 1: LOGO + BUSCA CENTRAL + AÇÕES (CONTA & CARRINHO) -->
+    <div class="header-top">
+      <div class="container header-top-inner">
+        
+        <!-- Logo Oficial -->
+        <a href="index.html" class="brand-logo" title="Voltar ao início">
+          <div class="brand-logo-icon">
+            <img src="assets/images/mascot.png" alt="Mascote Gordinho" class="brand-mascot-img">
+          </div>
+          <div class="brand-title-wrap">
+            <span class="brand-title">GORDINHO</span>
+            <span class="brand-subtitle">PERSONALIZADOS</span>
+          </div>
+        </a>
 
-      <!-- Ações do Header: Botão do Carrinho -->
-      <div class="header-actions">
-        <button type="button" class="cart-button" id="cart-button" aria-label="Abrir carrinho de orçamento">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="21" r="1"></circle>
-            <circle cx="20" cy="21" r="1"></circle>
-            <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
-          </svg>
-          <span>Orçamento</span>
-          <span class="cart-badge" id="cart-badge" hidden>0</span>
-        </button>
+        <!-- Barra de Busca Central -->
+        <div class="header-search-bar">
+          <form class="header-search-form" id="header-search-form" onsubmit="return false;" role="search">
+            <input 
+              type="search" 
+              id="catalog-search" 
+              class="header-search-input" 
+              placeholder="O que você está procurando?" 
+              aria-label="O que você está procurando?"
+              autocomplete="off">
+            <button type="submit" class="header-search-btn" aria-label="Buscar produtos">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+            </button>
+          </form>
+        </div>
+
+        <!-- Ações do Cabeçalho -->
+        <div class="header-actions">
+          <!-- Minha Conta / Painel B2B -->
+          <a href="cadastro-terceirizado.html" class="header-action-btn account-btn" id="header-account-btn" title="Minha Conta / Área do Parceiro">
+            <svg class="action-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <div class="action-text-wrap">
+              <span class="action-label">Minha Conta</span>
+            </div>
+          </a>
+
+          <!-- Meu Carrinho / Orçamento -->
+          <button type="button" class="header-action-btn cart-btn" id="cart-button" aria-label="Abrir orçamento">
+            <div class="cart-icon-wrapper">
+              <svg class="action-icon" width="21" height="21" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="9" cy="21" r="1"></circle>
+                <circle cx="20" cy="21" r="1"></circle>
+                <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+              </svg>
+              <span class="cart-badge" id="cart-badge">0</span>
+            </div>
+            <div class="action-text-wrap">
+              <span class="action-label">Meu Carrinho</span>
+            </div>
+          </button>
+        </div>
+
       </div>
     </div>
+
+    <!-- NÍVEL 2: BARRA DE NAVEGAÇÃO PRINCIPAL (ABAS COM ÍCONES) -->
+    <nav class="header-nav" aria-label="Navegação do catálogo">
+      <div class="container header-nav-inner">
+        <ul class="nav-tabs-list">
+          <li class="nav-tab-item">
+            <a href="index.html" class="nav-tab-link active" title="Página Inicial">
+              <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z"></path>
+              </svg>
+              <span>INÍCIO</span>
+            </a>
+          </li>
+          <li class="nav-tab-item">
+            <a href="#produtos-servicos" class="nav-tab-link" title="Ir para Produtos e Serviços">
+              <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="8" y1="6" x2="21" y2="6"></line>
+                <line x1="8" y1="12" x2="21" y2="12"></line>
+                <line x1="8" y1="18" x2="21" y2="18"></line>
+                <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                <line x1="3" y1="18" x2="3.01" y2="18"></line>
+              </svg>
+              <span>PRODUTOS E SERVIÇOS</span>
+            </a>
+          </li>
+          <li class="nav-tab-item">
+            <a href="#terceirizados" class="nav-tab-link" title="Ir para Terceirizados">
+              <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+              <span>TERCEIRIZADOS</span>
+            </a>
+          </li>
+          <li class="nav-tab-item">
+            <a href="#catalogo-produtos" class="nav-tab-link" title="Ir para Catálogo Completo">
+              <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="7" height="7" x="3" y="3" rx="1"></rect>
+                <rect width="7" height="7" x="14" y="3" rx="1"></rect>
+                <rect width="7" height="7" x="14" y="14" rx="1"></rect>
+                <rect width="7" height="7" x="3" y="14" rx="1"></rect>
+              </svg>
+              <span>CATÁLOGO</span>
+            </a>
+          </li>
+          <li class="nav-tab-item">
+            <a href="#sobre-nos" class="nav-tab-link" title="Sobre a Empresa">
+              <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+              <span>SOBRE NÓS</span>
+            </a>
+          </li>
+          <li class="nav-tab-item">
+            <a href="https://wa.me/5547984965444?text=Ol%C3%A1!%20Vim%20pelo%20Cat%C3%A1logo%20Online%20da%20Gordinho%20Personalizados%20e%20gostaria%20de%20tirar%20d%C3%BAvidas." target="_blank" rel="noopener noreferrer" class="nav-tab-link nav-whatsapp" title="Falar com Atendimento">
+              <svg class="tab-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+              <span>FALE CONOSCO</span>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
   </header>
 
-  <!-- ==========================================================================
-       HERO / INTRODUÇÃO
-       ========================================================================== -->
   <main>
-    <section class="catalog-hero">
-      <div class="container catalog-hero-inner">
-        <div class="hero-pill-badge">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="m9 12 2 2 4-4"/></svg>
-          <span>Catálogo Oficial 2026 &bull; Grupo Gordinho</span>
+    <!-- ==========================================================================
+         HERO BANNER DE DESTAQUE (FACHADA & SHOWCASE)
+         ========================================================================== -->
+    <section class="hero-showcase" aria-labelledby="hero-main-title">
+      <div class="hero-bg-layer" style="background-image: url('assets/images/catalogo/hero-storefront.jpg');"></div>
+      <div class="hero-overlay"></div>
+
+      <div class="container hero-content-inner">
+        <!-- Coluna Esquerda: Texto Principal e Botão -->
+        <div class="hero-text-block">
+          <h1 id="hero-main-title" class="hero-headline">
+            PERSONALIZE<br>
+            <span class="headline-gold">TUDO COM</span><br>
+            <span class="headline-gold">A GENTE!</span>
+          </h1>
+          <p class="hero-description">
+            Qualidade, criatividade e soluções para você, sua empresa e seu negócio!
+          </p>
+          <a href="#produtos-servicos" class="hero-cta-button" id="hero-cta-btn">
+            <span>CONHEÇA NOSSOS PRODUTOS</span>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </a>
         </div>
-        <h1>Produtos Personalizados &amp; <span>Estrutura Industrial</span></h1>
-        <p>
-          Faça seu negócio acontecer sem precisar investir alto em maquinários e equipamentos: nós fazemos isso por você! Conheça nossa estrutura completa para fornecer produtos de alta qualidade com agilidade para a sua empresa.
-        </p>
+
+        <!-- Coluna Direita: Chamada de Impacto "Sua Ideia Aqui Ganha Vida" -->
+        <div class="hero-callout-block">
+          <div class="hero-energy-badge">
+            <span class="energy-sub">SUA IDEIA</span>
+            <span class="energy-title">AQUI GANHA</span>
+            <span class="energy-highlight">VIDA!</span>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ==========================================================================
-         TOOLBAR: BUSCA & FILTRO POR CATEGORIAS
+         SEÇÃO 1: PRODUTOS E SERVIÇOS (12 CATEGORIAS EM CARDS)
          ========================================================================== -->
-    <section class="container">
-      <div class="catalog-toolbar">
+    <section class="section-categories" id="produtos-servicos" aria-labelledby="title-produtos-servicos">
+      <div class="container">
+        
+        <!-- Cabeçalho da Seção -->
+        <div class="section-header-bar">
+          <div class="section-title-group">
+            <div class="section-icon-badge">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 2 3 6v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V6l-3-4Z"></path>
+                <path d="M3 6h18"></path>
+                <path d="M16 10a4 4 0 0 1-8 0"></path>
+              </svg>
+            </div>
+            <div class="section-titles">
+              <h2 id="title-produtos-servicos" class="section-heading">PRODUTOS E SERVIÇOS</h2>
+              <div class="title-underline-decor"></div>
+            </div>
+          </div>
+          <p class="section-subtitle">
+            Tudo o que você precisa para personalizar, divulgar e presentear em um só lugar!
+          </p>
+        </div>
 
-        <!-- Campo de Busca -->
-        <div class="search-container">
-          <svg class="search-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <!-- Grid com as 12 Categorias -->
+        <div class="categories-grid" role="list">
+          
+          <!-- 1. Comunicação Visual -->
+          <article class="category-card" role="listitem" data-category="Comunicação Visual" tabindex="0">
+            <div class="cat-card-media">
+              <img src="assets/images/catalogo/item-banners.png" alt="Comunicação Visual" loading="lazy">
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">Comunicação Visual</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 2. Fachadas -->
+          <article class="category-card" role="listitem" data-category="Fachadas" tabindex="0">
+            <div class="cat-card-media">
+              <img src="assets/images/catalogo/cat-fachadas.jpg" alt="Fachadas Comerciais" loading="lazy">
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">Fachadas</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 3. Plotagem de Vitrine -->
+          <article class="category-card" role="listitem" data-category="Plotagem de Vitrine" tabindex="0">
+            <div class="cat-card-media">
+              <img src="assets/images/catalogo/item-plotagem-vitrine.png" alt="Plotagem de Vitrine" loading="lazy">
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">Plotagem de Vitrine</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 4. Plotagem Veicular -->
+          <article class="category-card" role="listitem" data-category="Plotagem Veicular" tabindex="0">
+            <div class="cat-card-media">
+              <img src="assets/images/catalogo/plotagem-veicular.png" alt="Plotagem Veicular" loading="lazy">
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">Plotagem Veicular</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 5. Brindes Corporativos -->
+          <article class="category-card" role="listitem" data-category="Brindes Corporativos" tabindex="0">
+            <div class="cat-card-media">
+              <img src="assets/images/catalogo/item-kit-boas-vindas.png" alt="Brindes Corporativos" loading="lazy">
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">Brindes Corporativos</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 6. Kits Corporativos -->
+          <article class="category-card" role="listitem" data-category="Kits Corporativos" tabindex="0">
+            <div class="cat-card-media">
+              <img src="assets/images/catalogo/item-kit-boas-vindas.png" alt="Kits Corporativos" loading="lazy">
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">Kits Corporativos</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 7. Canecas Personalizadas -->
+          <article class="category-card" role="listitem" data-category="Canecas Personalizadas" tabindex="0">
+            <div class="cat-card-media">
+              <img src="assets/images/catalogo/cat-canecas.jpg" alt="Canecas Personalizadas" loading="lazy">
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">Canecas Personalizadas</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 8. Uniformes -->
+          <article class="category-card" role="listitem" data-category="Uniformes" tabindex="0">
+            <div class="cat-card-media">
+              <img src="assets/images/catalogo/item-textil-camisetas.png" alt="Uniformes Personalizados" loading="lazy">
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">Uniformes</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 9. Presentes Personalizados -->
+          <article class="category-card" role="listitem" data-category="Presentes Personalizados" tabindex="0">
+            <div class="cat-card-media">
+              <img src="assets/images/catalogo/cat-presentes.jpg" alt="Presentes Personalizados" loading="lazy">
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">Presentes Personalizados</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 10. Decoração Personalizada -->
+          <article class="category-card" role="listitem" data-category="Decoração Personalizada" tabindex="0">
+            <div class="cat-card-media">
+              <img src="assets/images/catalogo/cat-decoracao.jpg" alt="Decoração Personalizada" loading="lazy">
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">Decoração Personalizada</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 11. Papelaria Personalizada -->
+          <article class="category-card" role="listitem" data-category="Papelaria Personalizada" tabindex="0">
+            <div class="cat-card-media">
+              <img src="assets/images/catalogo/item-cartao-visita.png" alt="Papelaria Personalizada" loading="lazy">
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">Papelaria Personalizada</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 12. E muito mais! -->
+          <article class="category-card card-more" role="listitem" data-category="todos" tabindex="0">
+            <div class="cat-card-media more-media">
+              <div class="more-dots-icon">
+                <span></span><span></span><span></span>
+              </div>
+            </div>
+            <div class="cat-card-footer">
+              <span class="cat-card-name">E muito mais!</span>
+              <span class="cat-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 2: TERCEIRIZADOS (4 CARDS INDUSTRIAIS)
+         ========================================================================== -->
+    <section class="section-terceirizados" id="terceirizados" aria-labelledby="title-terceirizados">
+      <div class="container">
+        
+        <!-- Cabeçalho da Seção -->
+        <div class="section-header-bar">
+          <div class="section-title-group">
+            <div class="section-icon-badge">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="3"></circle>
+                <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+              </svg>
+            </div>
+            <div class="section-titles">
+              <h2 id="title-terceirizados" class="section-heading">TERCEIRIZADOS</h2>
+              <div class="title-underline-decor"></div>
+            </div>
+          </div>
+          <p class="section-subtitle">
+            Insumos e serviços para quem produz. Qualidade, agilidade e o melhor resultado!
+          </p>
+        </div>
+
+        <!-- Grid de Terceirizados (4 Cards) -->
+        <div class="terceirizados-cards-grid" role="list">
+          
+          <!-- 1. Vinil por Metro Quadrado -->
+          <article class="terceirizado-card" role="listitem" data-category="Vinil por Metro Quadrado" tabindex="0">
+            <div class="terc-card-media">
+              <img src="assets/images/catalogo/cat-vinil-metro.jpg" alt="Vinil por Metro Quadrado" loading="lazy">
+            </div>
+            <div class="terc-card-footer">
+              <span class="terc-card-name">Vinil por Metro Quadrado</span>
+              <span class="terc-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 2. DTF Têxtil -->
+          <article class="terceirizado-card" role="listitem" data-category="DTF Têxtil" tabindex="0">
+            <div class="terc-card-media">
+              <img src="assets/images/catalogo/tech-dtf-textil.png" alt="DTF Têxtil" loading="lazy">
+            </div>
+            <div class="terc-card-footer">
+              <span class="terc-card-name">DTF Têxtil</span>
+              <span class="terc-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 3. DTF UV -->
+          <article class="terceirizado-card" role="listitem" data-category="DTF UV" tabindex="0">
+            <div class="terc-card-media">
+              <img src="assets/images/catalogo/tech-dtf-uv.png" alt="DTF UV" loading="lazy">
+            </div>
+            <div class="terc-card-footer">
+              <span class="terc-card-name">DTF UV</span>
+              <span class="terc-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- 4. Gravação a Laser -->
+          <article class="terceirizado-card" role="listitem" data-category="Gravação a Laser" tabindex="0">
+            <div class="terc-card-media">
+              <img src="assets/images/catalogo/tech-fiber-laser.png" alt="Gravação a Laser" loading="lazy">
+            </div>
+            <div class="terc-card-footer">
+              <span class="terc-card-name">Gravação a Laser</span>
+              <span class="terc-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 3: CATÁLOGO COMPLETO & ORÇAMENTO INTERATIVO (REFORMULADA NO MESMO PADRÃO!)
+         ========================================================================== -->
+    <section class="section-catalog-products" id="catalogo-produtos" aria-labelledby="title-catalogo-completo">
+      <div class="container">
+
+        <!-- Cabeçalho da Seção no Mesmo Padrão Oficial -->
+        <div class="section-header-bar">
+          <div class="section-title-group">
+            <div class="section-icon-badge">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect width="7" height="7" x="3" y="3" rx="1"></rect>
+                <rect width="7" height="7" x="14" y="3" rx="1"></rect>
+                <rect width="7" height="7" x="14" y="14" rx="1"></rect>
+                <rect width="7" height="7" x="3" y="14" rx="1"></rect>
+              </svg>
+            </div>
+            <div class="section-titles">
+              <h2 id="title-catalogo-completo" class="section-heading">CATÁLOGO DE PRODUTOS &amp; ORÇAMENTO</h2>
+              <div class="title-underline-decor"></div>
+            </div>
+          </div>
+          <p class="section-subtitle">
+            Escolha os itens, defina as quantidades e envie seu orçamento direto para nossa fábrica no WhatsApp!
+          </p>
+        </div>
+
+        <!-- Toolbar de Filtros & Navegação -->
+        <div class="products-toolbar">
+          <div class="toolbar-info">
+            <h3 class="toolbar-title" id="active-category-title">Todos os Produtos &amp; Tecnologias</h3>
+            <span class="toolbar-count" id="catalog-count-badge">Carregando itens...</span>
+          </div>
+
+          <!-- Carrossel / Rolagem de Categorias -->
+          <div class="category-wrapper">
+            <button type="button" class="category-scroll-btn" id="category-scroll-prev" aria-label="Rolar categorias para esquerda">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+            <div class="category-filters" id="category-filters" role="tablist"></div>
+            <button type="button" class="category-scroll-btn" id="category-scroll-next" aria-label="Rolar categorias para direita">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Estado Vazio de Busca -->
+        <div class="catalog-empty" id="catalog-empty-state" hidden>
+          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
             <circle cx="11" cy="11" r="8"></circle>
             <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
           </svg>
-          <input 
-            type="search" 
-            id="catalog-search" 
-            class="catalog-search-input" 
-            placeholder="Buscar por produto, máquina ou tecnologia (ex: DTF, Laser, Camiseta, Plotter)..." 
-            aria-label="Buscar produto ou máquina">
+          <p>Nenhum item encontrado com esse termo. Tente buscar por outra palavra-chave.</p>
+          <button type="button" class="btn-clear-search" id="btn-clear-search">Limpar busca e ver tudo</button>
         </div>
 
-        <!-- Seletor de Categorias com Rolagem -->
-        <div class="category-wrapper">
-          <button type="button" class="category-scroll-btn" id="category-scroll-prev" aria-label="Rolar categorias para a esquerda">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg>
-          </button>
-          <div class="category-filters" id="category-filters"></div>
-          <button type="button" class="category-scroll-btn" id="category-scroll-next" aria-label="Rolar categorias para a direita">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
-          </button>
+        <!-- Grade Dinâmica de Itens no Mesmo Padrão Clean com Cards Claros -->
+        <div class="catalog-grid" id="catalog-grid" aria-live="polite"></div>
+
+        <!-- Carregar Mais Itens -->
+        <div class="catalog-load-more-wrap" id="catalog-load-more-wrap"></div>
+
+      </div>
+    </section>
+
+    <!-- ==========================================================================
+         SEÇÃO 4: SOBRE NÓS & ESTRUTURA INDUSTRIAL (REFORMULADA NO MESMO PADRÃO!)
+         ========================================================================== -->
+    <section class="section-about-brand" id="sobre-nos" aria-labelledby="title-sobre-nos">
+      <div class="container">
+        
+        <!-- Cabeçalho da Seção no Mesmo Padrão Oficial -->
+        <div class="section-header-bar">
+          <div class="section-title-group">
+            <div class="section-icon-badge">
+              <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                <circle cx="9" cy="7" r="4"></circle>
+                <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+                <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+              </svg>
+            </div>
+            <div class="section-titles">
+              <h2 id="title-sobre-nos" class="section-heading">ESTRUTURA INDUSTRIAL &amp; SOBRE NÓS</h2>
+              <div class="title-underline-decor"></div>
+            </div>
+          </div>
+          <p class="section-subtitle">
+            Mais de 10 anos de excelência, maquinário próprio e produção ágil em Itajaí/SC.
+          </p>
+        </div>
+
+        <!-- Grade de 4 Cards Institucionais no Mesmo Padrão Oficial dos Terceirizados -->
+        <div class="about-cards-grid" role="list">
+          
+          <!-- Card 1: 10+ Anos de Mercado -->
+          <article class="about-feature-card" role="listitem" tabindex="0">
+            <div class="about-card-badge-header">
+              <span class="about-badge-gold">+10 ANOS</span>
+              <span class="about-badge-sub">Desde 2014</span>
+            </div>
+            <div class="about-card-icon-wrap">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FAB818" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="8" r="7"></circle>
+                <polyline points="8.21 13.89 7 23 12 20 17 23 15.79 13.88"></polyline>
+              </svg>
+            </div>
+            <div class="about-card-content">
+              <h3 class="about-card-title">Tradição &amp; Confiança</h3>
+              <p class="about-card-desc">Mais de 250 mil atendimentos realizados com alto nível de satisfação em Santa Catarina, unindo carinho com rigor industrial.</p>
+            </div>
+            <div class="about-card-footer">
+              <span class="about-footer-label">+250k Atendimentos em SC</span>
+              <span class="about-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- Card 2: Parque Gráfico Próprio -->
+          <article class="about-feature-card" role="listitem" tabindex="0">
+            <div class="about-card-badge-header">
+              <span class="about-badge-gold">100% PRÓPRIO</span>
+              <span class="about-badge-sub">Alta Tecnologia</span>
+            </div>
+            <div class="about-card-icon-wrap">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FAB818" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="6" width="20" height="8" rx="1"></rect>
+                <path d="M17 14v7H7v-7"></path>
+                <path d="M17 9v.01"></path>
+              </svg>
+            </div>
+            <div class="about-card-content">
+              <h3 class="about-card-title">Parque Gráfico Completo</h3>
+              <p class="about-card-desc">Equipamentos industriais de ponta: DTF Têxtil, DTF UV com cura instantânea, Fiber Laser e Plotters de grande escala.</p>
+            </div>
+            <div class="about-card-footer">
+              <span class="about-footer-label">Produção Rápida no Local</span>
+              <span class="about-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- Card 3: Sem Pedido Mínimo -->
+          <article class="about-feature-card" role="listitem" tabindex="0">
+            <div class="about-card-badge-header">
+              <span class="about-badge-gold">ZERO MÍNIMO</span>
+              <span class="about-badge-sub">Varejo &amp; B2B</span>
+            </div>
+            <div class="about-card-icon-wrap">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FAB818" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 12v10H4V12"></path>
+                <path d="M2 7h20v5H2z"></path>
+                <path d="M12 22V7"></path>
+                <path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path>
+                <path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path>
+              </svg>
+            </div>
+            <div class="about-card-content">
+              <h3 class="about-card-title">Flexibilidade Total</h3>
+              <p class="about-card-desc">Produzimos desde 1 presente afetivo exclusivo para você até milhares de brindes corporativos e uniformes para empresas.</p>
+            </div>
+            <div class="about-card-footer">
+              <span class="about-footer-label">De 1 Peça a Grandes Lotes</span>
+              <span class="about-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+          <!-- Card 4: Loja Física no Centro -->
+          <article class="about-feature-card" role="listitem" tabindex="0">
+            <div class="about-card-badge-header">
+              <span class="about-badge-gold">LOJA FÍSICA</span>
+              <span class="about-badge-sub">Centro de Itajaí</span>
+            </div>
+            <div class="about-card-icon-wrap">
+              <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#FAB818" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="about-card-content">
+              <h3 class="about-card-title">Venha nos Visitar</h3>
+              <p class="about-card-desc">Showroom completo com amostras reais de todos os materiais. Estacionamento fácil no Centro de Itajaí/SC.</p>
+            </div>
+            <div class="about-card-footer">
+              <span class="about-footer-label">Rua Cônego Thomaz Fontes, 417</span>
+              <span class="about-card-arrow" aria-hidden="true">&rsaquo;</span>
+            </div>
+          </article>
+
+        </div>
+
+        <!-- Barra Horizontal Integrada de Localização & Atendimento Rápido -->
+        <div class="store-location-banner">
+          <div class="store-banner-col">
+            <div class="store-icon-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#06180E" stroke-width="2.2">
+                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                <circle cx="12" cy="10" r="3"></circle>
+              </svg>
+            </div>
+            <div class="store-banner-text">
+              <strong>Endereço da Loja &amp; Fábrica:</strong>
+              <span>Rua Cônego Thomaz Fontes, 417 - Centro, Itajaí - SC, CEP 88301-100</span>
+            </div>
+          </div>
+
+          <div class="store-banner-col">
+            <div class="store-icon-circle">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#06180E" stroke-width="2.2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="store-banner-text">
+              <strong>Horário de Atendimento:</strong>
+              <span>Segunda a Sexta: 08:00 às 18:00 | Sábado: 08:00 às 17:00</span>
+            </div>
+          </div>
+
+          <div class="store-banner-col store-banner-cta">
+            <a href="https://wa.me/5547984965444?text=Ol%C3%A1!%20Gostaria%20de%20falar%20com%20o%20atendimento%20da%20Gordinho%20Personalizados." target="_blank" rel="noopener noreferrer" class="btn-store-whatsapp" title="Falar no WhatsApp">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+              </svg>
+              <span>WhatsApp: (47) 98496-5444</span>
+            </a>
+          </div>
         </div>
 
       </div>
+    </section>
 
-      <!-- Estado Vazio de Busca -->
-      <div class="catalog-empty" id="catalog-empty-state" hidden>
-        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
-          <circle cx="11" cy="11" r="8"></circle>
-          <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
-        </svg>
-        <p>Nenhum item encontrado com esse termo. Tente buscar por outra palavra-chave.</p>
+    <!-- ==========================================================================
+         SEÇÃO 5: FAIXA DE BENEFÍCIOS & GARANTIAS (4 PILARES)
+         ========================================================================== -->
+    <section class="benefits-banner" aria-label="Benefícios da Gordinho Personalizados">
+      <div class="container benefits-inner">
+        
+        <!-- Benefício 1: Envio -->
+        <div class="benefit-item">
+          <div class="benefit-icon-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FAB818" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="3" width="15" height="13"></rect>
+              <polygon points="16 8 20 8 23 11 23 16 16 16 16 8"></polygon>
+              <circle cx="5.5" cy="18.5" r="2.5"></circle>
+              <circle cx="18.5" cy="18.5" r="2.5"></circle>
+            </svg>
+          </div>
+          <div class="benefit-text">
+            <strong>ENVIAMOS</strong>
+            <span>PARA TODO O BRASIL</span>
+          </div>
+        </div>
+
+        <!-- Benefício 2: Parcelamento -->
+        <div class="benefit-item">
+          <div class="benefit-icon-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FAB818" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+              <line x1="1" y1="10" x2="23" y2="10"></line>
+            </svg>
+          </div>
+          <div class="benefit-text">
+            <strong>PARCELE EM ATÉ</strong>
+            <span>12X NO CARTÃO</span>
+          </div>
+        </div>
+
+        <!-- Benefício 3: Compra Segura -->
+        <div class="benefit-item">
+          <div class="benefit-icon-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#FAB818" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              <path d="m9 12 2 2 4-4"></path>
+            </svg>
+          </div>
+          <div class="benefit-text">
+            <strong>COMPRA SEGURA</strong>
+            <span>SEUS DADOS PROTEGIDOS</span>
+          </div>
+        </div>
+
+        <!-- Benefício 4: Atendimento WhatsApp -->
+        <div class="benefit-item">
+          <div class="benefit-icon-box">
+            <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor" color="#FAB818">
+              <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+            </svg>
+          </div>
+          <div class="benefit-text">
+            <strong>ATENDIMENTO</strong>
+            <span>VIA WHATSAPP</span>
+          </div>
+        </div>
+
       </div>
-
-      <!-- Grid de Itens -->
-      <div class="catalog-grid" id="catalog-grid"></div>
-
-      <!-- Botão Carregar Mais -->
-      <div class="catalog-load-more-wrap" id="catalog-load-more-wrap"></div>
     </section>
   </main>
+
+  <!-- ==========================================================================
+       SEÇÃO 6: RODAPÉ OFICIAL DA MARCA
+       ========================================================================== -->
+  <footer class="footer-master" role="contentinfo">
+    <!-- Faixa de Destaque Superior do Rodapé -->
+    <div class="footer-signature-bar">
+      <div class="container signature-inner">
+        <span class="signature-brand">GORDINHO PERSONALIZADOS</span>
+        <div class="signature-line-decor"></div>
+        <span class="signature-slogan">PERSONALIZANDO IDEIAS, CONECTANDO PESSOAS!</span>
+      </div>
+    </div>
+
+    <!-- Links e Dados Institucionais -->
+    <div class="footer-body">
+      <div class="container footer-grid">
+        <div class="footer-col-brand">
+          <div class="footer-logo-title">Gordinho <span>Personalizados</span></div>
+          <p class="footer-bio">
+            Parque gráfico e industrial próprio com tecnologia DTF Têxtil, DTF UV com verniz em relevo, corte e gravação a laser permanente e plotagem comercial de alta durabilidade em Itajaí/SC.
+          </p>
+        </div>
+
+        <div class="footer-col-nav">
+          <h4 class="footer-col-title">Navegação</h4>
+          <ul class="footer-nav-links">
+            <li><a href="index.html">Início do Portal</a></li>
+            <li><a href="#produtos-servicos">Produtos e Serviços</a></li>
+            <li><a href="#terceirizados">Terceirizados (B2B)</a></li>
+            <li><a href="#catalogo-produtos">Catálogo Completo</a></li>
+            <li><a href="#sobre-nos">Sobre a Empresa</a></li>
+          </ul>
+        </div>
+
+        <div class="footer-col-nav">
+          <h4 class="footer-col-title">Ecossistema</h4>
+          <ul class="footer-nav-links">
+            <li><a href="cadastro-terceirizado.html">Pré-Cadastro B2B</a></li>
+            <li><a href="index.html#cliente-final">Sou Cliente Final (Varejo)</a></li>
+            <li><a href="https://gordinhocelulares.com.br" target="_blank" rel="noopener noreferrer">Gordinho Celulares</a></li>
+            <li><a href="admin.html">Painel Administrativo</a></li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="footer-bottom-bar">
+        <div class="container footer-bottom-inner">
+          <div>&copy; 2026 Grupo Gordinho &bull; Todos os direitos reservados.</div>
+          <div>Itajaí - SC &bull; Estrutura Industrial Própria</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Faixa Amarela de Destaque Inferior -->
+    <div class="footer-gold-bar"></div>
+  </footer>
 
   <!-- ==========================================================================
        CARRINHO / ORÇAMENTO (DRAWER LATERAL)
@@ -147,18 +830,18 @@
         <h2>Seu Orçamento</h2>
         <span class="cart-total-badge" id="cart-total-badge">0 itens</span>
       </div>
-      <button type="button" class="cart-close" id="cart-close" aria-label="Recolher orçamento" title="Recolher carrinho">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <button type="button" class="cart-close" id="cart-close" aria-label="Fechar orçamento" title="Fechar carrinho">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
           <line x1="18" y1="6" x2="6" y2="18"></line>
           <line x1="6" y1="6" x2="18" y2="18"></line>
         </svg>
       </button>
     </div>
 
-    <!-- Dica de Catálogo Ativo / Modo Split -->
+    <!-- Dica de Catálogo Ativo -->
     <div class="cart-catalog-hint" id="cart-catalog-hint">
       <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
-      <span>O catálogo ao lado continua ativo. Adicione mais itens!</span>
+      <span>O catálogo continua ativo ao lado. Adicione mais itens!</span>
     </div>
 
     <!-- Banner Informativo do Parceiro B2B -->
@@ -174,7 +857,7 @@
         <circle cx="20" cy="21" r="1"></circle>
         <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
       </svg>
-      <p>Nenhum item adicionado ainda.<br>Explore os produtos ao lado e clique em <strong>Adicionar</strong>.</p>
+      <p>Nenhum item adicionado ainda.<br>Explore os produtos e clique em <strong>Adicionar ao Orçamento</strong>.</p>
     </div>
 
     <!-- Rodapé do Carrinho -->
@@ -185,7 +868,7 @@
         </svg>
         <span>Solicitar Orçamento no WhatsApp</span>
       </button>
-      <button type="button" class="btn-continue-catalog" id="cart-continue-browsing" title="Recolher carrinho e ver catálogo completo">
+      <button type="button" class="btn-continue-catalog" id="cart-continue-browsing" title="Continuar escolhendo produtos">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"></polyline></svg>
         <span>Continuar Escolhendo Produtos</span>
       </button>
@@ -208,66 +891,8 @@
     </div>
   </div>
 
-  <!-- ==========================================================================
-       RODAPÉ INSTITUCIONAL
-       ========================================================================== -->
-  <footer class="footer-catalogo" role="contentinfo">
-    <div class="container">
-      <div class="footer-inner">
-        <div>
-          <div class="footer-brand-title">Gordinho <span>Personalizados</span></div>
-          <p class="footer-desc">
-            Estrutura industrial própria para personalização em larga escala: corte &amp; gravação a laser, DTF têxtil, DTF UV, sublimação e brindes corporativos de alto padrão em Itajaí/SC.
-          </p>
-
-          <div class="footer-info-row">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
-              <circle cx="12" cy="10" r="3"></circle>
-            </svg>
-            <div>
-              <strong>Rua Cônego Thomaz Fontes, 417</strong> - Centro, Itajaí - SC, CEP 88301-100
-            </div>
-          </div>
-
-          <div class="footer-info-row">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="10"></circle>
-              <polyline points="12 6 12 12 16 14"></polyline>
-            </svg>
-            <span>Seg a Sex: 08h às 18h | Sáb: 08h às 17h</span>
-          </div>
-
-          <div class="footer-info-row">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
-            </svg>
-            <span>WhatsApp Comercial: <strong>(47) 98496-5444</strong></span>
-          </div>
-        </div>
-
-        <div>
-          <h4 class="footer-links-title">Acesso Rápido</h4>
-          <ul class="footer-links-list">
-            <li><a href="index.html">Início do Portal</a></li>
-            <li><a href="terceirizados.html">Institucional B2B (Terceirizados)</a></li>
-            <li><a href="cadastro-terceirizado.html">Pré-Cadastro B2B (Terceirizado)</a></li>
-            <li><a href="index.html#cliente-final">Sou Cliente Final</a></li>
-            <li><a href="https://gordinhocelulares.com.br" target="_blank" rel="noopener noreferrer">Gordinho Celulares</a></li>
-            <li><a href="admin.html" style="opacity: 0.85; display: inline-flex; align-items: center; gap: 6px;"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Painel Administrativo</a></li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="footer-bottom">
-        <div>&copy; 2026 Grupo Gordinho — Todos os direitos reservados.</div>
-        <div>Parceria industrial sólida e rentável para o seu negócio &bull; Itajaí - SC</div>
-      </div>
-    </div>
-  </footer>
-
   <!-- Scripts do Catálogo -->
-  <script src="js/catalog-data.js?v=2.2"></script>
-  <script src="js/catalogo.js?v=2.2"></script>
+  <script src="js/catalog-data.js?v=3.3"></script>
+  <script src="js/catalogo.js?v=3.3"></script>
 </body>
 </html>
