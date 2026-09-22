@@ -482,34 +482,184 @@
     },
     {
       id: 'terc-vinil-metro',
-      nome: 'Vinil por Metro Quadrado (m²)',
+      nome: 'Vinil Adesivo por Metro Quadrado (m²)',
       categoria: 'Vinil por Metro Quadrado',
       badge: 'Insumo B2B',
-      especificacao: 'Bobinas de 1.000 mm / 1.200 mm • Cores brilhantes e foscas',
-      descricao: 'Fornecimento de vinil adesivo de alta aderência para recorte eletrônico e impressão digital com preço especial de fábrica.',
+      especificacao: 'Bobinas 1.000 / 1.200 mm • Impressão Eco Solvente ou Recorte',
+      descricao: 'Vinil adesivo brilho, fosco ou transparente por metro quadrado com preço especial de fábrica para gráficas e revendedores. Ideal para rótulos, etiquetas e vitrines.',
       foto: 'assets/images/catalogo/cat-vinil-metro.jpg',
       paginaRef: 'assets/images/catalogo/maquinas-plotter-eco-3d-recorte.png',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-dtf-textil-metro',
+      nome: 'DTF Têxtil por Metro Linear (580 mm)',
+      categoria: 'DTF Têxtil',
+      badge: 'Produção B2B',
+      especificacao: '580 mm de largura útil • Pronto para prensar com pó termofusível',
+      descricao: 'Impressão digital em filme DTF têxtil contínuo em altíssima resolução com tinta branca de alta densidade. Aplique com facilidade em algodão, poliéster, jeans ou tecidos mistos.',
+      foto: 'assets/images/catalogo/item-maquina-dtf-textil.png',
+      paginaRef: 'assets/images/catalogo/personalizacao-dtf-laser-textil.png',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-dtf-uv-metro',
+      nome: 'DTF UV Adesivo por Metro (com Verniz & Relevo)',
+      categoria: 'DTF UV',
+      badge: 'Alta Aderência',
+      especificacao: 'Impressão UV + Verniz localizado com relevo tátil',
+      descricao: 'Adesivos rígidos permanentes em filme DTF UV para aplicação direta em copos térmicos, plásticos, vidros, acrílicos e metais. Sem necessidade de queima térmica ou prensagem.',
+      foto: 'assets/images/catalogo/tech-dtf-uv.png',
+      paginaRef: 'assets/images/catalogo/personalizacao-dtf-laser-textil.png',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-gravacao-laser-servico',
+      nome: 'Gravação a Laser Industrial por Demanda',
+      categoria: 'Gravação a Laser',
+      badge: 'Serviço Terceirizado',
+      especificacao: 'Preço especial por peça ou lote em metais e copos do cliente',
+      descricao: 'Traga os copos térmicos, garrafas, facas ou peças metálicas do seu cliente e terceirize apenas a gravação a laser permanente de fibra óptica com precisão milimétrica e entrega ágil.',
+      foto: 'assets/images/catalogo/tech-fiber-laser.png',
+      paginaRef: 'assets/images/catalogo/personalizacao-dtf-laser-textil.png',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-corte-cnc-servico',
+      nome: 'Corte CNC Laser em Acrílico e MDF',
+      categoria: 'Gravação a Laser',
+      badge: 'Usinagem & Corte',
+      especificacao: 'Área útil 60x40 cm • Acrílico até 10mm, MDF até 6mm',
+      descricao: 'Corte contornado ultra preciso com bordas polidas para letras caixa, troféus, displays de balcão e peças industriais personalizadas sob medida.',
+      foto: 'assets/images/catalogo/item-cnc-laser-60x40.jpg',
+      paginaRef: 'assets/images/catalogo/maquinas-dtf-textil-uv-laser.png',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-banner-revenda',
+      nome: 'Banners e Lonas Impressas para Revenda',
+      categoria: 'Comunicação Visual',
+      badge: 'Tabela Gráfica',
+      especificacao: 'Lona 440g com acabamento em madeira/tubo e corda ou ilhós',
+      descricao: 'Produção em grande formato para gráficas rápidas, agências e revendedores entregarem aos seus clientes finais com excelente margem comercial.',
+      foto: 'assets/images/catalogo/item-banners.png',
+      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png',
+      publico: 'terceirizado',
       ativo: true
     }
   ];
+
+  const CLIENT_CATEGORIES = [
+    'Brindes Corporativos',
+    'Canecas Personalizadas',
+    'Kits Corporativos',
+    'Uniformes',
+    'Presentes Personalizados',
+    'Decoração Personalizada',
+    'Papelaria Personalizada',
+    'Comunicação Visual',
+    'Fachadas',
+    'Plotagem de Vitrine',
+    'Plotagem Veicular',
+    'Estrutura de Máquinas',
+    'Tecnologias'
+  ];
+
+  const TERCEIRIZADO_CATEGORIES = [
+    'DTF Têxtil',
+    'DTF UV',
+    'Vinil por Metro Quadrado',
+    'Gravação a Laser',
+    'Comunicação Visual',
+    'Estrutura de Máquinas',
+    'Tecnologias'
+  ];
+
+  // Helper de checagem de perfil
+  function isItemAllowedForProfile(item, profile) {
+    if (!profile || profile === 'todos') return true;
+
+    // Perfil Terceirizado: SOMENTE itens de revenda/insumos/serviços e maquinário/tecnologias
+    if (profile === 'terceirizado') {
+      if (item.publico === 'terceirizado') return true;
+      if (item.publico === 'cliente') return false;
+      const b2bCategories = [
+        'DTF Têxtil',
+        'DTF UV',
+        'Vinil por Metro Quadrado',
+        'Gravação a Laser',
+        'Estrutura de Máquinas',
+        'Tecnologias'
+      ];
+      if (b2bCategories.includes(item.categoria)) return true;
+      if (item.id && (item.id.startsWith('terc-') || item.id === 'prod-graf-banners' || item.id === 'prod-graf-totens' || item.id === 'prod-graf-plaquinhas-acrilico-pvc-ps')) {
+        return true;
+      }
+      return false;
+    }
+
+    // Perfil Cliente Final / Empresa: Produtos personalizados, brindes, uniformes, fachadas, etc. + Maquinário
+    if (profile === 'cliente') {
+      if (item.publico === 'terceirizado') return false;
+      if (item.id && item.id.startsWith('terc-')) return false;
+      if (item.categoria === 'Vinil por Metro Quadrado') return false;
+      return true;
+    }
+
+    return true;
+  }
 
   // Helper global para carregar itens garantindo persistência ou fallback
   window.GordinhoCatalogData = {
     STORAGE_KEY: STORAGE_KEY,
     DEFAULT_CATEGORIES: DEFAULT_CATEGORIES,
+    CLIENT_CATEGORIES: CLIENT_CATEGORIES,
+    TERCEIRIZADO_CATEGORIES: TERCEIRIZADO_CATEGORIES,
     DEFAULT_ITEMS: DEFAULT_CATALOG_ITEMS,
+    isItemAllowedForProfile: isItemAllowedForProfile,
 
-    getItems: function () {
+    getItems: function (profile) {
+      let items = [];
       try {
-        const raw = localStorage.getItem(STORAGE_KEY);
+        const storage = typeof window !== 'undefined' && window.localStorage ? window.localStorage : (typeof localStorage !== 'undefined' ? localStorage : null);
+        const raw = storage ? storage.getItem(STORAGE_KEY) : null;
         if (raw) {
           const parsed = JSON.parse(raw);
-          if (Array.isArray(parsed)) return parsed;
+          if (Array.isArray(parsed) && parsed.length > 0) {
+            const existingIds = new Set(parsed.map((i) => i.id));
+            const missing = DEFAULT_CATALOG_ITEMS.filter((d) => !existingIds.has(d.id));
+            let photoUpdated = false;
+            const updatedItems = parsed.map((item) => {
+              const def = DEFAULT_CATALOG_ITEMS.find((d) => d.id === item.id);
+              if (def && (item.foto !== def.foto || item.publico !== def.publico)) {
+                photoUpdated = true;
+                return { ...item, foto: def.foto, paginaRef: def.paginaRef, publico: def.publico };
+              }
+              return item;
+            });
+            if (missing.length > 0 || photoUpdated) {
+              items = [...updatedItems, ...missing];
+              if (storage) storage.setItem(STORAGE_KEY, JSON.stringify(items));
+            } else {
+              items = parsed;
+            }
+          }
         }
       } catch (e) {
         console.warn('Erro ao ler itens do catálogo no localStorage:', e);
       }
-      return JSON.parse(JSON.stringify(DEFAULT_CATALOG_ITEMS));
+      if (!items || items.length === 0) {
+        items = JSON.parse(JSON.stringify(DEFAULT_CATALOG_ITEMS));
+      }
+      if (profile) {
+        return items.filter((item) => isItemAllowedForProfile(item, profile));
+      }
+      return items;
     },
 
     saveItems: function (items) {
@@ -538,4 +688,6 @@
 
   window.DEFAULT_CATALOG_ITEMS = DEFAULT_CATALOG_ITEMS;
   window.CATALOG_CATEGORIES = DEFAULT_CATEGORIES;
+  window.CLIENT_CATEGORIES = CLIENT_CATEGORIES;
+  window.TERCEIRIZADO_CATEGORIES = TERCEIRIZADO_CATEGORIES;
 })();

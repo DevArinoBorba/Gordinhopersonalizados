@@ -356,32 +356,136 @@
       descricao: 'Conjunto executivo para encantar clientes VIP e novos colaboradores. Embalagem personalizada e acabamento alinhado à sua marca.',
       foto: 'assets/images/catalogo/item-kit-boas-vindas.jpg',
       paginaRef: 'assets/images/catalogo/item-kit-boas-vindas.jpg'
+    },
+    {
+      id: 'terc-vinil-metro',
+      nome: 'Vinil Adesivo por Metro Quadrado (m²)',
+      categoria: 'Vinil por Metro Quadrado',
+      badge: 'Insumo B2B',
+      especificacao: 'Bobinas 1.000 / 1.200 mm • Impressão Eco Solvente ou Recorte',
+      descricao: 'Vinil adesivo brilho, fosco ou transparente por metro quadrado com preço especial de fábrica para gráficas e revendedores. Ideal para rótulos, etiquetas e vitrines.',
+      foto: 'assets/images/catalogo/cat-vinil-metro.jpg',
+      paginaRef: 'assets/images/catalogo/maquinas-plotter-eco-3d-recorte.png',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-dtf-textil-metro',
+      nome: 'DTF Têxtil por Metro Linear (580 mm)',
+      categoria: 'DTF Têxtil',
+      badge: 'Produção B2B',
+      especificacao: '580 mm de largura útil • Pronto para prensar com pó termofusível',
+      descricao: 'Impressão digital em filme DTF têxtil contínuo em altíssima resolução com tinta branca de alta densidade. Aplique com facilidade em algodão, poliéster, jeans ou tecidos mistos.',
+      foto: 'assets/images/catalogo/item-maquina-dtf-textil.png',
+      paginaRef: 'assets/images/catalogo/personalizacao-dtf-laser-textil.png',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-dtf-uv-metro',
+      nome: 'DTF UV Adesivo por Metro (com Verniz & Relevo)',
+      categoria: 'DTF UV',
+      badge: 'Alta Aderência',
+      especificacao: 'Impressão UV + Verniz localizado com relevo tátil',
+      descricao: 'Adesivos rígidos permanentes em filme DTF UV para aplicação direta em copos térmicos, plásticos, vidros, acrílicos e metais. Sem necessidade de queima térmica ou prensagem.',
+      foto: 'assets/images/catalogo/tech-dtf-uv.png',
+      paginaRef: 'assets/images/catalogo/personalizacao-dtf-laser-textil.png',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-gravacao-laser-servico',
+      nome: 'Gravação a Laser Industrial por Demanda',
+      categoria: 'Gravação a Laser',
+      badge: 'Serviço Terceirizado',
+      especificacao: 'Preço especial por peça ou lote em metais e copos do cliente',
+      descricao: 'Traga os copos térmicos, garrafas, facas ou peças metálicas do seu cliente e terceirize apenas a gravação a laser permanente de fibra óptica com precisão milimétrica e entrega ágil.',
+      foto: 'assets/images/catalogo/tech-fiber-laser.png',
+      paginaRef: 'assets/images/catalogo/personalizacao-dtf-laser-textil.png',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-corte-cnc-servico',
+      nome: 'Corte CNC Laser em Acrílico e MDF',
+      categoria: 'Gravação a Laser',
+      badge: 'Usinagem & Corte',
+      especificacao: 'Área útil 60x40 cm • Acrílico até 10mm, MDF até 6mm',
+      descricao: 'Corte contornado ultra preciso com bordas polidas para letras caixa, troféus, displays de balcão e peças industriais personalizadas sob medida.',
+      foto: 'assets/images/catalogo/item-cnc-laser-60x40.jpg',
+      paginaRef: 'assets/images/catalogo/maquinas-dtf-textil-uv-laser.png',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-banner-revenda',
+      nome: 'Banners e Lonas Impressas para Revenda',
+      categoria: 'Comunicação Visual',
+      badge: 'Tabela Gráfica',
+      especificacao: 'Lona 440g com acabamento em madeira/tubo e corda ou ilhós',
+      descricao: 'Produção em grande formato para gráficas rápidas, agências e revendedores entregarem aos seus clientes finais com excelente margem comercial.',
+      foto: 'assets/images/catalogo/item-banners.png',
+      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png',
+      publico: 'terceirizado',
+      ativo: true
     }
   ];
 
   const CATALOG_STORAGE_KEY = 'gordinho-catalog-items';
 
-  function loadCatalogItems() {
+  function getInitialProfile() {
+    try {
+      const urlParams = new URLSearchParams(window.location.search);
+      let p = (urlParams.get('perfil') || urlParams.get('tipo') || '').toLowerCase();
+      if (!p && window.location.hash) {
+        const hash = window.location.hash.toLowerCase().replace('#', '');
+        if (hash.includes('terceirizado') || hash.includes('revenda') || hash.includes('b2b')) p = 'terceirizado';
+        if (hash.includes('cliente') || hash.includes('varejo') || hash.includes('b2c')) p = 'cliente';
+      }
+      if (p === 'terceirizado' || p === 'b2b' || p === 'revenda') return 'terceirizado';
+      if (p === 'cliente' || p === 'b2c' || p === 'varejo') return 'cliente';
+      const saved = sessionStorage.getItem('gordinho-profile');
+      if (saved === 'terceirizado' || saved === 'cliente') return saved;
+    } catch (e) {}
+    return 'cliente';
+  }
+
+  function loadCatalogItems(profile) {
+    const prof = profile || (state && state.profile ? state.profile : getInitialProfile());
     if (window.GordinhoCatalogData && typeof window.GordinhoCatalogData.getItems === 'function') {
-      return window.GordinhoCatalogData.getItems().filter(function (i) { return i.ativo !== false; });
+      return window.GordinhoCatalogData.getItems(prof).filter(function (i) { return i.ativo !== false; });
     }
     try {
       const raw = localStorage.getItem(CATALOG_STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed.filter(function (i) { return i.ativo !== false; });
+          return parsed.filter(function (i) { 
+            if (i.ativo === false) return false;
+            if (window.GordinhoCatalogData && typeof window.GordinhoCatalogData.isItemAllowedForProfile === 'function') {
+              return window.GordinhoCatalogData.isItemAllowedForProfile(i, prof);
+            }
+            return true;
+          });
         }
       }
     } catch (e) {}
     const fallback = window.DEFAULT_CATALOG_ITEMS || CATALOG_ITEMS;
-    return fallback.filter(function (i) { return i.ativo !== false; });
+    return fallback.filter(function (i) { 
+      if (i.ativo === false) return false;
+      if (window.GordinhoCatalogData && typeof window.GordinhoCatalogData.isItemAllowedForProfile === 'function') {
+        return window.GordinhoCatalogData.isItemAllowedForProfile(i, prof);
+      }
+      return true;
+    });
   }
 
-  const initialItems = loadCatalogItems();
+  const initialProfile = getInitialProfile();
+  const initialItems = loadCatalogItems(initialProfile);
 
   // Estado do catálogo
   const state = {
+    profile: initialProfile,
     items: initialItems,
     itemsById: new Map(initialItems.map((item) => [item.id, item])),
     filteredItems: initialItems,
@@ -392,11 +496,82 @@
   };
 
   function reloadCatalogItems() {
-    const fresh = loadCatalogItems();
+    const fresh = loadCatalogItems(state.profile);
     state.items = fresh;
     state.itemsById = new Map(fresh.map((item) => [item.id, item]));
     if (els.categoryFilters) renderCategoryFilters();
     if (els.grid) applyFilters();
+  }
+
+  function setProfile(newProfile, skipUrl) {
+    if (!newProfile || (newProfile !== 'cliente' && newProfile !== 'terceirizado')) return;
+    state.profile = newProfile;
+    try {
+      sessionStorage.setItem('gordinho-profile', newProfile);
+      if (!skipUrl) {
+        const url = new URL(window.location);
+        url.searchParams.set('perfil', newProfile);
+        window.history.replaceState(null, '', url);
+      }
+    } catch (e) {}
+
+    // Atualiza tabs do switcher
+    if (els.tabCliente && els.tabTerceirizado) {
+      if (newProfile === 'cliente') {
+        els.tabCliente.classList.add('active');
+        els.tabCliente.setAttribute('aria-selected', 'true');
+        els.tabTerceirizado.classList.remove('active');
+        els.tabTerceirizado.setAttribute('aria-selected', 'false');
+      } else {
+        els.tabTerceirizado.classList.add('active');
+        els.tabTerceirizado.setAttribute('aria-selected', 'true');
+        els.tabCliente.classList.remove('active');
+        els.tabCliente.setAttribute('aria-selected', 'false');
+      }
+    }
+
+    // Atualiza Hero e seções visíveis
+    if (newProfile === 'cliente') {
+      if (els.heroBadge) els.heroBadge.textContent = 'Atendimento Varejo & Corporativo';
+      if (els.heroTitle) {
+        els.heroTitle.innerHTML = 'PERSONALIZE<br><span class="headline-gold">TUDO COM</span><br><span class="headline-gold">A GENTE!</span>';
+      }
+      if (els.heroDesc) {
+        els.heroDesc.textContent = 'Qualidade, criatividade e soluções para você, sua empresa e seu negócio!';
+      }
+      if (els.heroCtaText) els.heroCtaText.textContent = 'CONHEÇA NOSSOS PRODUTOS';
+      if (els.heroEnergyBadge) {
+        els.heroEnergyBadge.innerHTML = '<span class="energy-sub">SUA IDEIA</span><span class="energy-title">AQUI GANHA</span><span class="energy-highlight">VIDA!</span>';
+      }
+      if (els.secProdutos) els.secProdutos.style.display = 'block';
+      if (els.b2bInviteBanner) els.b2bInviteBanner.hidden = false;
+    } else {
+      if (els.heroBadge) els.heroBadge.textContent = 'Tabela Especial Direto de Fábrica B2B';
+      if (els.heroTitle) {
+        els.heroTitle.innerHTML = 'TERCEIRIZAÇÃO &amp;<br><span class="headline-gold">PRODUÇÃO INDUSTRIAL</span><br><span class="headline-gold">DIRETO DE FÁBRICA!</span>';
+      }
+      if (els.heroDesc) {
+        els.heroDesc.textContent = 'Sua parceira industrial em Itajaí/SC: fornecemos DTF têxtil, DTF UV, adesivos por m², corte e gravação a laser com tabela especial para revendedores!';
+      }
+      if (els.heroCtaText) els.heroCtaText.textContent = 'VER PRODUTOS &amp; TABELA B2B';
+      if (els.heroEnergyBadge) {
+        els.heroEnergyBadge.innerHTML = '<span class="energy-sub">PARCERIA B2B</span><span class="energy-title">SUA MARCA</span><span class="energy-highlight">NOSSA FÁBRICA!</span>';
+      }
+      if (els.secProdutos) els.secProdutos.style.display = 'none';
+      if (els.b2bInviteBanner) els.b2bInviteBanner.hidden = true;
+    }
+
+    // Recarrega itens filtrados para o perfil
+    const fresh = loadCatalogItems(newProfile);
+    state.items = fresh;
+    state.itemsById = new Map(fresh.map((item) => [item.id, item]));
+    state.activeCategory = 'todos';
+    state.searchTerm = '';
+    state.visibleCount = PAGE_SIZE;
+    if (els.search) els.search.value = '';
+
+    renderCategoryFilters();
+    applyFilters();
   }
 
   window.addEventListener('storage', (e) => {
@@ -443,6 +618,19 @@
     els.activeCategoryTitle = document.getElementById('active-category-title');
     els.catalogCountBadge = document.getElementById('catalog-count-badge');
     els.btnClearSearch = document.getElementById('btn-clear-search');
+
+    // Elementos de Perfil e Seções
+    els.tabCliente = document.getElementById('tab-profile-cliente');
+    els.tabTerceirizado = document.getElementById('tab-profile-terceirizado');
+    els.btnSwitchToB2b = document.getElementById('btn-switch-to-b2b');
+    els.heroBadge = document.getElementById('hero-profile-badge');
+    els.heroTitle = document.getElementById('hero-main-title');
+    els.heroDesc = document.getElementById('hero-description');
+    els.heroCtaText = document.getElementById('hero-cta-text');
+    els.heroEnergyBadge = document.getElementById('hero-energy-badge');
+    els.secProdutos = document.getElementById('produtos-servicos');
+    els.secTerceirizados = document.getElementById('terceirizados');
+    els.b2bInviteBanner = document.getElementById('b2b-invite-banner');
   }
 
   // Persistência do Carrinho
@@ -870,7 +1058,11 @@
     const lines = [];
     const partner = getPartnerData();
 
-    lines.push('🎁 *SOLICITAÇÃO DE COTAÇÃO / ORÇAMENTO — GORDINHO PERSONALIZADOS 2026*');
+    if (state.profile === 'terceirizado') {
+      lines.push('🏭 *COTAÇÃO B2B TERCEIRIZAÇÃO & REVENDA — GORDINHO PERSONALIZADOS 2026*');
+    } else {
+      lines.push('🎁 *SOLICITAÇÃO DE ORÇAMENTO (CLIENTE FINAL / EMPRESA) — GORDINHO PERSONALIZADOS 2026*');
+    }
     lines.push('');
 
     if (partner) {
@@ -928,10 +1120,25 @@
   // Inicialização
   document.addEventListener('DOMContentLoaded', () => {
     cacheDom();
-
+    setProfile(state.profile, true);
     renderCategoryFilters();
     renderGrid();
     renderCart();
+
+    // Alternador de Perfis (Tabs)
+    if (els.tabCliente) {
+      els.tabCliente.addEventListener('click', () => setProfile('cliente'));
+    }
+    if (els.tabTerceirizado) {
+      els.tabTerceirizado.addEventListener('click', () => setProfile('terceirizado'));
+    }
+    if (els.btnSwitchToB2b) {
+      els.btnSwitchToB2b.addEventListener('click', () => {
+        setProfile('terceirizado');
+        const targetEl = document.getElementById('catalogo-produtos');
+        if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
+      });
+    }
 
     // Busca com debounce
     if (els.search) {

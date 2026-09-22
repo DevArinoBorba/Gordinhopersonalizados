@@ -39,8 +39,8 @@
   </style>
 
   <!-- CSS Design Tokens & Layout -->
-  <link rel="stylesheet" href="css/variables.css?v=4.0">
-  <link rel="stylesheet" href="css/catalogo.css?v=4.0">
+  <link rel="stylesheet" href="css/variables.css?v=4.1">
+  <link rel="stylesheet" href="css/catalogo.css?v=4.1">
 </head>
 <body class="catalogo-body">
 
@@ -194,16 +194,19 @@
       <div class="container hero-content-inner">
         <!-- Coluna Esquerda: Texto Principal e Botão -->
         <div class="hero-text-block">
+          <div class="hero-profile-tag-wrap" id="hero-profile-tag-wrap" style="margin-bottom: 0.85rem;">
+            <span class="profile-pill-tag" id="hero-profile-badge">Atendimento Varejo &amp; Corporativo</span>
+          </div>
           <h1 id="hero-main-title" class="hero-headline">
             PERSONALIZE<br>
             <span class="headline-gold">TUDO COM</span><br>
             <span class="headline-gold">A GENTE!</span>
           </h1>
-          <p class="hero-description">
+          <p class="hero-description" id="hero-description">
             Qualidade, criatividade e soluções para você, sua empresa e seu negócio!
           </p>
           <a href="#produtos-servicos" class="hero-cta-button" id="hero-cta-btn">
-            <span>CONHEÇA NOSSOS PRODUTOS</span>
+            <span id="hero-cta-text">CONHEÇA NOSSOS PRODUTOS</span>
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
               <polyline points="9 18 15 12 9 6"></polyline>
             </svg>
@@ -212,10 +215,10 @@
 
         <!-- Coluna Direita: Chamada de Impacto "Sua Ideia Aqui Ganha Vida" -->
         <div class="hero-callout-block">
-          <div class="hero-energy-badge">
-            <span class="energy-sub">SUA IDEIA</span>
-            <span class="energy-title">AQUI GANHA</span>
-            <span class="energy-highlight">VIDA!</span>
+          <div class="hero-energy-badge" id="hero-energy-badge">
+            <span class="energy-sub" id="energy-sub">SUA IDEIA</span>
+            <span class="energy-title" id="energy-title">AQUI GANHA</span>
+            <span class="energy-highlight" id="energy-highlight">VIDA!</span>
           </div>
         </div>
       </div>
@@ -461,6 +464,21 @@
             </div>
           </article>
 
+        </div>
+
+        <!-- Banner de Convite B2B (Visível no modo Cliente) -->
+        <div class="b2b-invite-banner" id="b2b-invite-banner" hidden>
+          <div class="b2b-invite-text">
+            <span class="b2b-invite-icon">🏭</span>
+            <div>
+              <strong>Você é revendedor, gráfica rápida ou agência?</strong>
+              <span>Fornecemos DTF têxtil, DTF UV, vinil e corte a laser direto de fábrica com tabela especial B2B.</span>
+            </div>
+          </div>
+          <button type="button" class="btn-switch-to-b2b" id="btn-switch-to-b2b">
+            <span>Ver Catálogo de Terceirização</span>
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg>
+          </button>
         </div>
 
       </div>
@@ -920,6 +938,6 @@
 
   <!-- Scripts do Catálogo -->
   <script src="js/catalog-data.js?v=4.1"></script>
-  <script src="js/catalogo.js?v=4.0"></script>
+  <script src="js/catalogo.js?v=4.1"></script>
 </body>
 </html>

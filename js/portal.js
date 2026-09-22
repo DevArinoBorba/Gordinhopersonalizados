@@ -39,13 +39,26 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 
+  const b2cBtn = sideB2C.querySelector('.btn-portal-action');
+  const b2bBtn = sideB2B.querySelector('.btn-portal-action');
+
+  if (b2cBtn) {
+    b2cBtn.addEventListener('click', () => {
+      try { sessionStorage.setItem('gordinho-profile', 'cliente'); } catch (e) {}
+    });
+  }
+
+  if (b2bBtn) {
+    b2bBtn.addEventListener('click', () => {
+      try { sessionStorage.setItem('gordinho-profile', 'terceirizado'); } catch (e) {}
+    });
+  }
+
   // Atalhos de Teclado Úteis (Seta Esquerda/1 para B2C, Seta Direita/2 para B2B)
   window.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft' || e.key === '1') {
-      const b2cBtn = sideB2C.querySelector('.btn-portal-action');
       if (b2cBtn) b2cBtn.click();
     } else if (e.key === 'ArrowRight' || e.key === '2') {
-      const b2bBtn = sideB2B.querySelector('.btn-portal-action');
       if (b2bBtn) b2bBtn.click();
     }
   });

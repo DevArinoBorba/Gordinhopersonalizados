@@ -484,6 +484,7 @@
       descricao,
       foto,
       paginaRef: paginaRef || foto,
+      publico: previous ? previous.publico : undefined,
       ativo
     };
 
