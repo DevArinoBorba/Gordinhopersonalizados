@@ -450,34 +450,57 @@
     return 'cliente';
   }
 
+  function sortCatalogItems(items) {
+    if (!Array.isArray(items)) return [];
+    const comVisual = [];
+    const middleItems = [];
+    const tecnologias = [];
+    items.forEach(function (item) {
+      if (!item) return;
+      if (item.categoria === 'Comunicação Visual') {
+        comVisual.push(item);
+      } else if (item.categoria === 'Tecnologias') {
+        tecnologias.push(item);
+      } else {
+        middleItems.push(item);
+      }
+    });
+    return [...comVisual, ...middleItems, ...tecnologias];
+  }
+  const sortItemsForCatalog = sortCatalogItems;
+
   function loadCatalogItems(profile) {
     const prof = profile || (state && state.profile ? state.profile : getInitialProfile());
+    let items = [];
     if (window.GordinhoCatalogData && typeof window.GordinhoCatalogData.getItems === 'function') {
-      return window.GordinhoCatalogData.getItems(prof).filter(function (i) { return i.ativo !== false; });
+      items = window.GordinhoCatalogData.getItems(prof).filter(function (i) { return i.ativo !== false; });
+      return sortCatalogItems(items);
     }
     try {
       const raw = localStorage.getItem(CATALOG_STORAGE_KEY);
       if (raw) {
         const parsed = JSON.parse(raw);
         if (Array.isArray(parsed) && parsed.length > 0) {
-          return parsed.filter(function (i) { 
+          items = parsed.filter(function (i) { 
             if (i.ativo === false) return false;
             if (window.GordinhoCatalogData && typeof window.GordinhoCatalogData.isItemAllowedForProfile === 'function') {
               return window.GordinhoCatalogData.isItemAllowedForProfile(i, prof);
             }
             return true;
           });
+          return sortCatalogItems(items);
         }
       }
     } catch (e) {}
     const fallback = window.DEFAULT_CATALOG_ITEMS || CATALOG_ITEMS;
-    return fallback.filter(function (i) { 
+    items = fallback.filter(function (i) { 
       if (i.ativo === false) return false;
       if (window.GordinhoCatalogData && typeof window.GordinhoCatalogData.isItemAllowedForProfile === 'function') {
         return window.GordinhoCatalogData.isItemAllowedForProfile(i, prof);
       }
       return true;
     });
+    return sortCatalogItems(items);
   }
 
   const initialProfile = getInitialProfile();
@@ -795,6 +818,8 @@
     if (state.activeCategory !== 'todos') {
       const targetCat = state.activeCategory.toLowerCase().trim();
       result = result.filter((item) => item.categoria && item.categoria.toLowerCase().trim() === targetCat);
+    } else {
+      result = sortCatalogItems(result);
     }
 
     if (state.searchTerm.trim() !== '') {
@@ -825,7 +850,9 @@
 
   // Renderização dos Filtros por Categoria
   function renderCategoryFilters() {
-    const categories = Array.from(new Set(state.items.map((i) => i.categoria)));
+    // Categorias únicas ordenadas em ordem alfabética (pt-BR)
+    const categories = Array.from(new Set(state.items.map((i) => i.categoria).filter(Boolean)))
+      .sort((a, b) => (a || '').localeCompare(b || '', 'pt-BR'));
     els.categoryFilters.innerHTML = '';
 
     const allBtn = document.createElement('button');

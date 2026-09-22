@@ -107,6 +107,7 @@
       descricao: 'Corte milimétrico e gravação a laser CO2 de alta precisão em acrílico, MDF, madeira, couro, tecidos e EVA para peças sofisticadas, troféus e brindes.',
       foto: 'assets/images/catalogo/item-cnc-laser-60x40.jpg',
       paginaRef: 'assets/images/catalogo/maquinas-dtf-textil-uv-laser.png',
+      publico: 'terceirizado',
       ativo: true
     },
     {
@@ -118,6 +119,7 @@
       descricao: 'Tecnologia com feixe ultravioleta frio de ultra definição. Grava em absolutamente qualquer material: papéis, acrílicos, vidros, metais e até alimentos, sem queimar.',
       foto: 'assets/images/catalogo/item-laser-uv-5w.jpg',
       paginaRef: 'assets/images/catalogo/maquinas-dtf-textil-uv-laser.png',
+      publico: 'terceirizado',
       ativo: true
     },
     {
@@ -129,6 +131,7 @@
       descricao: 'Impressão digital em grande escala para banners, adesivos, rótulos e fachadas com excelente durabilidade contra intempéries e cores de alto impacto.',
       foto: 'assets/images/catalogo/item-plotter-eco-solvente.png',
       paginaRef: 'assets/images/catalogo/maquinas-plotter-eco-3d-recorte.png',
+      publico: 'terceirizado',
       ativo: true
     },
     {
@@ -140,6 +143,7 @@
       descricao: 'Equipamento industrial para fabricação de brindes tridimensionais, protótipos corporativos e peças exclusivas em grande escala com precisão mecânica.',
       foto: 'assets/images/catalogo/item-impressora-3d.png',
       paginaRef: 'assets/images/catalogo/maquinas-plotter-eco-3d-recorte.png',
+      publico: 'terceirizado',
       ativo: true
     },
     {
@@ -151,6 +155,7 @@
       descricao: 'Corte contornado ultra preciso de vinil adesivo, películas, etiquetas de produtos e máscaras de pintura com velocidade e repetibilidade industrial.',
       foto: 'assets/images/catalogo/item-plotter-recorte.png',
       paginaRef: 'assets/images/catalogo/maquinas-plotter-eco-3d-recorte.png',
+      publico: 'terceirizado',
       ativo: true
     },
     {
@@ -162,6 +167,7 @@
       descricao: 'Equipamento com recirculação de tinta branca e aplicação automática de poliamida termofusível para estampas têxteis em série.',
       foto: 'assets/images/catalogo/item-maquina-dtf-textil.png',
       paginaRef: 'assets/images/catalogo/maquinas-dtf-textil-uv-laser.png',
+      publico: 'terceirizado',
       ativo: true
     },
     {
@@ -173,6 +179,7 @@
       descricao: 'Impressão digital em filme especial com cura UV instantânea e camada de verniz com brilho e proteção contra arranhões para itens rígidos.',
       foto: 'assets/images/catalogo/item-maquina-dtf-uv.png',
       paginaRef: 'assets/images/catalogo/maquinas-dtf-textil-uv-laser.png',
+      publico: 'terceirizado',
       ativo: true
     },
     {
@@ -184,6 +191,7 @@
       descricao: 'Canhão laser galvanométrico de fibra com alta velocidade de repetição, perfeito para números de série, QR Codes e logomarcas em copos e metais.',
       foto: 'assets/images/catalogo/item-maquina-fiber-laser.png',
       paginaRef: 'assets/images/catalogo/maquinas-dtf-textil-uv-laser.png',
+      publico: 'terceirizado',
       ativo: true
     },
     {
@@ -195,6 +203,7 @@
       descricao: 'Equipamento com rotação motorizada para personalização periférica 360 graus de copos long drink, copos térmicos acrílicos e canetas promocionais.',
       foto: 'assets/images/catalogo/item-prensa-transfer-giro.png',
       paginaRef: 'assets/images/catalogo/maquinas-prensas-termicas.png',
+      publico: 'terceirizado',
       ativo: true
     },
     {
@@ -206,6 +215,7 @@
       descricao: 'Prensagem pneumática e manual com controle digital de temperatura e tempo para queima e fixação perfeita em canecas e squeezes resinados.',
       foto: 'assets/images/catalogo/item-prensa-cilindrica.png',
       paginaRef: 'assets/images/catalogo/maquinas-prensas-termicas.png',
+      publico: 'terceirizado',
       ativo: true
     },
     {
@@ -217,6 +227,7 @@
       descricao: 'Transferência térmica de alta pressão para aplicação de folhas DTF têxtil e sublimação em camisetas, moletons, uniformes e almofadas.',
       foto: 'assets/images/catalogo/item-prensa-plana.png',
       paginaRef: 'assets/images/catalogo/maquinas-prensas-termicas.png',
+      publico: 'terceirizado',
       ativo: true
     },
 
@@ -566,7 +577,6 @@
     'Fachadas',
     'Plotagem de Vitrine',
     'Plotagem Veicular',
-    'Estrutura de Máquinas',
     'Tecnologias'
   ];
 
@@ -597,17 +607,17 @@
         'Tecnologias'
       ];
       if (b2bCategories.includes(item.categoria)) return true;
-      if (item.id && (item.id.startsWith('terc-') || item.id === 'prod-graf-banners' || item.id === 'prod-graf-totens' || item.id === 'prod-graf-plaquinhas-acrilico-pvc-ps')) {
+      if (item.id && (item.id.startsWith('terc-') || item.id.startsWith('maq-') || item.id === 'prod-graf-banners' || item.id === 'prod-graf-totens' || item.id === 'prod-graf-plaquinhas-acrilico-pvc-ps')) {
         return true;
       }
       return false;
     }
 
-    // Perfil Cliente Final / Empresa: Produtos personalizados, brindes, uniformes, fachadas, etc. + Maquinário
+    // Perfil Cliente Final / Empresa: Produtos personalizados, brindes, uniformes, fachadas, etc. (sem maquinário industrial)
     if (profile === 'cliente') {
       if (item.publico === 'terceirizado') return false;
-      if (item.id && item.id.startsWith('terc-')) return false;
-      if (item.categoria === 'Vinil por Metro Quadrado') return false;
+      if (item.id && (item.id.startsWith('terc-') || item.id.startsWith('maq-'))) return false;
+      if (item.categoria === 'Vinil por Metro Quadrado' || item.categoria === 'Estrutura de Máquinas') return false;
       return true;
     }
 
@@ -656,10 +666,24 @@
       if (!items || items.length === 0) {
         items = JSON.parse(JSON.stringify(DEFAULT_CATALOG_ITEMS));
       }
+      let result = items;
       if (profile) {
-        return items.filter((item) => isItemAllowedForProfile(item, profile));
+        result = items.filter((item) => isItemAllowedForProfile(item, profile));
       }
-      return items;
+      // Sempre iniciar com os itens da Comunicação Visual e colocar Tecnologias ao final
+      const comVisual = [];
+      const middleItems = [];
+      const tecnologias = [];
+      result.forEach(function (item) {
+        if (item.categoria === 'Comunicação Visual') {
+          comVisual.push(item);
+        } else if (item.categoria === 'Tecnologias') {
+          tecnologias.push(item);
+        } else {
+          middleItems.push(item);
+        }
+      });
+      return [...comVisual, ...middleItems, ...tecnologias];
     },
 
     saveItems: function (items) {
