@@ -311,6 +311,17 @@
       paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png',
       ativo: true
     },
+    {
+      id: 'prod-graf-plaquinhas-acrilico-pvc-ps',
+      nome: 'Plaquinhas em Acrílico, PVC e PS',
+      categoria: 'Comunicação Visual',
+      badge: 'Sinalização & Identificação',
+      especificacao: 'Acrílico Cristal, PVC Expandido e PS • Corte e Impressão UV',
+      descricao: 'Plaquinhas personalizadas de identificação e sinalização para recepções, escritórios, consultórios e lojas. Modelos de parede em acrílico cristal com espaçadores/prolongadores em inox, placas de mesa interativas com QR Code/PIX e placas rígidas em PVC e PS de alta densidade.',
+      foto: 'assets/images/catalogo/item-plaquinhas-acrilico-pvc-ps.jpg',
+      paginaRef: 'assets/images/catalogo/item-plaquinhas-acrilico-pvc-ps.jpg',
+      ativo: true
+    },
 
     // --- PLOTAGEM VEICULAR ---
     {
@@ -360,14 +371,36 @@
 
     // --- BRINDES & CORPORATIVO ---
     {
+      id: 'prod-brinde-canetas-chaveiros',
+      nome: 'Canetas e Chaveiros',
+      categoria: 'Brindes Corporativos',
+      badge: 'Gravação a Laser & UV',
+      especificacao: 'Canetas metálicas executivas e chaveiros em couro/metal gravados a laser',
+      descricao: 'Conjunto executivo de canetas metálicas de alta precisão e chaveiros sofisticados personalizados com a logo da Gordinho ou da sua empresa. Ideal para brindes corporativos, kits de integração, feiras e fidelização de clientes.',
+      foto: 'assets/images/catalogo/item-canetas-chaveiros.jpg',
+      paginaRef: 'assets/images/catalogo/item-canetas-chaveiros.jpg',
+      ativo: true
+    },
+    {
+      id: 'prod-brinde-copos-garrafas-termicas',
+      nome: 'Copos e Garrafas Térmicas',
+      categoria: 'Brindes Corporativos',
+      badge: 'Inox Térmico • Gravação a Laser',
+      especificacao: 'Aço Inox com parede dupla a vácuo • Conserva quente até 6h e frio até 12h',
+      descricao: 'Copos térmicos tipo tumbler e garrafas térmicas em aço inoxidável com isolamento a vácuo e parede dupla. Personalização em gravação a laser permanente de altíssima precisão ou impressão DTF UV colorida com verniz. O brinde corporativo e presente executivo mais desejado do mercado.',
+      foto: 'assets/images/catalogo/item-copos-garrafas-termicas.jpg',
+      paginaRef: 'assets/images/catalogo/item-copos-garrafas-termicas.jpg',
+      ativo: true
+    },
+    {
       id: 'prod-brinde-kit',
       nome: 'Kit Corporativo de Boas-Vindas (Onboarding)',
       categoria: 'Brindes Corporativos',
       badge: 'Kit Completo',
       especificacao: 'Garrafa térmica, caneca, caderno moleskine e caneta',
       descricao: 'Conjunto executivo para encantar clientes VIP e novos colaboradores. Embalagem personalizada e acabamento alinhado à sua marca.',
-      foto: 'assets/images/catalogo/item-kit-boas-vindas.png',
-      paginaRef: 'assets/images/catalogo/catalogo-capa.png',
+      foto: 'assets/images/catalogo/item-kit-boas-vindas.jpg',
+      paginaRef: 'assets/images/catalogo/item-kit-boas-vindas.jpg',
       ativo: true
     },
     {
@@ -377,8 +410,8 @@
       badge: 'Alto Padrão',
       especificacao: 'Caixa cartonada personalizada com copo térmico, caderno e caneta',
       descricao: 'Encante clientes especiais e parceiros com kits de boas-vindas sofisticados que transmitem valor e prestígio.',
-      foto: 'assets/images/catalogo/item-kit-boas-vindas.png',
-      paginaRef: 'assets/images/catalogo/catalogo-capa.png',
+      foto: 'assets/images/catalogo/item-kit-boas-vindas.jpg',
+      paginaRef: 'assets/images/catalogo/item-kit-boas-vindas.jpg',
       ativo: true
     },
     {
@@ -474,8 +507,17 @@
           if (Array.isArray(parsed) && parsed.length > 0) {
             const existingIds = new Set(parsed.map((i) => i.id));
             const missing = DEFAULT_CATALOG_ITEMS.filter((d) => !existingIds.has(d.id));
-            if (missing.length > 0) {
-              const merged = [...parsed, ...missing];
+            let photoUpdated = false;
+            const updatedItems = parsed.map((item) => {
+              const def = DEFAULT_CATALOG_ITEMS.find((d) => d.id === item.id);
+              if (def && item.foto !== def.foto) {
+                photoUpdated = true;
+                return { ...item, foto: def.foto, paginaRef: def.paginaRef };
+              }
+              return item;
+            });
+            if (missing.length > 0 || photoUpdated) {
+              const merged = [...updatedItems, ...missing];
               localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
               return merged;
             }

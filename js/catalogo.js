@@ -273,6 +273,16 @@
       foto: 'assets/images/catalogo/item-totens-pvc.png',
       paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png'
     },
+    {
+      id: 'prod-graf-plaquinhas-acrilico-pvc-ps',
+      nome: 'Plaquinhas em Acrílico, PVC e PS',
+      categoria: 'Comunicação Visual',
+      badge: 'Sinalização & Identificação',
+      especificacao: 'Acrílico Cristal, PVC Expandido e PS • Corte e Impressão UV',
+      descricao: 'Plaquinhas personalizadas de identificação e sinalização para recepções, escritórios, consultórios e lojas. Modelos de parede em acrílico cristal com espaçadores/prolongadores em inox, placas de mesa interativas com QR Code/PIX e placas rígidas em PVC e PS de alta densidade.',
+      foto: 'assets/images/catalogo/item-plaquinhas-acrilico-pvc-ps.jpg',
+      paginaRef: 'assets/images/catalogo/item-plaquinhas-acrilico-pvc-ps.jpg'
+    },
 
     // --- PLOTAGEM VEICULAR ---
     {
@@ -318,14 +328,34 @@
 
     // --- BRINDES & CORPORATIVO ---
     {
+      id: 'prod-brinde-canetas-chaveiros',
+      nome: 'Canetas e Chaveiros',
+      categoria: 'Brindes Corporativos',
+      badge: 'Gravação a Laser & UV',
+      especificacao: 'Canetas metálicas executivas e chaveiros em couro/metal gravados a laser',
+      descricao: 'Conjunto executivo de canetas metálicas de alta precisão e chaveiros sofisticados personalizados com a logo da Gordinho ou da sua empresa. Ideal para brindes corporativos, kits de integração, feiras e fidelização de clientes.',
+      foto: 'assets/images/catalogo/item-canetas-chaveiros.jpg',
+      paginaRef: 'assets/images/catalogo/item-canetas-chaveiros.jpg'
+    },
+    {
+      id: 'prod-brinde-copos-garrafas-termicas',
+      nome: 'Copos e Garrafas Térmicas',
+      categoria: 'Brindes Corporativos',
+      badge: 'Inox Térmico • Gravação a Laser',
+      especificacao: 'Aço Inox com parede dupla a vácuo • Conserva quente até 6h e frio até 12h',
+      descricao: 'Copos térmicos tipo tumbler e garrafas térmicas em aço inoxidável com isolamento a vácuo e parede dupla. Personalização em gravação a laser permanente de altíssima precisão ou impressão DTF UV colorida com verniz. O brinde corporativo e presente executivo mais desejado do mercado.',
+      foto: 'assets/images/catalogo/item-copos-garrafas-termicas.jpg',
+      paginaRef: 'assets/images/catalogo/item-copos-garrafas-termicas.jpg'
+    },
+    {
       id: 'prod-brinde-kit',
       nome: 'Kit Corporativo de Boas-Vindas (Onboarding)',
       categoria: 'Brindes Corporativos',
       badge: 'Kit Completo',
       especificacao: 'Garrafa térmica, caneca, caderno moleskine e caneta',
       descricao: 'Conjunto executivo para encantar clientes VIP e novos colaboradores. Embalagem personalizada e acabamento alinhado à sua marca.',
-      foto: 'assets/images/catalogo/item-kit-boas-vindas.png',
-      paginaRef: 'assets/images/catalogo/catalogo-capa.png'
+      foto: 'assets/images/catalogo/item-kit-boas-vindas.jpg',
+      paginaRef: 'assets/images/catalogo/item-kit-boas-vindas.jpg'
     }
   ];
 
@@ -403,6 +433,8 @@
     els.cartClear = document.getElementById('cart-clear');
     els.cartContinueBrowsing = document.getElementById('cart-continue-browsing');
     els.cartCatalogHint = document.getElementById('cart-catalog-hint');
+    els.btnEmptyExplore = document.getElementById('btn-empty-explore');
+    els.summaryCount = document.getElementById('summary-items-count');
     els.lightbox = document.getElementById('catalog-lightbox');
     els.lightboxImg = document.getElementById('lightbox-img');
     els.lightboxTitle = document.getElementById('lightbox-title');
@@ -757,14 +789,27 @@
           <img src="${escapeAttr(item.foto)}" alt="${escapeAttr(item.nome)}" loading="lazy" />
         </div>
         <div class="cart-item-info">
-          <span class="cart-item-cat">${escapeHTML(item.categoria)}</span>
+          <div class="cart-item-top">
+            <span class="cart-item-cat">${escapeHTML(item.categoria)}</span>
+            <button type="button" class="cart-item-remove" aria-label="Remover ${escapeAttr(item.nome)}" title="Remover item">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="3 6 5 6 21 6"></polyline>
+                <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
+              </svg>
+            </button>
+          </div>
           <strong class="cart-item-title">${escapeHTML(item.nome)}</strong>
-          <span class="cart-item-spec">${escapeHTML(item.especificacao)}</span>
+          ${item.especificacao ? `<span class="cart-item-spec">${escapeHTML(item.especificacao)}</span>` : ''}
           <div class="cart-item-controls">
-            <button type="button" class="qty-btn cart-qty-minus" aria-label="Diminuir quantidade">−</button>
-            <span class="qty-value">${item.quantidade}</span>
-            <button type="button" class="qty-btn cart-qty-plus" aria-label="Aumentar quantidade">+</button>
-            <button type="button" class="cart-item-remove" aria-label="Remover">Remover</button>
+            <div class="cart-qty-pill">
+              <button type="button" class="qty-btn cart-qty-minus" aria-label="Diminuir quantidade">−</button>
+              <span class="qty-value">${item.quantidade}</span>
+              <button type="button" class="qty-btn cart-qty-plus" aria-label="Aumentar quantidade">+</button>
+            </div>
+            <span class="cart-item-status">
+              <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>
+              Cotação ativa
+            </span>
           </div>
         </div>
       </li>
@@ -773,36 +818,43 @@
 
   function renderCart() {
     const count = cartCount();
-    els.cartBadge.textContent = count;
-    els.cartBadge.hidden = count === 0;
-    els.cartTotalBadge.textContent = `${count} ${count === 1 ? 'item' : 'itens'}`;
-
-    const partner = getPartnerData();
-    if (partner && partner.nome) {
-      els.cartPartnerBanner.hidden = false;
-      els.cartPartnerBanner.innerHTML = `
-        <div class="partner-badge-inline">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
-          <span>Parceiro B2B: <strong>${escapeHTML(partner.nome)}</strong> (CNPJ: ${escapeHTML(partner.cnpj || '')})</span>
-        </div>
-      `;
-    } else {
-      els.cartPartnerBanner.hidden = false;
-      els.cartPartnerBanner.innerHTML = `
-        <div class="partner-lead-inline">
-          <span>Tem CNPJ? <a href="cadastro-terceirizado.html">Faça seu pré-cadastro</a> para tabela de parceiro.</span>
-        </div>
-      `;
+    if (els.cartBadge) {
+      els.cartBadge.textContent = count;
+      els.cartBadge.hidden = count === 0;
+    }
+    if (els.cartTotalBadge) {
+      els.cartTotalBadge.textContent = `${count} ${count === 1 ? 'item' : 'itens'}`;
+    }
+    if (els.summaryCount) {
+      els.summaryCount.textContent = `${count} ${count === 1 ? 'item' : 'itens'}`;
     }
 
+    const summaryCard = document.querySelector('.cart-summary-card');
+
     if (state.cart.length === 0) {
-      els.cartItems.innerHTML = '';
-      els.cartEmpty.hidden = false;
-      els.cartCheckout.disabled = true;
+      if (els.cartItems) {
+        els.cartItems.innerHTML = '';
+        els.cartItems.style.display = 'none';
+      }
+      if (els.cartEmpty) {
+        els.cartEmpty.hidden = false;
+        els.cartEmpty.style.display = 'flex';
+      }
+      if (els.cartCheckout) els.cartCheckout.disabled = true;
+      if (els.cartClear) els.cartClear.style.display = 'none';
+      if (summaryCard) summaryCard.style.display = 'none';
     } else {
-      els.cartEmpty.hidden = true;
-      els.cartCheckout.disabled = false;
-      els.cartItems.innerHTML = state.cart.map(cartItemHTML).join('');
+      if (els.cartEmpty) {
+        els.cartEmpty.hidden = true;
+        els.cartEmpty.style.display = 'none';
+      }
+      if (els.cartItems) {
+        els.cartItems.style.display = 'flex';
+        els.cartItems.innerHTML = state.cart.map(cartItemHTML).join('');
+      }
+      if (els.cartCheckout) els.cartCheckout.disabled = false;
+      if (els.cartClear) els.cartClear.style.display = 'inline-flex';
+      if (summaryCard) summaryCard.style.display = 'block';
 
       els.cartItems.querySelectorAll('.cart-item').forEach((el) => {
         const id = el.dataset.id;
@@ -995,6 +1047,15 @@
     els.cartBackdrop.addEventListener('click', closeCart);
     if (els.cartContinueBrowsing) {
       els.cartContinueBrowsing.addEventListener('click', closeCart);
+    }
+    if (els.btnEmptyExplore) {
+      els.btnEmptyExplore.addEventListener('click', () => {
+        closeCart();
+        const targetEl = document.getElementById('catalogo-produtos');
+        if (targetEl) {
+          targetEl.scrollIntoView({ behavior: 'smooth' });
+        }
+      });
     }
     els.cartClear.addEventListener('click', clearCart);
     els.cartCheckout.addEventListener('click', checkout);
