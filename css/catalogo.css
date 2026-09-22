@@ -706,8 +706,8 @@ body.catalogo-body {
 
 .terceirizados-cards-grid {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 1.5rem;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 1.15rem;
 }
 
 .terceirizado-card {
@@ -2287,7 +2287,7 @@ body.catalogo-body {
     grid-template-columns: repeat(4, 1fr);
   }
   .terceirizados-cards-grid {
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
   .about-cards-grid {
     grid-template-columns: repeat(2, 1fr);

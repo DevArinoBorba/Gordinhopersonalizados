@@ -491,13 +491,97 @@
     },
     {
       id: 'terc-vinil-metro',
-      nome: 'Vinil Adesivo por Metro Quadrado (m²)',
+      nome: 'Adesivo Vinil Brilho ou Fosco, Sem Corte',
       categoria: 'Vinil por Metro Quadrado',
-      badge: 'Insumo B2B',
-      especificacao: 'Bobinas 1.000 / 1.200 mm • Impressão Eco Solvente ou Recorte',
-      descricao: 'Vinil adesivo brilho, fosco ou transparente por metro quadrado com preço especial de fábrica para gráficas e revendedores. Ideal para rótulos, etiquetas e vitrines.',
-      foto: 'assets/images/catalogo/cat-vinil-metro.jpg',
-      paginaRef: 'assets/images/catalogo/maquinas-plotter-eco-3d-recorte.png',
+      badge: 'Metro Quadrado m²',
+      especificacao: 'Bobinas até 1.500 mm • Impressão Eco Solvente Brilho ou Fosco',
+      descricao: 'Vinil adesivo impresso em alta definição sem corte de contorno, fornecido em rolo contínuo ou refilado no esquadro. Perfeito para vitrines, placas, painéis e envelopamentos comerciais.',
+      foto: 'assets/images/catalogo/item-vinil-sem-corte.jpg',
+      paginaRef: 'assets/images/catalogo/item-vinil-sem-corte.jpg',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-vinil-corte-eletronico',
+      nome: 'Adesivo Vinil Brilho ou Fosco + Corte Eletrônico',
+      categoria: 'Vinil por Metro Quadrado',
+      badge: 'Meio-Corte Digital',
+      especificacao: 'Impressão digital Eco Solvente + Corte eletrônico computadorizado (kiss-cut)',
+      descricao: 'Adesivos e rótulos personalizados recortados eletronicamente no contorno exato do seu projeto. Destaque rápido e prático para etiquetas, brindes e sinalizações.',
+      foto: 'assets/images/catalogo/item-vinil-corte-eletronico.jpg',
+      paginaRef: 'assets/images/catalogo/item-vinil-corte-eletronico.jpg',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-lona-sem-acabamento',
+      nome: 'Lona Sem Acabamento',
+      categoria: 'Vinil por Metro Quadrado',
+      badge: 'Grande Formato',
+      especificacao: 'Lona Frontlight 440g/280g • Refilada no esquadro (sem madeira ou ilhós)',
+      descricao: 'Impressão digital em grande formato para painéis, fachadas, outdoors e estruturas metálicas. Alta durabilidade e fidelidade de cores para revendedores.',
+      foto: 'assets/images/catalogo/item-lona-sem-acabamento.jpg',
+      paginaRef: 'assets/images/catalogo/item-lona-sem-acabamento.jpg',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-lona-com-acabamento',
+      nome: 'Lona com Acabamento (Madeira ou Ilhós)',
+      categoria: 'Vinil por Metro Quadrado',
+      badge: 'Pronta para Uso',
+      especificacao: 'Madeira roliça com ponteiras e corda para pendurar OU ilhós metálicos nas bordas',
+      descricao: 'Banners e faixas promocionais completas e prontas para instalar. Acabamento reforçado com costura/solda térmica, madeira ou ilhós antiferrugem.',
+      foto: 'assets/images/catalogo/item-lona-com-acabamento.jpg',
+      paginaRef: 'assets/images/catalogo/item-lona-com-acabamento.jpg',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-vinil-perfurado-transparente-sem-corte',
+      nome: 'Perfurado ou Transparente Sem Corte',
+      categoria: 'Vinil por Metro Quadrado',
+      badge: 'Vidros & Vitrines',
+      especificacao: 'Vinil microperfurado One-Way Vision ou transparente cristal sem corte',
+      descricao: 'Películas especiais para vidros, vitrines e traseiras de veículos. O perfurado garante privacidade interna e visual externo impecável; o transparente entrega efeito translúcido nobre.',
+      foto: 'assets/images/catalogo/item-perfurado-transparente-sem-corte.jpg',
+      paginaRef: 'assets/images/catalogo/item-perfurado-transparente-sem-corte.jpg',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-vinil-transparente-corte-eletronico',
+      nome: 'Transparente + Corte Eletrônico',
+      categoria: 'Vinil por Metro Quadrado',
+      badge: 'Cristal Recortado',
+      especificacao: 'Vinil transparente de alto brilho + Recorte de contorno digital computadorizado',
+      descricao: 'Adesivos transparentes com corte de precisão no contorno exato da sua arte. Efeito no-label sofisticado para embalagens, cosméticos, vidros e produtos premium.',
+      foto: 'assets/images/catalogo/item-transparente-corte-eletronico.jpg',
+      paginaRef: 'assets/images/catalogo/item-transparente-corte-eletronico.jpg',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-vinil-avery-automotivo',
+      nome: 'Adesivo Vinil Avery Automotivo',
+      categoria: 'Vinil por Metro Quadrado',
+      badge: 'Linha Cast Automotiva',
+      especificacao: 'Película automotiva Avery Dennison com canais anti-bolhas Easy Apply',
+      descricao: 'Vinil automotivo importado de altíssima performance para envelopamento de veículos, frotas e embarcações. Excelente moldabilidade em curvas profundas e longa vida útil.',
+      foto: 'assets/images/catalogo/item-vinil-avery-automotivo.jpg',
+      paginaRef: 'assets/images/catalogo/item-vinil-avery-automotivo.jpg',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-vinil-avery-corte-eletronico',
+      nome: 'Adesivo Vinil Avery Corte Eletrônico',
+      categoria: 'Vinil por Metro Quadrado',
+      badge: 'Automotivo Recortado',
+      especificacao: 'Avery Dennison cortado em plotter de alta precisão + Máscara de transferência',
+      descricao: 'Gráficos esportivos, faixas automotivas e logotipos de frotas cortados em vinil Avery Dennison, já depilados e preparados com máscara de transferência para aplicação direta.',
+      foto: 'assets/images/catalogo/item-vinil-avery-corte-eletronico.jpg',
+      paginaRef: 'assets/images/catalogo/item-vinil-avery-corte-eletronico.jpg',
       publico: 'terceirizado',
       ativo: true
     },
@@ -514,6 +598,30 @@
       ativo: true
     },
     {
+      id: 'terc-dtf-filme-60cm',
+      nome: 'Bobina de Filme DTF Têxtil (Largura 60cm)',
+      categoria: 'DTF Têxtil',
+      badge: 'Insumo B2B',
+      especificacao: 'Bobina 60cm x 100m • Filme PET Premium • Descasque a Quente/Frio',
+      descricao: 'Bobina de filme DTF têxtil de 60cm de largura com tratamento antiestático e camada de absorção de tinta uniforme. Garante cores vibrantes, alta definição e toque macio nas estampas.',
+      foto: 'assets/images/catalogo/item-filme-dtf-textil-60cm.jpg',
+      paginaRef: 'assets/images/catalogo/item-filme-dtf-textil-60cm.jpg',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-dtf-po-tpu',
+      nome: 'Pó TPU para DTF Têxtil (Poliamida Termofusível)',
+      categoria: 'DTF Têxtil',
+      badge: 'Alta Aderência',
+      especificacao: 'Embalagem 1kg • Granulometria Média/Fina • Toque Macio e Elástico',
+      descricao: 'Pó termofusível de poliuretano (TPU/poliamida) de alta pureza para cura e fixação térmica de estampas DTF têxteis. Oferece alta elasticidade, resistência a lavagens e toque suave no tecido.',
+      foto: 'assets/images/catalogo/item-po-tpu-dtf-textil.jpg',
+      paginaRef: 'assets/images/catalogo/item-po-tpu-dtf-textil.jpg',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
       id: 'terc-dtf-uv-metro',
       nome: 'DTF UV Adesivo por Metro (com Verniz & Relevo)',
       categoria: 'DTF UV',
@@ -522,6 +630,18 @@
       descricao: 'Adesivos rígidos permanentes em filme DTF UV para aplicação direta em copos térmicos, plásticos, vidros, acrílicos e metais. Sem necessidade de queima térmica ou prensagem.',
       foto: 'assets/images/catalogo/tech-dtf-uv.png',
       paginaRef: 'assets/images/catalogo/personalizacao-dtf-laser-textil.png',
+      publico: 'terceirizado',
+      ativo: true
+    },
+    {
+      id: 'terc-dtf-uv-filme-30cm',
+      nome: 'Bobina de Filme DTF UV (Largura 30cm)',
+      categoria: 'DTF UV',
+      badge: 'Filme A+B Cristal',
+      especificacao: 'Bobina 30cm x 100m • Filme de Impressão (A) + Máscara de Aplicação (B)',
+      descricao: 'Conjunto de filme DTF UV cristal de 30cm para transferência direta a frio em substratos rígidos (copos térmicos, vidros, acrílicos, metais e plásticos). Excelente transparência e fixação permanente.',
+      foto: 'assets/images/catalogo/item-filme-dtf-uv-30cm.jpg',
+      paginaRef: 'assets/images/catalogo/item-filme-dtf-uv-30cm.jpg',
       publico: 'terceirizado',
       ativo: true
     },
@@ -614,7 +734,7 @@
     if (profile === 'cliente') {
       if (item.publico === 'terceirizado') return false;
       if (item.id && (item.id.startsWith('terc-') || item.id.startsWith('maq-'))) return false;
-      if (item.categoria === 'Vinil por Metro Quadrado' || item.categoria === 'Estrutura de Máquinas') return false;
+      if (item.categoria === 'Vinil por Metro Quadrado' || item.categoria === 'Estrutura de Máquinas' || item.categoria === 'DTF Têxtil' || item.categoria === 'DTF UV') return false;
       return true;
     }
 
@@ -643,9 +763,9 @@
             let photoUpdated = false;
             const updatedItems = parsed.map((item) => {
               const def = DEFAULT_CATALOG_ITEMS.find((d) => d.id === item.id);
-              if (def && (item.foto !== def.foto || item.publico !== def.publico || item.categoria !== def.categoria)) {
+              if (def && (item.foto !== def.foto || item.publico !== def.publico || item.categoria !== def.categoria || item.nome !== def.nome || item.especificacao !== def.especificacao)) {
                 photoUpdated = true;
-                return { ...item, foto: def.foto, paginaRef: def.paginaRef, publico: def.publico, categoria: def.categoria };
+                return { ...item, foto: def.foto, paginaRef: def.paginaRef, publico: def.publico, categoria: def.categoria, nome: def.nome, especificacao: def.especificacao, descricao: def.descricao, badge: def.badge };
               }
               return item;
             });
