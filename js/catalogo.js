@@ -222,66 +222,94 @@
       paginaRef: 'assets/images/catalogo/produtos-textil-dtf.png'
     },
 
-    // --- COMUNICAÇÃO VISUAL & GRÁFICA ---
+    // --- GRÁFICA RÁPIDA & COMUNICAÇÃO VISUAL ---
     {
       id: 'prod-graf-cartao',
       nome: 'Cartões de Visita Profissionais',
-      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
-      badge: 'Papel Nobre',
-      especificacao: 'Couchê 300g com laminação fosca ou verniz',
-      descricao: 'A primeira impressão do seu negócio. Cortes precisos, fidelidade cromática e acabamento tátil sofisticado.',
+      categoria: 'Gráfica Rápida',
+      badge: 'Couchê 300g',
+      especificacao: 'Laminação Fosca Bopp + Verniz Localizado UV ou Corte Reto / Cantos Arredondados',
+      descricao: 'A primeira impressão do seu negócio com acabamento gráfico de alto padrão. Cortes precisos, fidelidade cromática, toque aveludado e verniz localizado com brilho sofisticado.',
       foto: 'assets/images/catalogo/item-cartao-visita.png',
-      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png'
+      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png',
+      publico: 'terceirizado'
+    },
+    {
+      id: 'prod-graf-cardapios',
+      nome: 'Cardápios Personalizados',
+      categoria: 'Gráfica Rápida',
+      badge: 'Lavável & Resistente',
+      especificacao: 'PVC Cristal Lavável, Couchê 350g com Laminação Térmica Bopp ou Rígido com Vinco',
+      descricao: 'Cardápios duráveis e impermeáveis para bares, restaurantes, cafeterias e lanchonetes. Resistentes a respingos e manuseio constante, disponíveis em lâminas individuais, pranchetas ou modelos bifold/trifold com vinco térmico.',
+      foto: 'assets/images/catalogo/item-cardapios-personalizados.jpg',
+      paginaRef: 'assets/images/catalogo/item-cardapios-personalizados.jpg',
+      publico: 'terceirizado'
     },
     {
       id: 'prod-graf-folder',
       nome: 'Folders e Panfletos Institucionais',
-      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
+      categoria: 'Gráfica Rápida',
       badge: 'Solução Completa',
-      especificacao: 'Modelos com 2 ou 3 dobras / tamanhos variados',
-      descricao: 'Material promocional completo para apresentação da empresa, cardápios, feiras e prospecção de clientes.',
+      especificacao: 'Modelos com 1, 2 ou 3 dobras / formatos A4, A5 e A6 em Couchê 115g/150g',
+      descricao: 'Material promocional impresso em alta velocidade para apresentação da empresa, cardápios delivery, feiras, eventos e campanhas de vendas.',
       foto: 'assets/images/catalogo/item-folder.png',
-      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png'
+      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png',
+      publico: 'terceirizado'
     },
     {
-      id: 'prod-graf-banners',
-      nome: 'Banners e Roll-Ups Promocionais',
-      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
-      badge: 'Alta Resolução',
-      especificacao: 'Lona com acabamento para tripé ou roll-up retrátil',
-      descricao: 'Impressão digital eco-solvente em lona premium de alta gramatura com cores vivas e suporte estável para eventos e pontos de venda.',
-      foto: 'assets/images/catalogo/item-banners.png',
-      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png'
+      id: 'terc-graf-comandas-blocos',
+      nome: 'Comandas, Receituários & Blocos Autocopiativos',
+      categoria: 'Gráfica Rápida',
+      badge: 'Blocagem & Picote',
+      especificacao: 'Papel Sulfite ou Autocopiativo (1 ou 2 vias) • Numeração sequencial e picote',
+      descricao: 'Blocos personalizados para pedidos de mesas, comandas de garçom, receituários médicos e ordens de serviço. Blocagem reforçada com picote de destaque fácil e numeração sequencial opcional.',
+      foto: 'assets/images/catalogo/item-comandas-blocos.jpg',
+      paginaRef: 'assets/images/catalogo/item-comandas-blocos.jpg',
+      publico: 'terceirizado'
     },
     {
       id: 'prod-graf-vitrines',
       nome: 'Plotagem de Vitrines & Fachadas',
-      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
+      categoria: 'Identidade Visual',
       badge: 'Comunicação Comercial',
-      especificacao: 'Vinil jateado, fosco, brilhoso ou microperfurado',
-      descricao: 'Transformação visual do ponto comercial com aplicação de vinil resistente ao sol e chuva, garantindo privacidade e destaque à marca.',
+      especificacao: 'Vinil jateado, fosco, brilhoso, black-out ou microperfurado',
+      descricao: 'Transformação visual do ponto comercial com aplicação de vinil resistente ao sol e chuva, garantindo privacidade, destaque à marca e promoções atraentes.',
       foto: 'assets/images/catalogo/item-plotagem-vitrine.png',
-      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png'
+      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png',
+      publico: 'terceirizado'
+    },
+    {
+      id: 'prod-graf-banners',
+      nome: 'Banners e Roll-Ups Promocionais',
+      categoria: 'Identidade Visual',
+      badge: 'Alta Resolução',
+      especificacao: 'Lona Frontlight 440g com acabamento para tripé ou roll-up retrátil em alumínio',
+      descricao: 'Impressão digital eco-solvente em lona premium de alta gramatura com cores vivas e suporte estável para eventos e pontos de venda.',
+      foto: 'assets/images/catalogo/item-banners.png',
+      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png',
+      publico: 'terceirizado'
     },
     {
       id: 'prod-graf-totens',
       nome: 'Totens de PVC Personalizados',
-      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
+      categoria: 'Identidade Visual',
       badge: 'Sinalização Premium',
       especificacao: 'Formatos verticais, ovais e redondos com base',
       descricao: 'Totens com corte router/recorte e adesivação de alta durabilidade para recepções, feiras de negócios e sinalização interna.',
       foto: 'assets/images/catalogo/item-totens-pvc.png',
-      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png'
+      paginaRef: 'assets/images/catalogo/produtos-grafica-comunicacao-visual.png',
+      publico: 'terceirizado'
     },
     {
       id: 'prod-graf-plaquinhas-acrilico-pvc-ps',
       nome: 'Plaquinhas em Acrílico, PVC e PS',
-      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
+      categoria: 'Identidade Visual',
       badge: 'Sinalização & Identificação',
       especificacao: 'Acrílico Cristal, PVC Expandido e PS • Corte e Impressão UV',
       descricao: 'Plaquinhas personalizadas de identificação e sinalização para recepções, escritórios, consultórios e lojas. Modelos de parede em acrílico cristal com espaçadores/prolongadores em inox, placas de mesa interativas com QR Code/PIX e placas rígidas em PVC e PS de alta densidade.',
       foto: 'assets/images/catalogo/item-plaquinhas-acrilico-pvc-ps.jpg',
-      paginaRef: 'assets/images/catalogo/item-plaquinhas-acrilico-pvc-ps.jpg'
+      paginaRef: 'assets/images/catalogo/item-plaquinhas-acrilico-pvc-ps.jpg',
+      publico: 'terceirizado'
     },
 
     // --- PLOTAGEM VEICULAR ---
@@ -540,7 +568,7 @@
     {
       id: 'terc-banner-revenda',
       nome: 'Banners e Lonas Impressas para Revenda',
-      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
+      categoria: 'Identidade Visual',
       badge: 'Tabela Gráfica',
       especificacao: 'Lona 440g com acabamento em madeira/tubo e corda ou ilhós',
       descricao: 'Produção em grande formato para gráficas rápidas, agências e revendedores entregarem aos seus clientes finais com excelente margem comercial.',
@@ -577,7 +605,7 @@
     const tecnologias = [];
     items.forEach(function (item) {
       if (!item) return;
-      if (item.categoria === 'Comunicação Visual, Plotagem de Vitrines e Fachadas' || (item.categoria && item.categoria.startsWith('Comunicação Visual'))) {
+      if (item.categoria === 'Gráfica Rápida' || item.categoria === 'Identidade Visual' || item.categoria === 'Comunicação Visual, Plotagem de Vitrines e Fachadas' || (item.categoria && item.categoria.startsWith('Comunicação Visual'))) {
         comVisual.push(item);
       } else if (item.categoria === 'Tecnologias') {
         tecnologias.push(item);
@@ -1039,12 +1067,21 @@
 
     if (state.activeCategory !== 'todos') {
       const targetCat = state.activeCategory.toLowerCase().trim();
+      const isGraficaTarget = targetCat === 'gráfica rápida' || targetCat === 'grafica rapida';
+      const isIdentidadeTarget = targetCat.includes('identidade visual');
       const isComVisualTarget = targetCat.includes('comunicação visual') || targetCat.includes('vitrine') || targetCat.includes('fachada');
+
       result = result.filter((item) => {
         if (!item || !item.categoria) return false;
         const itemCat = item.categoria.toLowerCase().trim();
         if (itemCat === targetCat) return true;
-        if (isComVisualTarget && (itemCat.includes('comunicação visual') || itemCat.includes('vitrine') || itemCat.includes('fachada'))) {
+        if (isGraficaTarget) {
+          return itemCat === 'gráfica rápida' || itemCat === 'grafica rapida';
+        }
+        if (isIdentidadeTarget && (itemCat.includes('identidade visual') || itemCat.includes('comunicação visual'))) {
+          return true;
+        }
+        if (isComVisualTarget && (itemCat.includes('comunicação visual') || itemCat.includes('identidade visual') || itemCat.includes('vitrine') || itemCat.includes('fachada'))) {
           return true;
         }
         return false;
@@ -1071,7 +1108,11 @@
         els.activeCategoryTitle.textContent = 'Todos os Produtos & Tecnologias';
       } else {
         const targetCat = state.activeCategory.toLowerCase().trim();
-        if (targetCat.includes('comunicação visual') || targetCat.includes('vitrine') || targetCat.includes('fachada')) {
+        if (targetCat === 'gráfica rápida' || targetCat === 'grafica rapida') {
+          els.activeCategoryTitle.textContent = 'Gráfica Rápida, Cartões, Folders & Cardápios';
+        } else if (targetCat.includes('identidade visual')) {
+          els.activeCategoryTitle.textContent = 'Identidade Visual, Fachadas, Vitrines & Banners';
+        } else if (targetCat.includes('comunicação visual') || targetCat.includes('vitrine') || targetCat.includes('fachada')) {
           els.activeCategoryTitle.textContent = 'Comunicação Visual, Plotagem de Vitrines e Fachadas';
         } else {
           els.activeCategoryTitle.textContent = state.activeCategory;
