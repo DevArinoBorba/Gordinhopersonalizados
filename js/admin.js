@@ -24,6 +24,21 @@
 
   // Cache dos elementos DOM
   const els = {};
+  let savedItems = [];
+  let formSnapshot = '';
+  let modalTrigger = null;
+  let pendingImport = null;
+  let confirmCallback = null;
+  let confirmTrigger = null;
+  let photoBusy = false;
+  let externalChange = false;
+  const selectedIds = new Set();
+  function snapshot() { return JSON.stringify(Array.from(els.formItem.querySelectorAll('input,select,textarea')).filter(e => e.type !== 'file').map(e => e.type === 'checkbox' ? e.checked : e.value)); }
+  function dirty() { return els.modalItem.classList.contains('open') && snapshot() !== formSnapshot; }
+  function syncSaveLabel() { document.querySelector('.btn-admin-save span').textContent = els.itemAtivo.checked ? (state.currentItemId ? 'Salvar alterações' : 'Salvar produto') : 'Salvar rascunho'; }
+  function enterModal() { modalTrigger = document.activeElement; formSnapshot = snapshot(); syncSaveLabel(); document.querySelector('main').inert = true; document.querySelector('header').inert = true; els.itemNome.focus(); }
+  function updateBulk() { const n = selectedIds.size; const btn = document.getElementById('bulk-apply'); btn.disabled = !n; btn.textContent = 'Aplicar (' + n + ')'; const list=getFilteredAndSortedItems(); const all=document.getElementById('select-all'); all.checked = list.length > 0 && list.every(i=>selectedIds.has(i.id)); all.indeterminate = n > 0 && !all.checked; }
+
 
   function cacheDom() {
     // Auth
@@ -146,6 +161,8 @@
       }
     }
 
+    externalChange = false;
+    savedItems = JSON.parse(JSON.stringify(state.items));
     updateCategoriesList();
     renderKpis();
     renderCategoryOptions();
@@ -168,7 +185,7 @@
     els.kpiActiveItems.textContent = active;
 
     const isCustom = localStorage.getItem('gordinho-catalog-items') !== null;
-    els.kpiStorageStatus.textContent = isCustom ? 'Modificado' : 'Padrão';
+    els.kpiStorageStatus.textContent = isCustom ? 'Neste navegador' : 'Base inicial';
   }
 
   function renderCategoryOptions() {
@@ -213,6 +230,9 @@
       list = list.filter((i) => i.categoria === state.filterCategory);
     }
 
+    const status = document.getElementById('admin-status-filter').value;
+    if (status !== 'todos') list = list.filter(i => (i.ativo !== false) === (status === 'active'));
+
     // Filtro por Busca
     if (state.searchTerm.trim() !== '') {
       const term = state.searchTerm.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, '');
@@ -237,7 +257,7 @@
         list.sort((a, b) => a.categoria.localeCompare(b.categoria) || a.nome.localeCompare(b.nome));
         break;
       case 'recentes':
-        list.reverse();
+        list.sort((a,b) => (Date.parse(b.createdAt) || 0) - (Date.parse(a.createdAt) || 0));
         break;
     }
 
@@ -246,6 +266,9 @@
 
   function renderTable() {
     const items = getFilteredAndSortedItems();
+    selectedIds.clear();
+    updateBulk();
+    document.getElementById('results-count').textContent = `${items.length} de ${state.items.length} produtos`;
 
     if (items.length === 0) {
       els.tableBody.innerHTML = '';
@@ -262,7 +285,8 @@
       return `
         <tr data-id="${escapeAttr(item.id)}">
           <td>
-            <img src="${escapeAttr(fotoSrc)}" alt="${escapeAttr(item.nome)}" class="table-item-img" onerror="this.src='assets/images/favicon.png'" />
+            <input type="checkbox" class="row-select" data-id="${escapeAttr(item.id)}" aria-label="Selecionar ${escapeAttr(item.nome)}">
+            <img loading="lazy" src="${escapeAttr(fotoSrc)}" alt="${escapeAttr(item.nome)}" class="table-item-img" onerror="this.src='assets/images/favicon.png'" />
           </td>
           <td>
             <div class="table-item-info">
@@ -283,7 +307,7 @@
           </td>
           <td>
             <button type="button" class="status-pill ${isAtivo ? 'active' : 'inactive'}" data-action="toggle-status" data-id="${escapeAttr(item.id)}" title="Clique para alternar status">
-              ${isAtivo ? 'Ativo' : 'Inativo'}
+              ${isAtivo ? 'Visível' : 'Rascunho'}
             </button>
           </td>
           <td>
@@ -303,6 +327,7 @@
       `;
     }).join('');
 
+    els.tableBody.querySelectorAll('.row-select').forEach(box => box.addEventListener('change', () => { box.checked ? selectedIds.add(box.dataset.id) : selectedIds.delete(box.dataset.id); updateBulk(); }));
     attachTableEvents();
   }
 
@@ -333,7 +358,8 @@
     if (!item) return;
 
     item.ativo = !(item.ativo !== false);
-    saveState();
+    item.updatedAt = new Date().toISOString();
+    if (!saveState()) return;
     renderTable();
     renderKpis();
     showToast(`Status de "${item.nome}" alterado para ${item.ativo ? 'Ativo' : 'Inativo'}.`, 'success');
@@ -359,7 +385,7 @@
 
     document.body.style.overflow = 'hidden';
     els.modalItem.classList.add('open');
-    els.itemNome.focus();
+    enterModal();
   }
 
   function openEditModal(id) {
@@ -402,17 +428,29 @@
     updateLivePreview();
     document.body.style.overflow = 'hidden';
     els.modalItem.classList.add('open');
+    enterModal();
   }
 
-  function closeItemModal() {
+  function closeItemModal(force = false) {
+    if (!els.modalItem.classList.contains('open')) return;
+    if (photoBusy) { showToast('Aguarde o processamento da imagem antes de fechar.', 'warning'); return; }
+    if (force !== true && dirty()) {
+      askConfirmation('Descartar alterações?', 'Há alterações não salvas. Você pode continuar editando ou descartá-las.', 'Descartar alterações', () => closeItemModal(true));
+      els.confirmCancel.textContent = 'Continuar editando';
+      return;
+    }
     els.modalItem.classList.remove('open');
     state.currentItemId = null;
     document.body.style.overflow = '';
+    document.querySelector('main').inert = false; document.querySelector('header').inert = false;
+    (modalTrigger?.isConnected ? modalTrigger : els.btnNewItem).focus();
+    if (externalChange) loadData();
   }
 
   function handleSaveItem(e) {
     e.preventDefault();
 
+    if (photoBusy) { showToast('Aguarde o processamento da imagem.', 'warning'); return; }
     const id = (els.itemId.value || '').trim();
     const nome = (els.itemNome.value || '').trim();
     let categoria = els.itemCategoria.value;
@@ -433,7 +471,11 @@
       return;
     }
 
+    if (state.items.some(i => i.id === id && i.id !== state.currentItemId)) { showToast('Este identificador já pertence a outro produto. Escolha outro ID.', 'error'); return; }
+    const previous = state.items.find(i => i.id === state.currentItemId);
     const itemData = {
+      createdAt: previous ? previous.createdAt : new Date().toISOString(),
+      updatedAt: new Date().toISOString(),
       id,
       nome,
       categoria,
@@ -450,25 +492,21 @@
       const index = state.items.findIndex((i) => i.id === state.currentItemId);
       if (index !== -1) {
         state.items[index] = itemData;
-        showToast('Produto atualizado com sucesso!', 'success');
+
       }
     } else {
       // Novo
-      // Verificar unicidade do ID
-      const exists = state.items.some((i) => i.id === id);
-      if (exists) {
-        itemData.id = id + '-' + Math.floor(Math.random() * 1000);
-      }
       state.items.unshift(itemData);
-      showToast('Novo produto adicionado ao catálogo!', 'success');
+
     }
 
-    saveState();
+    if (!saveState()) return;
     updateCategoriesList();
     renderCategoryOptions();
     renderKpis();
     renderTable();
-    closeItemModal();
+    showToast('Produto salvo neste navegador.', 'success');
+    closeItemModal(true);
   }
 
   function duplicateItem(id) {
@@ -476,18 +514,21 @@
     if (!orig) return;
 
     const copy = JSON.parse(JSON.stringify(orig));
-    copy.id = orig.id + '-copia-' + Math.floor(Math.random() * 1000);
+    copy.id = orig.id + '-copia-' + crypto.randomUUID();
+    copy.createdAt = new Date().toISOString();
+    copy.updatedAt = copy.createdAt;
     copy.nome = orig.nome + ' (Cópia)';
-    copy.ativo = true;
+    copy.ativo = false;
 
     state.items.unshift(copy);
-    saveState();
+    if (!saveState()) return;
     renderKpis();
     renderTable();
     showToast(`"${copy.nome}" duplicado com sucesso!`, 'success');
   }
 
   function openDeleteConfirm(id) {
+    confirmTrigger = document.activeElement;
     const item = state.items.find((i) => i.id === id);
     if (!item) return;
 
@@ -501,25 +542,40 @@
 
     document.body.style.overflow = 'hidden';
     els.modalConfirm.classList.add('open');
+    document.querySelector('main').inert = true; document.querySelector('header').inert = true; els.modalItem.inert = true;
+    els.confirmCancel.focus();
   }
 
   function openResetConfirm() {
+    confirmTrigger = document.activeElement;
     state.pendingDeleteId = null;
     state.pendingReset = true;
 
     els.confirmTitle.textContent = 'Restaurar Catálogo de Fábrica';
-    els.confirmDesc.innerHTML = `Tem certeza que deseja restaurar os <strong>17 produtos padrão originais</strong>? Todas as alterações manuais e produtos novos criados serão resetados.`;
+    els.confirmDesc.innerHTML = `Tem certeza que deseja restaurar os <strong>${window.GordinhoCatalogData.DEFAULT_ITEMS.length} produtos padrão originais</strong>? Todas as alterações manuais e produtos novos criados serão resetados.`;
     els.confirmAction.textContent = 'Sim, Restaurar Padrões';
     els.confirmAction.className = 'btn-admin btn-admin-primary';
 
     document.body.style.overflow = 'hidden';
     els.modalConfirm.classList.add('open');
+    document.querySelector('main').inert = true; document.querySelector('header').inert = true;
+    els.confirmCancel.focus();
   }
 
   function handleConfirmAction() {
+    if (confirmCallback) { const callback=confirmCallback; closeConfirmModal(); callback(); return; }
+    if (pendingImport) {
+      const incoming=pendingImport;
+      const replace=document.getElementById('import-mode').value === 'replace';
+      if (!saveRecovery()) return;
+      state.items = replace ? incoming : Array.from(new Map([...state.items, ...incoming].map(i=>[i.id,i])).values());
+      if (!saveState()) return;
+      closeConfirmModal(); loadData(); showToast('Importação salva neste navegador.', 'success'); return;
+    }
     if (state.pendingReset) {
       if (window.GordinhoCatalogData) {
-        window.GordinhoCatalogData.resetToDefault();
+        if (!saveRecovery()) return;
+        if (!window.GordinhoCatalogData.resetToDefault()) { showToast('Não foi possível restaurar. Tente novamente.', 'error'); return; }
       } else {
         localStorage.removeItem('gordinho-catalog-items');
       }
@@ -528,7 +584,9 @@
     } else if (state.pendingDeleteId) {
       const id = state.pendingDeleteId;
       state.items = state.items.filter((i) => i.id !== id);
-      saveState();
+      if (!saveState()) return;
+      updateCategoriesList();
+      renderCategoryOptions();
       renderKpis();
       renderTable();
       showToast('Produto removido com sucesso.', 'warning');
@@ -538,10 +596,18 @@
   }
 
   function closeConfirmModal() {
+    if (!els.modalConfirm.classList.contains('open')) return;
     els.modalConfirm.classList.remove('open');
+    pendingImport = null; confirmCallback = null;
+    document.getElementById('import-options').hidden = true;
+    els.confirmCancel.textContent = 'Cancelar';
+    els.modalItem.inert = false;
+    const editing=els.modalItem.classList.contains('open');
+    document.querySelector('main').inert = editing; document.querySelector('header').inert = editing;
+    (editing ? els.itemNome : confirmTrigger?.isConnected ? confirmTrigger : els.btnNewItem).focus();
     state.pendingDeleteId = null;
     state.pendingReset = false;
-    document.body.style.overflow = '';
+    document.body.style.overflow = editing ? 'hidden' : '';
   }
 
   function generateSlug(text) {
@@ -594,7 +660,13 @@
       if (els.btnClearPhoto) els.btnClearPhoto.style.display = 'none';
     }
 
+    const placeholderTitle = els.previewPlaceholder.querySelector('.placeholder-title');
+    const placeholderSub = els.previewPlaceholder.querySelector('.placeholder-sub');
+    placeholderTitle.textContent = 'Nenhuma foto selecionada';
+    placeholderSub.textContent = 'Faça upload ou digite um link';
     els.previewCardImg.onerror = () => {
+      placeholderTitle.textContent = 'Não foi possível carregar a imagem';
+      placeholderSub.textContent = 'Confira o link ou selecione outro arquivo';
       els.previewCardImg.style.display = 'none';
       if (els.previewPlaceholder) els.previewPlaceholder.style.display = 'flex';
     };
@@ -622,75 +694,67 @@
     }
   }
 
-  function handleImportFile(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      try {
-        const parsed = JSON.parse(evt.target.result);
-        if (!Array.isArray(parsed)) {
-          showToast('Arquivo inválido: o JSON precisa ser uma lista de produtos.', 'error');
-          return;
-        }
-
-        // Validação mínima
-        const valid = parsed.filter((item) => item && item.id && item.nome && item.categoria);
-        if (valid.length === 0) {
-          showToast('Nenhum produto válido encontrado no arquivo.', 'error');
-          return;
-        }
-
-        state.items = valid;
-        saveState();
-        loadData();
-        showToast(`${valid.length} produtos importados com sucesso!`, 'success');
-      } catch (err) {
-        showToast('Erro ao processar arquivo JSON: ' + err.message, 'error');
-      }
-    };
-    reader.readAsText(file);
-    e.target.value = '';
+  function saveRecovery() {
+    try { localStorage.setItem('gordinho-catalog-recovery', JSON.stringify(state.items)); return true; }
+    catch { showToast('Não há espaço para a cópia de recuperação. Exporte um backup antes de liberar espaço.', 'error'); return false; }
   }
-
-  function handlePhotoUpload(e) {
-    const file = e.target.files[0];
-    if (!file) return;
-
-    if (!file.type.startsWith('image/')) {
-      showToast('Por favor, selecione um arquivo de imagem.', 'error');
-      return;
-    }
-
-    // Limite de 2MB para Base64 no localStorage
-    if (file.size > 2 * 1024 * 1024) {
-      showToast('A imagem excede 2MB. Recomendamos otimizar a imagem antes de fazer upload.', 'warning');
-    }
-
-    const reader = new FileReader();
-    reader.onload = (evt) => {
-      els.itemFoto.value = evt.target.result;
-      updateLivePreview();
-      showToast('Imagem carregada com sucesso!', 'success');
-    };
-    reader.readAsDataURL(file);
-    e.target.value = '';
+  function askConfirmation(title, description, label, callback) {
+    confirmTrigger = document.activeElement;
+    els.confirmTitle.textContent=title; els.confirmDesc.textContent=description;
+    els.confirmAction.textContent=label; confirmCallback=callback;
+    els.modalConfirm.classList.add('open'); els.modalItem.inert=true;
+    document.querySelector('main').inert=true; document.querySelector('header').inert=true;
+    els.confirmCancel.focus();
+  }
+  async function handleImportFile(e) {
+    confirmTrigger = els.btnImportJson;
+    const file=e.target.files[0]; e.target.value=''; if (!file) return;
+    if (file.size > 15*1024*1024) { showToast('O backup deve ter até 15 MB.', 'error'); return; }
+    try {
+      const parsed=JSON.parse(await file.text());
+      if (!Array.isArray(parsed)) throw new Error('O arquivo precisa conter uma lista de produtos.');
+      const ids=new Set(); let rejected=0;
+      const valid=parsed.filter(i => {
+        const ok=i && ['id','nome','categoria','especificacao'].every(k=>typeof i[k]==='string' && i[k].trim()) && ['foto','paginaRef','badge','descricao'].every(k=>i[k] == null || typeof i[k]==='string') && (i.ativo == null || typeof i.ativo==='boolean') && !ids.has(i.id.trim());
+        if (!ok) { rejected++; return false; } ids.add(i.id.trim()); return true;
+      }).map(i=>({id:i.id.trim(),nome:i.nome.trim(),categoria:i.categoria.trim(),especificacao:i.especificacao.trim(),badge:i.badge || '',descricao:i.descricao || '',foto:i.foto || '',paginaRef:i.paginaRef || '',ativo:i.ativo !== false,createdAt:typeof i.createdAt==='string' && Number.isFinite(Date.parse(i.createdAt)) ? i.createdAt : undefined,updatedAt:typeof i.updatedAt==='string' && Number.isFinite(Date.parse(i.updatedAt)) ? i.updatedAt : undefined}));
+      if (!valid.length && parsed.length) throw new Error('Nenhum produto válido. Confira os campos obrigatórios e IDs.');
+      const replaced=valid.filter(i=>state.items.some(old=>old.id===i.id)).length;
+      pendingImport=valid; state.pendingDeleteId=null; state.pendingReset=false;
+      els.confirmTitle.textContent='Revisar importação';
+      els.confirmDesc.textContent=valid.length+' válidos: '+(valid.length-replaced)+' novos, '+replaced+' IDs existentes. '+rejected+' rejeitados (campos inválidos ou IDs repetidos). Substituir remove os produtos ausentes deste arquivo.';
+      els.confirmAction.textContent='Confirmar importação';
+      document.getElementById('import-options').hidden=false;
+      document.getElementById('import-mode').value='merge';
+      els.modalConfirm.classList.add('open'); document.querySelector('main').inert=true; document.querySelector('header').inert=true; els.confirmCancel.focus();
+    } catch(err) { showToast('Não foi possível importar: '+err.message, 'error'); }
+  }
+  async function handlePhotoUpload(e) {
+    const file=e.target.files[0]; e.target.value=''; if (!file) return;
+    if (!['image/jpeg','image/png','image/webp'].includes(file.type) || file.size > 10*1024*1024) { showToast('Selecione JPG, PNG ou WebP de até 10 MB.', 'error'); return; }
+    photoBusy=true; els.btnTriggerUpload.disabled=true; document.querySelector('.btn-admin-save').disabled=true;
+    let bitmap;
+    try {
+      bitmap=await createImageBitmap(file);
+      const scale=Math.min(1,1200/Math.max(bitmap.width,bitmap.height));
+      const canvas=document.createElement('canvas'); canvas.width=Math.max(1,Math.round(bitmap.width*scale)); canvas.height=Math.max(1,Math.round(bitmap.height*scale));
+      canvas.getContext('2d').drawImage(bitmap,0,0,canvas.width,canvas.height);
+      const data=canvas.toDataURL('image/webp',0.82);
+      if (data.length > 2*1024*1024) throw new Error('A imagem otimizada ainda é grande. Escolha uma imagem menor.');
+      els.itemFoto.value=data; updateLivePreview(); showToast('Imagem otimizada. Salve o produto para concluir.', 'success');
+    } catch(err) { showToast('Não foi possível processar a imagem. '+err.message,'error'); }
+    finally { bitmap?.close(); photoBusy=false; els.btnTriggerUpload.disabled=false; document.querySelector('.btn-admin-save').disabled=false; }
   }
 
   // ==========================================================================
   // SALVAR ESTADO
   // ==========================================================================
   function saveState() {
-    if (window.GordinhoCatalogData) {
-      window.GordinhoCatalogData.saveItems(state.items);
-    } else {
-      try {
-        localStorage.setItem('gordinho-catalog-items', JSON.stringify(state.items));
-      } catch (e) {
-        console.error('Falha ao salvar no storage:', e);
-      }
-    }
+    if (externalChange) { state.items=JSON.parse(JSON.stringify(savedItems)); showToast('O catálogo mudou em outra aba. Copie suas alterações e reabra o produto para evitar sobrescrever dados.', 'error'); return false; }
+    let success=false;
+    try { success=window.GordinhoCatalogData.saveItems(state.items); } catch {}
+    if (!success) { state.items=JSON.parse(JSON.stringify(savedItems)); showToast('Não foi possível salvar. O armazenamento pode estar cheio. Exporte um backup e reduza as imagens antes de tentar novamente.', 'error'); return false; }
+    savedItems=JSON.parse(JSON.stringify(state.items)); return true;
   }
 
   // ==========================================================================
@@ -748,6 +812,16 @@
     checkAuth();
     loadData();
 
+    els.itemAtivo.addEventListener('change',syncSaveLabel);
+    window.addEventListener('beforeunload', e=>{ if (dirty()) { e.preventDefault(); e.returnValue=''; } });
+    document.getElementById('admin-status-filter').addEventListener('change',renderTable);
+    document.getElementById('btn-clear-filters').addEventListener('click',()=>{ state.searchTerm=''; state.filterCategory='todos'; state.sortBy='nome-asc'; els.searchInput.value=''; els.categorySelect.value='todos'; els.sortSelect.value='nome-asc'; document.getElementById('admin-status-filter').value='todos'; renderTable(); });
+    document.getElementById('select-all').addEventListener('change',e=>{ selectedIds.clear(); if(e.target.checked) getFilteredAndSortedItems().forEach(i=>selectedIds.add(i.id)); els.tableBody.querySelectorAll('.row-select').forEach(box=>box.checked=e.target.checked); updateBulk(); });
+    document.getElementById('bulk-apply').addEventListener('click',()=>{ const active=document.getElementById('bulk-status').value==='active'; state.items.forEach(i=>{if(selectedIds.has(i.id)) { i.ativo=active; i.updatedAt=new Date().toISOString(); }}); if(!saveState()) return; renderTable();renderKpis();showToast('Status dos produtos atualizado neste navegador.'); });
+    document.getElementById('btn-recovery-json').addEventListener('click',()=>{
+      try { const raw=localStorage.getItem('gordinho-catalog-recovery'); if(!raw) { showToast('Ainda não há cópia de recuperação. Ela é criada antes de importar ou restaurar.', 'warning'); return; } const blob=new Blob([raw],{type:'application/json'});const url=URL.createObjectURL(blob);const link=document.createElement('a');link.href=url;link.download='catalogo-recuperacao.json';link.click();setTimeout(()=>URL.revokeObjectURL(url),1000); }
+      catch { showToast('Não foi possível baixar a cópia de recuperação.', 'error'); }
+    });
     // Eventos de Autenticação
     els.authForm.addEventListener('submit', handleLogin);
     els.btnLogout.addEventListener('click', handleLogout);
@@ -842,15 +916,22 @@
     // Fechar modais com tecla Escape
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
-        closeItemModal();
-        closeConfirmModal();
+        if (els.modalConfirm.classList.contains('open')) closeConfirmModal(); else closeItemModal();
+      }
+      if (e.key === 'Tab') {
+        const modal=els.modalConfirm.classList.contains('open') ? els.modalConfirm : els.modalItem.classList.contains('open') ? els.modalItem : null;
+        if (!modal) return;
+        const focusable=Array.from(modal.querySelectorAll('button,input,select,textarea,summary,a[href]')).filter(el=>!el.disabled && el.getClientRects().length);
+        const first=focusable[0],last=focusable[focusable.length-1];
+        if (e.shiftKey && (document.activeElement===first || !modal.contains(document.activeElement))) { e.preventDefault(); last?.focus(); }
+        else if (!e.shiftKey && (document.activeElement===last || !modal.contains(document.activeElement))) { e.preventDefault(); first?.focus(); }
       }
     });
 
     // Sincronização automática entre abas
     window.addEventListener('storage', (e) => {
-      if (e.key === 'gordinho-catalog-items') {
-        loadData();
+      if (e.key === 'gordinho-catalog-items' || e.key === null) {
+        if (dirty()) { externalChange = true; showToast('O catálogo mudou em outra aba. Salve uma cópia do que está editando e reabra o produto antes de continuar.', 'warning'); } else loadData();
       }
     });
   });

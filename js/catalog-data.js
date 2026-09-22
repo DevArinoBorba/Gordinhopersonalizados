@@ -504,25 +504,7 @@
         const raw = localStorage.getItem(STORAGE_KEY);
         if (raw) {
           const parsed = JSON.parse(raw);
-          if (Array.isArray(parsed) && parsed.length > 0) {
-            const existingIds = new Set(parsed.map((i) => i.id));
-            const missing = DEFAULT_CATALOG_ITEMS.filter((d) => !existingIds.has(d.id));
-            let photoUpdated = false;
-            const updatedItems = parsed.map((item) => {
-              const def = DEFAULT_CATALOG_ITEMS.find((d) => d.id === item.id);
-              if (def && item.foto !== def.foto) {
-                photoUpdated = true;
-                return { ...item, foto: def.foto, paginaRef: def.paginaRef };
-              }
-              return item;
-            });
-            if (missing.length > 0 || photoUpdated) {
-              const merged = [...updatedItems, ...missing];
-              localStorage.setItem(STORAGE_KEY, JSON.stringify(merged));
-              return merged;
-            }
-            return parsed;
-          }
+          if (Array.isArray(parsed)) return parsed;
         }
       } catch (e) {
         console.warn('Erro ao ler itens do catálogo no localStorage:', e);

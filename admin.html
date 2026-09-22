@@ -14,7 +14,7 @@
 
   <!-- Estilos da Marca & Painel -->
   <link rel="stylesheet" href="css/variables.css?v=2.2">
-  <link rel="stylesheet" href="css/admin.css?v=1.0">
+  <link rel="stylesheet" href="css/admin.css?v=1.1">
 </head>
 <body class="admin-body">
 
@@ -67,7 +67,7 @@
       <div class="admin-header-actions">
         <a href="catalogo.html" target="_blank" rel="noopener" class="btn-header-action btn-view-catalog" title="Ver catálogo aberto em nova aba">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          <span>Ver Catálogo Online</span>
+          <span>Abrir catálogo</span>
         </a>
 
         <button type="button" class="btn-header-action btn-logout" id="btn-admin-logout" title="Encerrar sessão de administrador">
@@ -88,10 +88,11 @@
       <div class="admin-hero-title-wrap">
         <div>
           <h1 class="admin-page-title">Gerenciador de <span>Produtos e Tecnologias</span></h1>
-          <p class="admin-page-desc">Adicione, edite, organize e mantenha seu catálogo corporativo sempre sincronizado e atualizado.</p>
+          <p class="admin-page-desc">Organize seus produtos, revise as imagens e controle o que aparece no catálogo deste navegador.</p>
         </div>
       </div>
 
+      <aside class="storage-notice"><strong>Seus dados ficam neste navegador.</strong><span>As alterações não são publicadas em outros dispositivos. Exporte um backup para guardar uma cópia.</span></aside>
       <!-- Métricas / KPIs -->
       <section class="kpi-grid" aria-label="Métricas do catálogo">
         <article class="kpi-card">
@@ -110,7 +111,7 @@
           </div>
           <div class="kpi-info">
             <span class="kpi-value" id="kpi-total-categories">0</span>
-            <span class="kpi-label">Categorias Ativas</span>
+            <span class="kpi-label">Categorias cadastradas</span>
           </div>
         </article>
 
@@ -130,7 +131,7 @@
           </div>
           <div class="kpi-info">
             <span class="kpi-value" id="kpi-storage-status" style="font-size: 1.4rem;">Padrão</span>
-            <span class="kpi-label">Estado da Base</span>
+            <span class="kpi-label">Armazenamento local</span>
           </div>
         </article>
       </section>
@@ -147,6 +148,8 @@
             <option value="todos">Todas as Categorias</option>
           </select>
 
+          <select id="admin-status-filter" class="admin-select" aria-label="Filtrar por status"><option value="todos">Todos os status</option><option value="active">Visíveis</option><option value="inactive">Rascunhos</option></select>
+          <button type="button" class="btn-admin btn-admin-secondary" id="btn-clear-filters">Limpar filtros</button>
           <select id="admin-sort-filter" class="admin-select" aria-label="Ordenar itens">
             <option value="nome-asc">Nome (A &rarr; Z)</option>
             <option value="nome-desc">Nome (Z &rarr; A)</option>
@@ -158,9 +161,10 @@
         <div class="toolbar-actions">
           <button type="button" class="btn-admin btn-admin-primary" id="btn-new-item">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <span>+ Novo Produto / Tecnologia</span>
+            <span>Novo produto</span>
           </button>
 
+          <details class="maintenance-menu"><summary>Backup e manutenção</summary><div class="maintenance-actions">
           <button type="button" class="btn-admin btn-admin-secondary" id="btn-export-json" title="Baixar arquivo JSON com backup completo dos itens">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
             <span>Exportar JSON</span>
@@ -170,17 +174,20 @@
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
             <span>Importar JSON</span>
           </button>
+          <button type="button" class="btn-admin btn-admin-secondary" id="btn-recovery-json">Baixar cópia de recuperação</button>
           <input type="file" id="input-file-import" accept=".json,application/json" hidden>
 
           <button type="button" class="btn-admin btn-admin-danger-outline" id="btn-reset-default" title="Restaurar a lista original de fábrica">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
             <span>Restaurar Padrão</span>
           </button>
+          </div></details>
         </div>
       </section>
 
       <!-- Tabela de Produtos / Itens -->
       <section class="table-card" aria-label="Lista de produtos do catálogo">
+        <div class="table-summary"><span id="results-count" role="status"></span><div class="bulk-actions"><label><input type="checkbox" id="select-all"> Selecionar resultados</label><select id="bulk-status" aria-label="Status dos selecionados"><option value="inactive">Salvar como rascunhos</option><option value="active">Mostrar no catálogo</option></select><button type="button" id="bulk-apply" class="btn-admin btn-admin-secondary" disabled>Aplicar (0)</button></div></div>
         <div class="table-responsive">
           <table class="admin-table">
             <thead>
@@ -203,7 +210,7 @@
         <!-- Empty State -->
         <div id="admin-empty-state" class="table-empty-state" hidden>
           <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <h3 class="table-empty-title">Nenhum item encontrado</h3>
+          <h2 class="table-empty-title">Nenhum item encontrado</h2>
           <p class="table-empty-desc">Tente alterar os termos de busca, limpar os filtros selecionados ou cadastrar um novo produto.</p>
         </div>
       </section>
@@ -303,10 +310,11 @@
                     <span>Remover Foto</span>
                   </button>
                 </div>
-                <input type="file" id="item-foto-file" accept="image/*" hidden>
+                <p class="input-subhint">JPG, PNG ou WebP, até 10 MB. A imagem será reduzida automaticamente.</p>
+                <input type="file" id="item-foto-file" accept="image/jpeg,image/png,image/webp" hidden>
 
                 <div class="photo-url-row" style="margin-top: 12px;">
-                  <span class="photo-url-label">Ou insira o caminho / link da imagem:</span>
+                  <label for="item-foto" class="photo-url-label">Ou insira o caminho / link da imagem:</label>
                   <input type="text" id="item-foto" class="form-control" placeholder="assets/images/catalogo/... ou https://...">
                 </div>
               </div>
@@ -337,8 +345,8 @@
               <input type="checkbox" id="item-ativo" checked>
               <span class="switch-ui"></span>
               <div class="switch-text">
-                <span class="switch-title">Publicar no Catálogo Imediatamente</span>
-                <span class="switch-desc">Quando desmarcado, o item fica salvo no painel mas oculto para clientes.</span>
+                <span class="switch-title">Mostrar no catálogo deste navegador</span>
+                <span class="switch-desc">Desmarque para salvar como rascunho. Esta alteração fica apenas neste navegador.</span>
               </div>
             </label>
 
@@ -411,7 +419,7 @@
           <button type="button" class="btn-admin btn-admin-secondary" id="modal-item-cancel">Cancelar</button>
           <button type="submit" class="btn-admin btn-admin-primary btn-admin-save">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-            <span>Salvar e Publicar</span>
+            <span>Salvar produto</span>
           </button>
         </div>
       </form>
@@ -421,13 +429,14 @@
   <!-- ==========================================================================
        MODAL DE CONFIRMAÇÃO (EXCLUSÃO / RESET)
        ========================================================================== -->
-  <div class="admin-modal-overlay" id="modal-confirm" role="dialog" aria-modal="true">
+  <div class="admin-modal-overlay" id="modal-confirm" role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-desc">
     <div class="confirm-modal-card">
       <div class="confirm-icon-wrap">
         <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
       </div>
       <h3 class="confirm-title" id="confirm-title">Confirmar Ação</h3>
       <p class="confirm-desc" id="confirm-desc">Tem certeza que deseja prosseguir?</p>
+      <div id="import-options" hidden><label for="import-mode">Como importar?</label><select id="import-mode" class="form-control"><option value="merge">Mesclar com os produtos atuais</option><option value="replace">Substituir todo o catálogo</option></select><p>Uma cópia de recuperação será salva neste navegador antes de importar.</p></div>
       <div class="confirm-actions">
         <button type="button" class="btn-admin btn-admin-secondary" id="confirm-cancel">Cancelar</button>
         <button type="button" class="btn-admin btn-admin-danger-outline" id="confirm-action">Confirmar</button>
@@ -439,7 +448,7 @@
   <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
   <!-- Scripts -->
-  <script src="js/catalog-data.js?v=2.2"></script>
-  <script src="js/admin.js?v=1.0"></script>
+  <script src="js/catalog-data.js?v=4.1"></script>
+  <script src="js/admin.js?v=1.1"></script>
 </body>
 </html>

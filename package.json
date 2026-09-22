@@ -5,7 +5,8 @@
   "main": "index.html",
   "scripts": {
     "start": "npx serve .",
-    "dev": "python -m http.server 8080"
+    "dev": "python -m http.server 8080",
+    "test": "node --test tests/admin.test.cjs"
   },
   "keywords": [
     "gordinho-personalizados",
