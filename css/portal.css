@@ -167,8 +167,23 @@ body {
 }
 
 /* ==========================================================================
-   BADGE DIVISOR "OU"
+   CONTAINER & BADGE DIVISOR "OU"
    ========================================================================== */
+.portal-divider-wrapper {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 48px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 40;
+  pointer-events: none;
+  transition: left 0.65s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
 .portal-divider-badge {
   position: absolute;
   top: 50%;
@@ -199,6 +214,7 @@ body {
   top: 0;
   bottom: 0;
   left: 50%;
+  transform: translateX(-50%);
   width: 1px;
   background: linear-gradient(180deg, 
     rgba(250, 184, 24, 0.05) 0%, 
@@ -449,6 +465,9 @@ body {
     border-color: #22C55E;
     box-shadow: 0 0 25px rgba(34, 197, 94, 0.6);
   }
+  .portal-wrapper.hover-b2c .portal-divider-wrapper {
+    left: 62.5%;
+  }
 
   /* Quando o usuário passa o mouse na direita */
   .portal-wrapper.hover-b2b .side-b2b {
@@ -465,6 +484,9 @@ body {
     transform: translate(-50%, -50%) scale(1.08);
     border-color: #FAB818;
     box-shadow: 0 0 25px rgba(250, 184, 24, 0.6);
+  }
+  .portal-wrapper.hover-b2b .portal-divider-wrapper {
+    left: 37.5%;
   }
 }
 
@@ -538,17 +560,39 @@ body {
     padding: 3rem 1.75rem 3.5rem 1.75rem;
   }
 
-  .portal-divider-line {
+  .portal-divider-wrapper {
+    position: relative;
     top: auto;
+    bottom: auto;
+    left: auto;
+    transform: none;
+    width: 100%;
+    height: 52px;
+    margin: -26px 0;
+    z-index: 45;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    transition: none;
+  }
+
+  .portal-divider-line {
+    position: absolute;
+    top: 50%;
     bottom: auto;
     left: 0;
     right: 0;
+    transform: translateY(-50%);
     width: 100%;
     height: 1px;
     background: linear-gradient(90deg, 
-      rgba(255, 255, 255, 0.05) 0%, 
-      rgba(255, 255, 255, 0.25) 50%, 
-      rgba(255, 255, 255, 0.05) 100%);
+      transparent 0%, 
+      rgba(250, 184, 24, 0.15) 12%, 
+      rgba(250, 184, 24, 0.7) 50%, 
+      rgba(250, 184, 24, 0.15) 88%, 
+      transparent 100%);
+    z-index: 1;
   }
 
   .portal-divider-badge {
@@ -556,8 +600,12 @@ body {
     top: auto;
     left: auto;
     transform: none;
-    margin: -23px auto;
-    z-index: 45;
+    margin: 0 auto;
+    z-index: 2;
+    width: 48px;
+    height: 48px;
+    font-size: 0.85rem;
+    box-shadow: 0 4px 22px rgba(0, 0, 0, 0.95), 0 0 16px rgba(250, 184, 24, 0.35);
   }
 
   .side-title {

@@ -34,7 +34,7 @@
 
   <!-- Estilos com Cache Buster -->
   <link rel="stylesheet" href="css/variables.css?v=2.1">
-  <link rel="stylesheet" href="css/portal.css?v=2.1">
+  <link rel="stylesheet" href="css/portal.css?v=2.3">
 </head>
 <body style="margin: 0 !important; padding: 0 !important; background-color: #06180E !important;">
 
@@ -54,10 +54,6 @@
       </div>
       <h1 class="portal-prompt">O que você precisa hoje?</h1>
     </header>
-
-    <!-- LINHA & BADGE DIVISOR "OU" -->
-    <div class="portal-divider-line" aria-hidden="true"></div>
-    <div class="portal-divider-badge" aria-label="Divisor de opções">OU</div>
 
     <!-- ==================================================================
          LADO ESQUERDO: CLIENTE FINAL (VAREJO / PRESENTES)
@@ -118,6 +114,12 @@
         </a>
       </div>
     </section>
+
+    <!-- LINHA & BADGE DIVISOR "OU" ENTRE AS DUAS OPÇÕES -->
+    <div class="portal-divider-wrapper" aria-hidden="true">
+      <div class="portal-divider-line"></div>
+      <div class="portal-divider-badge" aria-label="Divisor de opções">OU</div>
+    </div>
 
     <!-- ==================================================================
          LADO DIREITO: LOJISTAS & EMPRESAS (ATACADO / B2B)
