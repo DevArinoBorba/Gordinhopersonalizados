@@ -540,11 +540,15 @@
         els.heroDesc.textContent = 'Qualidade, criatividade e soluções para você, sua empresa e seu negócio!';
       }
       if (els.heroCtaText) els.heroCtaText.textContent = 'CONHEÇA NOSSOS PRODUTOS';
+      if (els.heroCtaBtn) els.heroCtaBtn.setAttribute('href', '#produtos-servicos');
       if (els.heroEnergyBadge) {
         els.heroEnergyBadge.innerHTML = '<span class="energy-sub">SUA IDEIA</span><span class="energy-title">AQUI GANHA</span><span class="energy-highlight">VIDA!</span>';
       }
       if (els.secProdutos) els.secProdutos.style.display = 'block';
-      if (els.b2bInviteBanner) els.b2bInviteBanner.hidden = false;
+      if (els.secTerceirizados) els.secTerceirizados.style.display = 'none';
+      if (els.navProdutos) els.navProdutos.style.display = '';
+      if (els.navTerceirizados) els.navTerceirizados.style.display = 'none';
+      if (els.b2bInviteBanner) els.b2bInviteBanner.hidden = true;
     } else {
       if (els.heroBadge) els.heroBadge.textContent = 'Tabela Especial Direto de Fábrica B2B';
       if (els.heroTitle) {
@@ -554,10 +558,14 @@
         els.heroDesc.textContent = 'Sua parceira industrial em Itajaí/SC: fornecemos DTF têxtil, DTF UV, adesivos por m², corte e gravação a laser com tabela especial para revendedores!';
       }
       if (els.heroCtaText) els.heroCtaText.textContent = 'VER PRODUTOS &amp; TABELA B2B';
+      if (els.heroCtaBtn) els.heroCtaBtn.setAttribute('href', '#terceirizados');
       if (els.heroEnergyBadge) {
         els.heroEnergyBadge.innerHTML = '<span class="energy-sub">PARCERIA B2B</span><span class="energy-title">SUA MARCA</span><span class="energy-highlight">NOSSA FÁBRICA!</span>';
       }
       if (els.secProdutos) els.secProdutos.style.display = 'none';
+      if (els.secTerceirizados) els.secTerceirizados.style.display = 'block';
+      if (els.navProdutos) els.navProdutos.style.display = 'none';
+      if (els.navTerceirizados) els.navTerceirizados.style.display = '';
       if (els.b2bInviteBanner) els.b2bInviteBanner.hidden = true;
     }
 
@@ -627,9 +635,11 @@
     els.heroTitle = document.getElementById('hero-main-title');
     els.heroDesc = document.getElementById('hero-description');
     els.heroCtaText = document.getElementById('hero-cta-text');
-    els.heroEnergyBadge = document.getElementById('hero-energy-badge');
+    els.heroCtaBtn = document.getElementById('hero-cta-btn');
     els.secProdutos = document.getElementById('produtos-servicos');
     els.secTerceirizados = document.getElementById('terceirizados');
+    els.navProdutos = document.getElementById('nav-item-produtos');
+    els.navTerceirizados = document.getElementById('nav-item-terceirizados');
     els.b2bInviteBanner = document.getElementById('b2b-invite-banner');
   }
 
