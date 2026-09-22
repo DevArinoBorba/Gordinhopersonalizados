@@ -3,18 +3,18 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <title>Painel Administrativo | Gerenciamento do Catálogo — Gordinho Personalizados</title>
-  <meta name="description" content="Painel de controle interno e gerenciamento oficial do catálogo de produtos, máquinas e tecnologias da Gordinho Personalizados.">
+  <title>Painel de Controle Oficial | Gordinho Personalizados</title>
+  <meta name="description" content="Central de comando do catálogo, gestão de produtos B2B e Varejo, controle de categorias, leads e manutenção da Gordinho Personalizados.">
   <link rel="icon" type="image/png" href="assets/images/favicon.png">
 
   <!-- Fontes Google -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;500;600;700;800;900&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
   <!-- Estilos da Marca & Painel -->
   <link rel="stylesheet" href="css/variables.css?v=2.2">
-  <link rel="stylesheet" href="css/admin.css?v=1.1">
+  <link rel="stylesheet" href="css/admin.css?v=2.0">
 </head>
 <body class="admin-body">
 
@@ -25,7 +25,7 @@
     <div class="admin-auth-card">
       <img src="assets/images/mascot.png" alt="Mascote Gordinho Personalizados" class="auth-logo-img">
       <h2 class="auth-title">Painel <span>Administrativo</span></h2>
-      <p class="auth-subtitle">Área restrita de gestão de catálogo e produtos</p>
+      <p class="auth-subtitle">Central de comando, catálogo, parceiros e produtos</p>
 
       <form id="admin-auth-form" class="auth-form" autocomplete="off">
         <div class="form-group">
@@ -42,7 +42,7 @@
         <div id="admin-auth-error" class="auth-error">PIN incorreto. Tente novamente.</div>
 
         <button type="submit" class="btn-auth-submit">
-          <span>Acessar Painel</span>
+          <span>Acessar Central de Controle</span>
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </button>
       </form>
@@ -60,14 +60,14 @@
         <img src="assets/images/mascot.png" alt="Mascote Gordinho" class="admin-logo-img">
         <div class="admin-brand-info">
           <div class="admin-brand-title">Gordinho <span>Personalizados</span></div>
-          <div class="admin-brand-badge">Gestão do Catálogo 2026</div>
+          <div class="admin-brand-badge">Central de Controle 2026</div>
         </div>
       </a>
 
       <div class="admin-header-actions">
         <a href="catalogo.html" target="_blank" rel="noopener" class="btn-header-action btn-view-catalog" title="Ver catálogo aberto em nova aba">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/></svg>
-          <span>Abrir catálogo</span>
+          <span>Abrir Catálogo</span>
         </a>
 
         <button type="button" class="btn-header-action btn-logout" id="btn-admin-logout" title="Encerrar sessão de administrador">
@@ -79,139 +79,452 @@
   </header>
 
   <!-- ==========================================================================
-       CONTEÚDO PRINCIPAL: DASHBOARD & TABELA
+       CONTEÚDO PRINCIPAL: DASHBOARD & CONTROLE TOTAL
        ========================================================================== -->
   <main class="admin-main">
     <div class="admin-container">
 
-      <!-- Título da Página -->
+      <!-- Título da Página & Contexto -->
       <div class="admin-hero-title-wrap">
         <div>
-          <h1 class="admin-page-title">Gerenciador de <span>Produtos e Tecnologias</span></h1>
-          <p class="admin-page-desc">Organize seus produtos, revise as imagens e controle o que aparece no catálogo deste navegador.</p>
+          <h1 class="admin-page-title">Central de <span>Controle & Operações</span></h1>
+          <p class="admin-page-desc">Gerenciamento unificado de produtos, segmentação B2B vs Varejo, categorias, leads e integridade dos dados.</p>
         </div>
       </div>
 
-      <aside class="storage-notice"><strong>Seus dados ficam neste navegador.</strong><span>As alterações não são publicadas em outros dispositivos. Exporte um backup para guardar uma cópia.</span></aside>
-      <!-- Métricas / KPIs -->
+      <aside class="storage-notice">
+        <div class="storage-notice-icon">⚡</div>
+        <div class="storage-notice-text">
+          <strong>Sincronização em Tempo Real neste Navegador.</strong>
+          <span>Todas as alterações feitas aqui refletem instantaneamente no Catálogo Online. Exporte backups regulares para manter cópias externas seguras.</span>
+        </div>
+      </aside>
+
+      <!-- Métricas / KPIs Principais -->
       <section class="kpi-grid" aria-label="Métricas do catálogo">
-        <article class="kpi-card">
+        <article class="kpi-card" data-kpi-target="todos" title="Total de itens cadastrados no sistema">
           <div class="kpi-icon-wrap kpi-icon-items">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
           </div>
           <div class="kpi-info">
             <span class="kpi-value" id="kpi-total-items">0</span>
-            <span class="kpi-label">Itens Cadastrados</span>
+            <span class="kpi-label">Total de Produtos</span>
           </div>
         </article>
 
-        <article class="kpi-card">
+        <article class="kpi-card kpi-card-b2b" data-kpi-target="terceirizado" title="Produtos e serviços com foco B2B / Terceirização">
+          <div class="kpi-icon-wrap kpi-icon-b2b">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="2" y="7" width="20" height="14" rx="2" ry="2"></rect><path d="M16 21V5a2 2 0 0 0-2-2h-4a2 2 0 0 0-2 2v16"></path></svg>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-value" id="kpi-b2b-items">0</span>
+            <span class="kpi-label">Terceirizados (B2B)</span>
+          </div>
+        </article>
+
+        <article class="kpi-card kpi-card-retail" data-kpi-target="cliente" title="Produtos acabados e presentes para Cliente Final / Varejo">
+          <div class="kpi-icon-wrap kpi-icon-retail">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M20 12V22H4V12"></path><path d="M22 7H2v5h20V7z"></path><path d="M12 22V7"></path><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"></path><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"></path></svg>
+          </div>
+          <div class="kpi-info">
+            <span class="kpi-value" id="kpi-retail-items">0</span>
+            <span class="kpi-label">Cliente Final (Varejo)</span>
+          </div>
+        </article>
+
+        <article class="kpi-card" data-kpi-target="categorias" title="Total de categorias cadastradas no sistema">
           <div class="kpi-icon-wrap kpi-icon-categories">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
           </div>
           <div class="kpi-info">
             <span class="kpi-value" id="kpi-total-categories">0</span>
-            <span class="kpi-label">Categorias cadastradas</span>
+            <span class="kpi-label">Categorias Ativas</span>
           </div>
         </article>
 
-        <article class="kpi-card">
-          <div class="kpi-icon-wrap kpi-icon-active">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>
+        <article class="kpi-card kpi-card-partners" data-kpi-target="parceiros" title="Leads de empresas que preencheram o cadastro B2B">
+          <div class="kpi-icon-wrap kpi-icon-partners">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
           </div>
           <div class="kpi-info">
-            <span class="kpi-value" id="kpi-active-items">0</span>
-            <span class="kpi-label">Visíveis no Catálogo</span>
+            <span class="kpi-value" id="kpi-total-partners">0</span>
+            <span class="kpi-label">Parceiros B2B (Leads)</span>
           </div>
         </article>
 
-        <article class="kpi-card">
+        <article class="kpi-card" data-kpi-target="sistema" title="Uso do LocalStorage neste navegador">
           <div class="kpi-icon-wrap kpi-icon-storage">
-            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
           </div>
           <div class="kpi-info">
-            <span class="kpi-value" id="kpi-storage-status" style="font-size: 1.4rem;">Padrão</span>
-            <span class="kpi-label">Armazenamento local</span>
+            <span class="kpi-value" id="kpi-storage-status">OK</span>
+            <span class="kpi-label">Armazenamento Local</span>
           </div>
         </article>
       </section>
 
-      <!-- Toolbar com Busca, Filtros e Ações -->
-      <section class="admin-toolbar-card" aria-label="Ferramentas do catálogo">
-        <div class="toolbar-filters">
-          <div class="search-input-wrap">
-            <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-            <input type="text" id="admin-search" class="admin-search-input" placeholder="Buscar por nome, especificação, categoria..." aria-label="Buscar produtos">
+      <!-- ======================================================================
+           BARRA DE NAVEGAÇÃO EM ABAS (TABS EXECUTIVAS)
+           ====================================================================== -->
+      <nav class="admin-tabs-nav" aria-label="Seções do painel administrativo">
+        <button type="button" class="admin-tab-btn active" data-tab="produtos" id="tab-nav-produtos">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"></path><polyline points="3.27 6.96 12 12.01 20.73 6.96"></polyline><line x1="12" y1="22.08" x2="12" y2="12"></line></svg>
+          <span>Produtos & Estoque</span>
+          <span class="tab-badge" id="badge-tab-produtos">0</span>
+        </button>
+
+        <button type="button" class="admin-tab-btn" data-tab="categorias" id="tab-nav-categorias">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path></svg>
+          <span>Visão de Categorias</span>
+          <span class="tab-badge" id="badge-tab-categorias">0</span>
+        </button>
+
+        <button type="button" class="admin-tab-btn" data-tab="parceiros" id="tab-nav-parceiros">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+          <span>Parceiros B2B (Leads)</span>
+          <span class="tab-badge" id="badge-tab-parceiros">0</span>
+        </button>
+
+        <button type="button" class="admin-tab-btn" data-tab="sistema" id="tab-nav-sistema">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="12" cy="12" r="3"></circle><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path></svg>
+          <span>Sistema & Manutenção</span>
+        </button>
+      </nav>
+
+      <!-- ======================================================================
+           ABA 1: PRODUTOS & CATÁLOGO (CRUD COMPLETO)
+           ====================================================================== -->
+      <section class="admin-tab-pane active" id="pane-produtos" aria-labelledby="tab-nav-produtos">
+
+        <!-- Toolbar com Busca, Filtros por Público, Categoria e Ações -->
+        <div class="admin-toolbar-card" aria-label="Ferramentas do catálogo">
+          <div class="toolbar-filters">
+            <!-- Busca Geral -->
+            <div class="search-input-wrap">
+              <svg class="search-icon" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+              <input type="text" id="admin-search" class="admin-search-input" placeholder="Buscar por nome, especificação, ID, categoria..." aria-label="Buscar produtos">
+            </div>
+
+            <!-- Filtro de Público-Alvo -->
+            <select id="admin-publico-filter" class="admin-select select-publico" aria-label="Filtrar por público">
+              <option value="todos">🌐 Todos os Públicos</option>
+              <option value="terceirizado">🏭 Apenas Terceirizados (B2B)</option>
+              <option value="cliente">🎁 Apenas Cliente Final (Varejo)</option>
+              <option value="ambos">👥 Ambos / Universal</option>
+            </select>
+
+            <!-- Filtro de Categorias -->
+            <select id="admin-category-filter" class="admin-select" aria-label="Filtrar por categoria">
+              <option value="todos">Todas as Categorias</option>
+            </select>
+
+            <!-- Filtro de Status -->
+            <select id="admin-status-filter" class="admin-select" aria-label="Filtrar por status">
+              <option value="todos">Todos os status</option>
+              <option value="active">Visíveis no Catálogo</option>
+              <option value="inactive">Rascunhos Ocultos</option>
+            </select>
+
+            <!-- Ordenação -->
+            <select id="admin-sort-filter" class="admin-select" aria-label="Ordenar itens">
+              <option value="nome-asc">Nome (A &rarr; Z)</option>
+              <option value="nome-desc">Nome (Z &rarr; A)</option>
+              <option value="categoria">Por Categoria</option>
+              <option value="publico">Por Público (B2B primeiro)</option>
+              <option value="recentes">Recentes primeiro</option>
+            </select>
+
+            <button type="button" class="btn-admin btn-admin-secondary" id="btn-clear-filters" title="Limpar todos os filtros">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+              <span>Limpar filtros</span>
+            </button>
           </div>
 
-          <select id="admin-category-filter" class="admin-select" aria-label="Filtrar por categoria">
-            <option value="todos">Todas as Categorias</option>
-          </select>
-
-          <select id="admin-status-filter" class="admin-select" aria-label="Filtrar por status"><option value="todos">Todos os status</option><option value="active">Visíveis</option><option value="inactive">Rascunhos</option></select>
-          <button type="button" class="btn-admin btn-admin-secondary" id="btn-clear-filters">Limpar filtros</button>
-          <select id="admin-sort-filter" class="admin-select" aria-label="Ordenar itens">
-            <option value="nome-asc">Nome (A &rarr; Z)</option>
-            <option value="nome-desc">Nome (Z &rarr; A)</option>
-            <option value="categoria">Por Categoria</option>
-            <option value="recentes">Recentes primeiro</option>
-          </select>
+          <div class="toolbar-actions">
+            <button type="button" class="btn-admin btn-admin-primary" id="btn-new-item">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
+              <span>Novo Produto</span>
+            </button>
+          </div>
         </div>
 
-        <div class="toolbar-actions">
-          <button type="button" class="btn-admin btn-admin-primary" id="btn-new-item">
-            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></svg>
-            <span>Novo produto</span>
-          </button>
+        <!-- Tabela de Produtos / Itens -->
+        <div class="table-card" aria-label="Lista de produtos do catálogo">
+          <div class="table-summary">
+            <div class="summary-left">
+              <span id="results-count" class="results-counter" role="status">Carregando produtos...</span>
+              <span class="active-filter-tag" id="active-filter-indicator" style="display: none;"></span>
+            </div>
+            <div class="bulk-actions">
+              <label class="bulk-select-label"><input type="checkbox" id="select-all"> Selecionar resultados</label>
+              <select id="bulk-status" class="admin-select select-sm" aria-label="Status dos selecionados">
+                <option value="active">Definir como Visíveis</option>
+                <option value="inactive">Definir como Rascunhos</option>
+              </select>
+              <button type="button" id="bulk-apply" class="btn-admin btn-admin-secondary btn-sm" disabled>Aplicar (0)</button>
+            </div>
+          </div>
 
-          <details class="maintenance-menu"><summary>Backup e manutenção</summary><div class="maintenance-actions">
-          <button type="button" class="btn-admin btn-admin-secondary" id="btn-export-json" title="Baixar arquivo JSON com backup completo dos itens">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
-            <span>Exportar JSON</span>
-          </button>
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th style="width: 70px;">Foto</th>
+                  <th>Identificação / Nome</th>
+                  <th>Categoria</th>
+                  <th style="width: 130px;">Público-Alvo</th>
+                  <th>Selo / Badge</th>
+                  <th>Especificação Técnica</th>
+                  <th style="width: 110px; text-align: center;">Status</th>
+                  <th style="width: 140px; text-align: center;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="admin-table-body">
+                <!-- Renderizado dinamicamente via admin.js -->
+              </tbody>
+            </table>
+          </div>
 
-          <button type="button" class="btn-admin btn-admin-secondary" id="btn-import-json" title="Carregar produtos de um arquivo JSON">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
-            <span>Importar JSON</span>
-          </button>
-          <button type="button" class="btn-admin btn-admin-secondary" id="btn-recovery-json">Baixar cópia de recuperação</button>
-          <input type="file" id="input-file-import" accept=".json,application/json" hidden>
+          <!-- Empty State -->
+          <div id="admin-empty-state" class="table-empty-state" hidden>
+            <div class="empty-icon-circle">
+              <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+            </div>
+            <h2 class="table-empty-title">Nenhum produto encontrado</h2>
+            <p class="table-empty-desc">Tente alterar os termos de busca, limpar os filtros selecionados ou cadastrar um novo produto.</p>
+            <button type="button" class="btn-admin btn-admin-secondary btn-sm" id="btn-empty-clear">Limpar todos os filtros</button>
+          </div>
+        </div>
 
-          <button type="button" class="btn-admin btn-admin-danger-outline" id="btn-reset-default" title="Restaurar a lista original de fábrica">
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
-            <span>Restaurar Padrão</span>
+      </section>
+
+      <!-- ======================================================================
+           ABA 2: VISÃO GERAL DE CATEGORIAS
+           ====================================================================== -->
+      <section class="admin-tab-pane" id="pane-categorias" aria-labelledby="tab-nav-categorias" hidden>
+        <div class="section-pane-header">
+          <div>
+            <h2 class="section-pane-title">Gestão e <span>Visão de Categorias</span></h2>
+            <p class="section-pane-desc">Visão consolidada da distribuição do catálogo entre B2B, Varejo e novas seções (Gráfica Rápida, Identidade Visual, etc.).</p>
+          </div>
+          <button type="button" class="btn-admin btn-admin-primary" id="btn-new-category-shortcut">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+            <span>Nova Categoria</span>
           </button>
-          </div></details>
+        </div>
+
+        <div class="category-cards-grid" id="category-cards-grid">
+          <!-- Renderizado dinamicamente via admin.js -->
         </div>
       </section>
 
-      <!-- Tabela de Produtos / Itens -->
-      <section class="table-card" aria-label="Lista de produtos do catálogo">
-        <div class="table-summary"><span id="results-count" role="status"></span><div class="bulk-actions"><label><input type="checkbox" id="select-all"> Selecionar resultados</label><select id="bulk-status" aria-label="Status dos selecionados"><option value="inactive">Salvar como rascunhos</option><option value="active">Mostrar no catálogo</option></select><button type="button" id="bulk-apply" class="btn-admin btn-admin-secondary" disabled>Aplicar (0)</button></div></div>
-        <div class="table-responsive">
-          <table class="admin-table">
-            <thead>
-              <tr>
-                <th style="width: 70px;">Foto</th>
-                <th>Identificação / Nome</th>
-                <th>Categoria</th>
-                <th>Selo / Badge</th>
-                <th>Especificação Técnica</th>
-                <th>Status</th>
-                <th style="width: 140px; text-align: center;">Ações</th>
-              </tr>
-            </thead>
-            <tbody id="admin-table-body">
-              <!-- Renderizado dinamicamente via admin.js -->
-            </tbody>
-          </table>
+      <!-- ======================================================================
+           ABA 3: PARCEIROS B2B / LEADS CADASTRADOS
+           ====================================================================== -->
+      <section class="admin-tab-pane" id="pane-parceiros" aria-labelledby="tab-nav-parceiros" hidden>
+        <div class="section-pane-header">
+          <div>
+            <h2 class="section-pane-title">Parceiros B2B & <span>Leads de Terceirização</span></h2>
+            <p class="section-pane-desc">Empresas e revendedores que preencheram o pré-cadastro para acesso às condições de terceirização.</p>
+          </div>
+          <div class="pane-header-actions">
+            <button type="button" class="btn-admin btn-admin-secondary" id="btn-export-partners" title="Baixar lista de parceiros em arquivo JSON">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              <span>Exportar Leads (JSON)</span>
+            </button>
+            <button type="button" class="btn-admin btn-admin-primary" id="btn-new-partner">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><path d="M12 5v14M5 12h14"/></svg>
+              <span>Novo Parceiro Manual</span>
+            </button>
+          </div>
         </div>
 
-        <!-- Empty State -->
-        <div id="admin-empty-state" class="table-empty-state" hidden>
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
-          <h2 class="table-empty-title">Nenhum item encontrado</h2>
-          <p class="table-empty-desc">Tente alterar os termos de busca, limpar os filtros selecionados ou cadastrar um novo produto.</p>
+        <div class="table-card">
+          <div class="table-summary">
+            <span id="partners-results-count" class="results-counter">0 parceiros cadastrados</span>
+          </div>
+
+          <div class="table-responsive">
+            <table class="admin-table">
+              <thead>
+                <tr>
+                  <th>Empresa / Razão Social</th>
+                  <th>CNPJ</th>
+                  <th>Contato / WhatsApp</th>
+                  <th>E-mail</th>
+                  <th>Data do Cadastro</th>
+                  <th style="width: 140px; text-align: center;">Ações</th>
+                </tr>
+              </thead>
+              <tbody id="partners-table-body">
+                <!-- Renderizado dinamicamente via admin.js -->
+              </tbody>
+            </table>
+          </div>
+
+          <!-- Empty State Parceiros -->
+          <div id="partners-empty-state" class="table-empty-state" hidden>
+            <div class="empty-icon-circle">
+              <svg width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+            </div>
+            <h2 class="table-empty-title">Nenhum parceiro B2B cadastrado ainda</h2>
+            <p class="table-empty-desc">Quando clientes ou revendedores preencherem o formulário na página de terceirização, os contatos aparecerão aqui automaticamente.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- ======================================================================
+           ABA 4: SISTEMA, SEGURANÇA & MANUTENÇÃO
+           ====================================================================== -->
+      <section class="admin-tab-pane" id="pane-sistema" aria-labelledby="tab-nav-sistema" hidden>
+        <div class="section-pane-header">
+          <div>
+            <h2 class="section-pane-title">Sistema, <span>Segurança & Manutenção</span></h2>
+            <p class="section-pane-desc">Controle de acessos, rotinas de backup, restauração de emergência e diagnóstico do ambiente.</p>
+          </div>
+        </div>
+
+        <div class="system-grid">
+          <!-- Card 1: PIN de Segurança -->
+          <div class="system-panel-card">
+            <div class="panel-card-header">
+              <div class="panel-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect><path d="M7 11V7a5 5 0 0 1 10 0v4"></path></svg>
+              </div>
+              <div>
+                <h3 class="panel-card-title">PIN de Acesso ao Painel</h3>
+                <p class="panel-card-sub">Altere a senha numérica de acesso ao painel de administração</p>
+              </div>
+            </div>
+
+            <form id="form-change-pin" class="form-change-pin">
+              <div class="form-group">
+                <label for="pin-atual" class="form-label">PIN Atual *</label>
+                <input type="password" id="pin-atual" class="form-control" placeholder="••••" maxlength="12" required>
+              </div>
+              <div class="form-group">
+                <label for="pin-novo" class="form-label">Novo PIN (4 a 12 dígitos) *</label>
+                <input type="password" id="pin-novo" class="form-control" placeholder="Digite novo PIN" maxlength="12" required>
+              </div>
+              <div class="form-group">
+                <label for="pin-confirma" class="form-label">Confirmar Novo PIN *</label>
+                <input type="password" id="pin-confirma" class="form-control" placeholder="Repita o novo PIN" maxlength="12" required>
+              </div>
+              <button type="submit" class="btn-admin btn-admin-primary" style="margin-top: 6px;">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span>Atualizar PIN de Segurança</span>
+              </button>
+            </form>
+          </div>
+
+          <!-- Card 2: Backups & Restauração -->
+          <div class="system-panel-card">
+            <div class="panel-card-header">
+              <div class="panel-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+              </div>
+              <div>
+                <h3 class="panel-card-title">Backups & Exportação de Dados</h3>
+                <p class="panel-card-sub">Exporte cópias dos produtos ou restaure dados previamente salvos</p>
+              </div>
+            </div>
+
+            <div class="backup-actions-stack">
+              <div class="backup-action-item">
+                <div class="backup-item-info">
+                  <strong>Exportar Catálogo em JSON</strong>
+                  <span>Baixa todos os produtos, fotos e configurações em um único arquivo.</span>
+                </div>
+                <button type="button" class="btn-admin btn-admin-secondary" id="btn-export-json">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="7 10 12 15 17 10"></polyline><line x1="12" y1="15" x2="12" y2="3"></line></svg>
+                  <span>Exportar JSON</span>
+                </button>
+              </div>
+
+              <div class="backup-action-item">
+                <div class="backup-item-info">
+                  <strong>Importar Catálogo (JSON)</strong>
+                  <span>Carrega itens de um arquivo JSON com opção de mesclar ou substituir.</span>
+                </div>
+                <button type="button" class="btn-admin btn-admin-secondary" id="btn-import-json">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path><polyline points="17 8 12 3 7 8"></polyline><line x1="12" y1="3" x2="12" y2="15"></line></svg>
+                  <span>Importar JSON</span>
+                </button>
+                <input type="file" id="input-file-import" accept=".json,application/json" hidden>
+              </div>
+
+              <div class="backup-action-item">
+                <div class="backup-item-info">
+                  <strong>Cópia de Recuperação Automática</strong>
+                  <span>Baixa a última imagem do banco gravada antes de alterações drásticas.</span>
+                </div>
+                <button type="button" class="btn-admin btn-admin-secondary" id="btn-recovery-json">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="1 4 1 10 7 10"></polyline><path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"></path></svg>
+                  <span>Baixar Cópia</span>
+                </button>
+              </div>
+
+              <div class="backup-action-item danger-zone">
+                <div class="backup-item-info">
+                  <strong style="color: #F87171;">Restaurar Padrões de Fábrica</strong>
+                  <span>Reseta todos os produtos para a base inicial oficial do catálogo.</span>
+                </div>
+                <button type="button" class="btn-admin btn-admin-danger-outline" id="btn-reset-default">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path></svg>
+                  <span>Restaurar Fábrica</span>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Card 3: Diagnóstico & Armazenamento -->
+          <div class="system-panel-card">
+            <div class="panel-card-header">
+              <div class="panel-icon-wrap">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><ellipse cx="12" cy="5" rx="9" ry="3"></ellipse><path d="M21 12c0 1.66-4 3-9 3s-9-1.34-9-3"></path><path d="M3 5v14c0 1.66 4 3 9 3s9-1.34 9-3V5"></path></svg>
+              </div>
+              <div>
+                <h3 class="panel-card-title">Diagnóstico do Armazenamento</h3>
+                <p class="panel-card-sub">Capacidade utilizada e integridade dos dados no navegador</p>
+              </div>
+            </div>
+
+            <div class="storage-metrics-box">
+              <div class="storage-meter-wrap">
+                <div class="storage-meter-labels">
+                  <span>Espaço Local Consumido</span>
+                  <strong id="storage-used-kb">0 KB / 5 MB</strong>
+                </div>
+                <div class="storage-progress-bar">
+                  <div class="storage-progress-fill" id="storage-progress-fill" style="width: 5%;"></div>
+                </div>
+              </div>
+
+              <div class="storage-details-list">
+                <div class="storage-detail-row">
+                  <span>Itens cadastrados:</span>
+                  <strong id="diag-items-count">0</strong>
+                </div>
+                <div class="storage-detail-row">
+                  <span>Imagens personalizadas armazenadas:</span>
+                  <strong id="diag-images-count">0</strong>
+                </div>
+                <div class="storage-detail-row">
+                  <span>Parceiros B2B registrados:</span>
+                  <strong id="diag-partners-count">0</strong>
+                </div>
+                <div class="storage-detail-row">
+                  <span>Cópia de segurança recente:</span>
+                  <strong id="diag-backup-status">Disponível</strong>
+                </div>
+              </div>
+
+              <button type="button" class="btn-admin btn-admin-secondary" id="btn-refresh-storage" style="width: 100%; margin-top: 14px;">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><polyline points="23 4 23 10 17 10"></polyline><polyline points="1 20 1 14 7 14"></polyline><path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path></svg>
+                <span>Recalcular Diagnóstico</span>
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -219,7 +532,7 @@
   </main>
 
   <!-- ==========================================================================
-       MODAL DE CADASTRO / EDIÇÃO COM LIVE PREVIEW APRIMORADO
+       MODAL DE CADASTRO / EDIÇÃO DE PRODUTO COM LIVE PREVIEW
        ========================================================================== -->
   <div class="admin-modal-overlay" id="modal-item" role="dialog" aria-modal="true" aria-labelledby="modal-item-title">
     <div class="admin-modal-card">
@@ -236,14 +549,25 @@
       <form id="form-item">
         <div class="admin-modal-body">
 
-          <!-- Coluna 1: Formulário Organizado -->
+          <!-- Coluna 1: Formulário de Edição -->
           <div class="modal-form-col">
             
-            <!-- Grupo 1: Nome Principal -->
+            <!-- Grupo 1: Nome, Categoria e Público-Alvo -->
             <div class="form-section-card">
               <div class="form-group">
                 <label for="item-nome" class="form-label-primary">Nome do Produto / Tecnologia *</label>
                 <input type="text" id="item-nome" class="form-control form-control-lg" placeholder="ex: Caneca Térmica Inox 500ml Personalizada" required autofocus>
+              </div>
+
+              <!-- Público-Alvo do Item -->
+              <div class="form-group" style="margin-top: 14px;">
+                <label for="item-publico" class="form-label">Público-Alvo do Item *</label>
+                <select id="item-publico" class="form-control" required>
+                  <option value="ambos">🌐 Ambos (Visível em Cliente Final e Terceirizados)</option>
+                  <option value="terceirizado">🏭 Apenas Terceirizado B2B (Modo Revenda/Gráfica)</option>
+                  <option value="cliente">🎁 Apenas Cliente Final / Varejo (Modo Loja Geral)</option>
+                </select>
+                <span class="input-subhint">Define em qual experiência e catálogo o produto será exibido.</span>
               </div>
 
               <!-- Categoria e Nova Categoria -->
@@ -274,6 +598,7 @@
                   <button type="button" class="badge-chip" data-badge="🔥 Mais Vendido">🔥 Mais Vendido</button>
                   <button type="button" class="badge-chip" data-badge="✨ Lançamento">✨ Lançamento</button>
                   <button type="button" class="badge-chip" data-badge="⚡ Pronta Entrega">⚡ Pronta Entrega</button>
+                  <button type="button" class="badge-chip" data-badge="🏭 Tabela B2B">🏭 Tabela B2B</button>
                   <button type="button" class="badge-chip" data-badge="🛡️ Alta Resistência">🛡️ Alta Resistência</button>
                   <button type="button" class="badge-chip" data-badge="💎 Linha Premium">💎 Linha Premium</button>
                   <button type="button" class="badge-chip badge-chip-clear" data-badge="">✕ Sem Selo</button>
@@ -310,7 +635,7 @@
                     <span>Remover Foto</span>
                   </button>
                 </div>
-                <p class="input-subhint">JPG, PNG ou WebP, até 10 MB. A imagem será reduzida automaticamente.</p>
+                <p class="input-subhint">JPG, PNG ou WebP, até 10 MB. A imagem será redimensionada e otimizada automaticamente.</p>
                 <input type="file" id="item-foto-file" accept="image/jpeg,image/png,image/webp" hidden>
 
                 <div class="photo-url-row" style="margin-top: 12px;">
@@ -320,7 +645,7 @@
               </div>
             </div>
 
-            <!-- Grupo 5: Configurações Avançadas (ID e Referência) -->
+            <!-- Grupo 5: Configurações Avançadas -->
             <details class="form-details-advanced">
               <summary class="advanced-toggle">
                 <span>⚙️ Configurações Avançadas (ID e Imagem de Referência)</span>
@@ -346,13 +671,13 @@
               <span class="switch-ui"></span>
               <div class="switch-text">
                 <span class="switch-title">Mostrar no catálogo deste navegador</span>
-                <span class="switch-desc">Desmarque para salvar como rascunho. Esta alteração fica apenas neste navegador.</span>
+                <span class="switch-desc">Desmarque para salvar como rascunho oculto.</span>
               </div>
             </label>
 
           </div>
 
-          <!-- Coluna 2: Live Preview em Tempo Real (Fiel ao Catálogo) -->
+          <!-- Coluna 2: Live Preview em Tempo Real -->
           <div class="modal-preview-col">
             <div class="preview-stage-box">
               <div class="preview-badge-live">
@@ -375,6 +700,7 @@
                   </div>
 
                   <span class="preview-card-badge" id="preview-card-badge">Destaque Oficial</span>
+                  <span class="preview-card-publico" id="preview-card-publico">🌐 Ambos</span>
                   
                   <div class="preview-zoom-btn" title="Visualizar catálogo">
                     <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
@@ -405,8 +731,8 @@
               <div class="preview-tip-card">
                 <span class="tip-icon">💡</span>
                 <div class="tip-content">
-                  <strong>Dica para aumentar as vendas:</strong>
-                  <p>Fotos bem iluminadas e especificações claras diminuem dúvidas e geram pedidos mais rápidos no WhatsApp!</p>
+                  <strong>Segmentação Inteligente:</strong>
+                  <p>Produtos com público B2B só aparecem para parceiros terceirizados, protegendo sua tabela de revenda dos clientes finais!</p>
                 </div>
               </div>
 
@@ -419,7 +745,7 @@
           <button type="button" class="btn-admin btn-admin-secondary" id="modal-item-cancel">Cancelar</button>
           <button type="submit" class="btn-admin btn-admin-primary btn-admin-save">
             <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/><polyline points="17 21 17 13 7 13 7 21"/><polyline points="7 3 7 8 15 8"/></svg>
-            <span>Salvar produto</span>
+            <span>Salvar Produto</span>
           </button>
         </div>
       </form>
@@ -427,7 +753,63 @@
   </div>
 
   <!-- ==========================================================================
-       MODAL DE CONFIRMAÇÃO (EXCLUSÃO / RESET)
+       MODAL DE CADASTRO MANUAL DE PARCEIRO B2B
+       ========================================================================== -->
+  <div class="admin-modal-overlay" id="modal-partner" role="dialog" aria-modal="true" aria-labelledby="modal-partner-title">
+    <div class="admin-modal-card modal-card-sm">
+      <div class="admin-modal-header">
+        <div class="modal-header-info">
+          <h2 class="admin-modal-title" id="modal-partner-title">Cadastrar Novo <span>Parceiro B2B</span></h2>
+          <p class="modal-header-sub">Registre um lead ou parceiro de revenda manualmente no sistema</p>
+        </div>
+        <button type="button" class="btn-modal-close" id="modal-partner-close" aria-label="Fechar modal">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+        </button>
+      </div>
+
+      <form id="form-partner">
+        <div class="admin-modal-body" style="grid-template-columns: 1fr;">
+          <div class="form-section-card">
+            <div class="form-group">
+              <label for="partner-nome" class="form-label">Razão Social / Nome da Empresa *</label>
+              <input type="text" id="partner-nome" class="form-control" placeholder="ex: Gráfica & Comunicação Visual Express" required autofocus>
+            </div>
+
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="partner-cnpj" class="form-label">CNPJ ou CPF *</label>
+              <input type="text" id="partner-cnpj" class="form-control" placeholder="00.000.000/0000-00" required>
+            </div>
+
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="partner-contato" class="form-label">Telefone / WhatsApp Comercial *</label>
+              <input type="text" id="partner-contato" class="form-control" placeholder="(00) 00000-0000" required>
+            </div>
+
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="partner-email" class="form-label">E-mail Comercial *</label>
+              <input type="email" id="partner-email" class="form-control" placeholder="contato@empresa.com.br" required>
+            </div>
+
+            <div class="form-group" style="margin-top: 12px;">
+              <label for="partner-endereco" class="form-label">Cidade / Estado / Endereço (Opcional)</label>
+              <input type="text" id="partner-endereco" class="form-control" placeholder="Cidade / UF">
+            </div>
+          </div>
+        </div>
+
+        <div class="admin-modal-footer">
+          <button type="button" class="btn-admin btn-admin-secondary" id="modal-partner-cancel">Cancelar</button>
+          <button type="submit" class="btn-admin btn-admin-primary">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            <span>Salvar Parceiro</span>
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- ==========================================================================
+       MODAL DE CONFIRMAÇÃO (EXCLUSÃO / RESET / IMPORTAÇÃO)
        ========================================================================== -->
   <div class="admin-modal-overlay" id="modal-confirm" role="dialog" aria-modal="true" aria-labelledby="confirm-title" aria-describedby="confirm-desc">
     <div class="confirm-modal-card">
@@ -436,7 +818,14 @@
       </div>
       <h3 class="confirm-title" id="confirm-title">Confirmar Ação</h3>
       <p class="confirm-desc" id="confirm-desc">Tem certeza que deseja prosseguir?</p>
-      <div id="import-options" hidden><label for="import-mode">Como importar?</label><select id="import-mode" class="form-control"><option value="merge">Mesclar com os produtos atuais</option><option value="replace">Substituir todo o catálogo</option></select><p>Uma cópia de recuperação será salva neste navegador antes de importar.</p></div>
+      <div id="import-options" hidden>
+        <label for="import-mode">Como deseja importar?</label>
+        <select id="import-mode" class="form-control">
+          <option value="merge">Mesclar com os produtos atuais (mantém novos e atualiza existentes)</option>
+          <option value="replace">Substituir todo o catálogo atual</option>
+        </select>
+        <p style="margin-top: 8px; font-size: 0.85rem; color: #8FB49C;">Uma cópia de recuperação será salva automaticamente neste navegador antes da operação.</p>
+      </div>
       <div class="confirm-actions">
         <button type="button" class="btn-admin btn-admin-secondary" id="confirm-cancel">Cancelar</button>
         <button type="button" class="btn-admin btn-admin-danger-outline" id="confirm-action">Confirmar</button>
@@ -448,7 +837,7 @@
   <div class="toast-container" id="toast-container" aria-live="polite"></div>
 
   <!-- Scripts -->
-  <script src="js/catalog-data.js?v=4.6"></script>
-  <script src="js/admin.js?v=1.1"></script>
+  <script src="js/catalog-data.js?v=4.7"></script>
+  <script src="js/admin.js?v=2.0"></script>
 </body>
 </html>
