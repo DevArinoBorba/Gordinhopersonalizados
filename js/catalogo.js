@@ -770,6 +770,26 @@
     els.catalogCountBadge = document.getElementById('catalog-count-badge');
     els.btnClearSearch = document.getElementById('btn-clear-search');
 
+    // Modal de Expansão de Detalhes do Produto
+    els.productModal = document.getElementById('product-modal');
+    els.productModalCard = document.getElementById('product-modal-card');
+    els.productModalClose = document.getElementById('product-modal-close');
+    els.modalItemImg = document.getElementById('modal-item-img');
+    els.modalItemBadge = document.getElementById('modal-item-badge');
+    els.modalItemCat = document.getElementById('modal-item-cat');
+    els.modalItemTitle = document.getElementById('modal-item-title');
+    els.modalItemSpecWrap = document.getElementById('modal-item-spec-wrap');
+    els.modalItemSpec = document.getElementById('modal-item-spec');
+    els.modalItemDesc = document.getElementById('modal-item-desc');
+    els.modalItemStatusText = document.getElementById('modal-item-status-text');
+    els.modalQtyStepper = document.getElementById('modal-qty-stepper');
+    els.modalQtyVal = document.getElementById('modal-qty-val');
+    els.modalQtyMinus = document.getElementById('modal-qty-minus');
+    els.modalQtyPlus = document.getElementById('modal-qty-plus');
+    els.modalBtnAdd = document.getElementById('modal-btn-add');
+    els.modalBtnAddLabel = document.getElementById('modal-btn-add-label');
+    els.modalBtnWhatsapp = document.getElementById('modal-btn-whatsapp');
+
     // Elementos de Perfil e Seções
     els.tabCliente = document.getElementById('tab-profile-cliente');
     els.tabTerceirizado = document.getElementById('tab-profile-terceirizado');
@@ -929,6 +949,88 @@
     if (!els.lightbox) return;
     els.lightbox.classList.remove('open');
     document.body.style.overflow = '';
+  }
+
+  // Modal de Detalhes do Produto (Card Expandido)
+  let currentModalItem = null;
+
+  function openProductModal(item) {
+    if (!item || !els.productModal) return;
+    currentModalItem = item;
+
+    if (els.modalItemImg) {
+      els.modalItemImg.src = item.foto || 'assets/images/catalogo/cat-presentes.jpg';
+      els.modalItemImg.alt = item.nome || '';
+    }
+
+    if (els.modalItemBadge) {
+      if (item.badge) {
+        els.modalItemBadge.textContent = item.badge;
+        els.modalItemBadge.hidden = false;
+      } else {
+        els.modalItemBadge.hidden = true;
+      }
+    }
+
+    if (els.modalItemCat) {
+      els.modalItemCat.textContent = item.categoria || 'Catálogo Oficial';
+    }
+
+    if (els.modalItemTitle) {
+      els.modalItemTitle.textContent = item.nome;
+    }
+
+    if (els.modalItemSpecWrap && els.modalItemSpec) {
+      if (item.especificacao) {
+        els.modalItemSpec.textContent = item.especificacao;
+        els.modalItemSpecWrap.hidden = false;
+      } else {
+        els.modalItemSpecWrap.hidden = true;
+      }
+    }
+
+    if (els.modalItemDesc) {
+      els.modalItemDesc.textContent = item.descricao || 'Produto personalizado com máxima qualidade, acabamento refinado e entrega garantida para você ou sua empresa.';
+    }
+
+    if (els.modalItemStatusText) {
+      if (item.publico === 'terceirizado') {
+        els.modalItemStatusText.textContent = 'Tabela de Terceirização B2B • Direto de Fábrica';
+      } else {
+        els.modalItemStatusText.textContent = 'Sob Orçamento • Sem pedido mínimo';
+      }
+    }
+
+    // Reset stepper da modal para 1
+    if (els.modalQtyStepper && els.modalQtyVal) {
+      els.modalQtyStepper.dataset.qty = '1';
+      els.modalQtyVal.textContent = '1';
+    }
+
+    // Link personalizado para o WhatsApp da loja
+    if (els.modalBtnWhatsapp) {
+      const phone = '5547984965444';
+      const perfilTxt = item.publico === 'terceirizado' ? 'Terceirizado/B2B' : 'Varejo/Personalizados';
+      const msg = encodeURIComponent(`Olá! Vim pelo Catálogo Online (${perfilTxt}) e gostaria de tirar dúvidas sobre o produto: *${item.nome}* (${item.categoria}).`);
+      els.modalBtnWhatsapp.href = `https://wa.me/${phone}?text=${msg}`;
+    }
+
+    // Exibe a modal com animação suave
+    els.productModal.hidden = false;
+    void els.productModal.offsetWidth;
+    els.productModal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeProductModal() {
+    if (!els.productModal) return;
+    els.productModal.classList.remove('open');
+    document.body.style.overflow = '';
+    setTimeout(() => {
+      if (!els.productModal.classList.contains('open')) {
+        els.productModal.hidden = true;
+      }
+    }, 250);
   }
 
   // Filtragem e busca
@@ -1102,14 +1204,24 @@
       const stepper = card.querySelector('.qty-stepper');
       const qtyValue = card.querySelector('.qty-value');
 
-      card.querySelector('.qty-minus').addEventListener('click', () => {
+      // Clique no card para expandir detalhes (exceto se clicar no stepper, no botão adicionar ou zoom)
+      card.addEventListener('click', (e) => {
+        if (e.target.closest('.qty-stepper') || e.target.closest('.btn-card-add') || e.target.closest('.btn-zoom-preview')) {
+          return;
+        }
+        openProductModal(item);
+      });
+
+      card.querySelector('.qty-minus').addEventListener('click', (e) => {
+        e.stopPropagation();
         const current = parseInt(stepper.dataset.qty, 10);
         const next = Math.max(1, current - 1);
         stepper.dataset.qty = next;
         qtyValue.textContent = next;
       });
 
-      card.querySelector('.qty-plus').addEventListener('click', () => {
+      card.querySelector('.qty-plus').addEventListener('click', (e) => {
+        e.stopPropagation();
         const current = parseInt(stepper.dataset.qty, 10);
         const next = current + 1;
         stepper.dataset.qty = next;
@@ -1118,13 +1230,15 @@
 
       const zoomBtn = card.querySelector('.btn-zoom-preview');
       if (zoomBtn) {
-        zoomBtn.addEventListener('click', () => {
+        zoomBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
           openLightbox(zoomBtn.dataset.preview, zoomBtn.dataset.title);
         });
       }
 
       const addBtn = card.querySelector('.btn-card-add');
-      addBtn.addEventListener('click', () => {
+      addBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
         const qty = parseInt(stepper.dataset.qty, 10);
         addToCart(item, qty);
         stepper.dataset.qty = 1;
@@ -1463,11 +1577,58 @@
       });
     }
 
+    // Controles do Modal de Detalhes do Produto
+    if (els.modalQtyMinus && els.modalQtyPlus && els.modalQtyStepper && els.modalQtyVal) {
+      els.modalQtyMinus.addEventListener('click', () => {
+        const cur = parseInt(els.modalQtyStepper.dataset.qty, 10) || 1;
+        const next = Math.max(1, cur - 1);
+        els.modalQtyStepper.dataset.qty = next;
+        els.modalQtyVal.textContent = next;
+      });
+
+      els.modalQtyPlus.addEventListener('click', () => {
+        const cur = parseInt(els.modalQtyStepper.dataset.qty, 10) || 1;
+        const next = cur + 1;
+        els.modalQtyStepper.dataset.qty = next;
+        els.modalQtyVal.textContent = next;
+      });
+    }
+
+    if (els.modalBtnAdd) {
+      els.modalBtnAdd.addEventListener('click', () => {
+        if (!currentModalItem) return;
+        const qty = parseInt(els.modalQtyStepper.dataset.qty, 10) || 1;
+        addToCart(currentModalItem, qty);
+
+        const lbl = els.modalBtnAddLabel;
+        const orig = lbl ? lbl.textContent : 'Adicionar ao Orçamento';
+        if (lbl) lbl.textContent = 'Adicionado ao Orçamento ✓';
+        els.modalBtnAdd.classList.add('is-added');
+
+        setTimeout(() => {
+          if (lbl) lbl.textContent = orig;
+          els.modalBtnAdd.classList.remove('is-added');
+          closeProductModal();
+        }, 700);
+      });
+    }
+
+    if (els.productModalClose) {
+      els.productModalClose.addEventListener('click', closeProductModal);
+    }
+
+    if (els.productModal) {
+      els.productModal.addEventListener('click', (e) => {
+        if (e.target === els.productModal) closeProductModal();
+      });
+    }
+
     // Tecla ESC fecha modais
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape') {
         closeCart();
         closeLightbox();
+        closeProductModal();
       }
     });
   });

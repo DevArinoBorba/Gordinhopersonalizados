@@ -923,8 +923,79 @@
     </div>
   </div>
 
+  <!-- ==========================================================================
+       MODAL DETALHES DO PRODUTO (CARD EXPANDIDO)
+       ========================================================================== -->
+  <div class="product-modal-backdrop" id="product-modal" role="dialog" aria-modal="true" aria-labelledby="modal-item-title" hidden>
+    <div class="product-modal-card" id="product-modal-card">
+      <button type="button" class="product-modal-close" id="product-modal-close" aria-label="Fechar detalhes">&times;</button>
+      
+      <div class="product-modal-grid">
+        <!-- Coluna da Esquerda: Imagem Grande com Badge -->
+        <div class="product-modal-media">
+          <img src="" alt="" id="modal-item-img" class="product-modal-img" />
+          <span class="product-modal-badge" id="modal-item-badge" hidden></span>
+        </div>
+
+        <!-- Coluna da Direita: Informações & Ações -->
+        <div class="product-modal-info">
+          <div class="product-modal-cat-tag" id="modal-item-cat"></div>
+          <h2 class="product-modal-title" id="modal-item-title"></h2>
+
+          <div class="product-modal-spec-block" id="modal-item-spec-wrap">
+            <div class="product-modal-spec-label">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              <span>Especificação Técnica:</span>
+            </div>
+            <p class="product-modal-spec" id="modal-item-spec"></p>
+          </div>
+
+          <div class="product-modal-desc-block">
+            <div class="product-modal-desc-label">Sobre este item:</div>
+            <p class="product-modal-desc" id="modal-item-desc"></p>
+          </div>
+
+          <div class="product-modal-status-badge">
+            <span class="status-pulse-dot"></span>
+            <span id="modal-item-status-text">Sob Orçamento &bull; Sem pedido mínimo</span>
+          </div>
+
+          <!-- Ações e Stepper no Modal -->
+          <div class="product-modal-actions">
+            <div class="product-modal-qty-wrap">
+              <span class="product-modal-qty-label">Quantidade:</span>
+              <div class="qty-stepper modal-qty-stepper" id="modal-qty-stepper" data-qty="1">
+                <button type="button" class="qty-btn" id="modal-qty-minus" aria-label="Diminuir quantidade">−</button>
+                <span class="qty-value" id="modal-qty-val">1</span>
+                <button type="button" class="qty-btn" id="modal-qty-plus" aria-label="Aumentar quantidade">+</button>
+              </div>
+            </div>
+
+            <div class="product-modal-btns">
+              <button type="button" class="btn-modal-add-cart" id="modal-btn-add">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3">
+                  <circle cx="9" cy="21" r="1"></circle>
+                  <circle cx="20" cy="21" r="1"></circle>
+                  <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"></path>
+                </svg>
+                <span id="modal-btn-add-label">Adicionar ao Orçamento</span>
+              </button>
+
+              <a href="#" target="_blank" rel="noopener noreferrer" class="btn-modal-whatsapp" id="modal-btn-whatsapp">
+                <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+                </svg>
+                <span>Pedir no WhatsApp</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- Scripts do Catálogo -->
-  <script src="js/catalog-data.js?v=4.7"></script>
-  <script src="js/catalogo.js?v=4.7"></script>
+  <script src="js/catalog-data.js?v=4.8"></script>
+  <script src="js/catalogo.js?v=4.8"></script>
 </body>
 </html>
