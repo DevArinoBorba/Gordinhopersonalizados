@@ -226,7 +226,7 @@
     {
       id: 'prod-graf-cartao',
       nome: 'Cartões de Visita Profissionais',
-      categoria: 'Comunicação Visual',
+      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
       badge: 'Papel Nobre',
       especificacao: 'Couchê 300g com laminação fosca ou verniz',
       descricao: 'A primeira impressão do seu negócio. Cortes precisos, fidelidade cromática e acabamento tátil sofisticado.',
@@ -236,7 +236,7 @@
     {
       id: 'prod-graf-folder',
       nome: 'Folders e Panfletos Institucionais',
-      categoria: 'Comunicação Visual',
+      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
       badge: 'Solução Completa',
       especificacao: 'Modelos com 2 ou 3 dobras / tamanhos variados',
       descricao: 'Material promocional completo para apresentação da empresa, cardápios, feiras e prospecção de clientes.',
@@ -246,7 +246,7 @@
     {
       id: 'prod-graf-banners',
       nome: 'Banners e Roll-Ups Promocionais',
-      categoria: 'Comunicação Visual',
+      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
       badge: 'Alta Resolução',
       especificacao: 'Lona com acabamento para tripé ou roll-up retrátil',
       descricao: 'Impressão digital eco-solvente em lona premium de alta gramatura com cores vivas e suporte estável para eventos e pontos de venda.',
@@ -256,7 +256,7 @@
     {
       id: 'prod-graf-vitrines',
       nome: 'Plotagem de Vitrines & Fachadas',
-      categoria: 'Comunicação Visual',
+      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
       badge: 'Comunicação Comercial',
       especificacao: 'Vinil jateado, fosco, brilhoso ou microperfurado',
       descricao: 'Transformação visual do ponto comercial com aplicação de vinil resistente ao sol e chuva, garantindo privacidade e destaque à marca.',
@@ -266,7 +266,7 @@
     {
       id: 'prod-graf-totens',
       nome: 'Totens de PVC Personalizados',
-      categoria: 'Comunicação Visual',
+      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
       badge: 'Sinalização Premium',
       especificacao: 'Formatos verticais, ovais e redondos com base',
       descricao: 'Totens com corte router/recorte e adesivação de alta durabilidade para recepções, feiras de negócios e sinalização interna.',
@@ -276,7 +276,7 @@
     {
       id: 'prod-graf-plaquinhas-acrilico-pvc-ps',
       nome: 'Plaquinhas em Acrílico, PVC e PS',
-      categoria: 'Comunicação Visual',
+      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
       badge: 'Sinalização & Identificação',
       especificacao: 'Acrílico Cristal, PVC Expandido e PS • Corte e Impressão UV',
       descricao: 'Plaquinhas personalizadas de identificação e sinalização para recepções, escritórios, consultórios e lojas. Modelos de parede em acrílico cristal com espaçadores/prolongadores em inox, placas de mesa interativas com QR Code/PIX e placas rígidas em PVC e PS de alta densidade.',
@@ -420,7 +420,7 @@
     {
       id: 'terc-banner-revenda',
       nome: 'Banners e Lonas Impressas para Revenda',
-      categoria: 'Comunicação Visual',
+      categoria: 'Comunicação Visual, Plotagem de Vitrines e Fachadas',
       badge: 'Tabela Gráfica',
       especificacao: 'Lona 440g com acabamento em madeira/tubo e corda ou ilhós',
       descricao: 'Produção em grande formato para gráficas rápidas, agências e revendedores entregarem aos seus clientes finais com excelente margem comercial.',
@@ -457,7 +457,7 @@
     const tecnologias = [];
     items.forEach(function (item) {
       if (!item) return;
-      if (item.categoria === 'Comunicação Visual') {
+      if (item.categoria === 'Comunicação Visual, Plotagem de Vitrines e Fachadas' || (item.categoria && item.categoria.startsWith('Comunicação Visual'))) {
         comVisual.push(item);
       } else if (item.categoria === 'Tecnologias') {
         tecnologias.push(item);
@@ -817,7 +817,16 @@
 
     if (state.activeCategory !== 'todos') {
       const targetCat = state.activeCategory.toLowerCase().trim();
-      result = result.filter((item) => item.categoria && item.categoria.toLowerCase().trim() === targetCat);
+      const isComVisualTarget = targetCat.includes('comunicação visual') || targetCat.includes('vitrine') || targetCat.includes('fachada');
+      result = result.filter((item) => {
+        if (!item || !item.categoria) return false;
+        const itemCat = item.categoria.toLowerCase().trim();
+        if (itemCat === targetCat) return true;
+        if (isComVisualTarget && (itemCat.includes('comunicação visual') || itemCat.includes('vitrine') || itemCat.includes('fachada'))) {
+          return true;
+        }
+        return false;
+      });
     } else {
       result = sortCatalogItems(result);
     }
@@ -836,9 +845,16 @@
     state.filteredItems = result;
 
     if (els.activeCategoryTitle) {
-      els.activeCategoryTitle.textContent = state.activeCategory === 'todos' 
-        ? 'Todos os Produtos & Tecnologias' 
-        : state.activeCategory;
+      if (state.activeCategory === 'todos') {
+        els.activeCategoryTitle.textContent = 'Todos os Produtos & Tecnologias';
+      } else {
+        const targetCat = state.activeCategory.toLowerCase().trim();
+        if (targetCat.includes('comunicação visual') || targetCat.includes('vitrine') || targetCat.includes('fachada')) {
+          els.activeCategoryTitle.textContent = 'Comunicação Visual, Plotagem de Vitrines e Fachadas';
+        } else {
+          els.activeCategoryTitle.textContent = state.activeCategory;
+        }
+      }
     }
     if (els.catalogCountBadge) {
       const len = result.length;
